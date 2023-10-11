@@ -1,7 +1,7 @@
 import express from "express";
 import { config } from "dotenv";
 import { GetUsersController } from "./Controllers/get-users/get-users";
-import { PostgresGetUsers } from "./repositories/postgress-get-user";
+import { PostgresGetUsers } from "./repositories/get-users/postgres-get-user";
 
 const main = async () => {
   config();
