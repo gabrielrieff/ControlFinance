@@ -12,11 +12,11 @@ datasource db {
 
 model User {
   id String @id @default(uuid())
-  firtsName String
+  firstName String
   lastName String
   email String
   password String
-  admin Boolean
+  admin String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 

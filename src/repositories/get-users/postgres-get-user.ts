@@ -2,12 +2,12 @@ import { IGetUsersRepository } from "../../Controllers/get-users/protocols";
 import client from "../../database/postgres";
 import { User } from "../../models/user";
 
-export class PostgresGetUsers implements IGetUsersRepository {
+export class PostgresGetUsersRepository implements IGetUsersRepository {
   async getUsers(): Promise<User[]> {
     const Users = await client.user.findMany({
       select: {
         id: true,
-        firtsName: true,
+        firstName: true,
         lastName: true,
         email: true,
         password: true,
