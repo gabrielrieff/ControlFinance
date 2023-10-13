@@ -21,4 +21,44 @@ model User {
   updated_at DateTime? @default(now())
 
   @@map("users")
+  invoices Invoice[]
+}
+
+model Invoice {
+  id String @id @default(uuid())
+  description String
+  value Float
+  type Boolean
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  category_id String
+  category Category @relation(fields: [category_id], references: [id])
+
+  repeatedInvoices repeatedInvoice[]
+  @@map("inovoices")
+}
+
+model repeatedInvoice{
+  id String @id @default(uuid())
+  dateInit DateTime? @default(now())
+  dateEnd DateTime
+
+  invoiceId String
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+
+  @@map("repeatedInvoices")
+}
+
+model Category {
+  id String @id @default(uuid())
+  title String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("categories")
+  invoices Invoice[]
 }
