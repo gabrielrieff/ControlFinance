@@ -1,16 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const ok = (body: any) => ({ statusCode: 200, body });
+import { HttpStatusCode } from "../commonProtocols";
 
-export const created = (body: any) => ({ statusCode: 201, body });
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const ok = (body: any) => ({ statusCode: HttpStatusCode.OK, body });
+
+export const created = (body: any) => ({
+  statusCode: HttpStatusCode.CREATED,
+  body,
+});
 
 export const BadRequest = (messege: string) => {
   return {
-    statusCode: 400,
+    statusCode: HttpStatusCode.BAD_REQUEST,
     body: messege,
   };
 };
 
 export const serverError = () => ({
-  statusCode: 500,
+  statusCode: HttpStatusCode.SERVER_ERROR,
   body: "Something went wrong",
 });
