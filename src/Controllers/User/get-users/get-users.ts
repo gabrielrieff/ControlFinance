@@ -1,3 +1,4 @@
+import { ok, serverError } from "../../Helpers/requestHelper";
 import { IController } from "../protocolsUser";
 import { IGetUsersRepository } from "./protocols";
 
@@ -7,15 +8,9 @@ export class GetUsersController implements IController {
   async handle() {
     try {
       const users = await this.getUserRepository.getUsers();
-      return {
-        statusCode: 200,
-        body: users,
-      };
+      return ok(users);
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: "Something went wrong",
-      };
+      return serverError();
     }
   }
 }
