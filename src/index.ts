@@ -6,6 +6,8 @@ import { PostgresCreateUserRepository } from "./repositories/User/create-user/po
 import { CreateUserController } from "./Controllers/User/create-user/create-user";
 import { PostgresUpdateUserRepository } from "./repositories/User/update-user/postgres-update-user";
 import { UpdateUserController } from "./Controllers/User/update-user/update-user";
+import { PostgresDeleteUserRepository } from "./repositories/User/delete-user/postgres-dalete-user";
+import { deleteUserController } from "./Controllers/User/delete-user/delete-user";
 
 const main = async () => {
   config();
@@ -34,13 +36,26 @@ const main = async () => {
   });
 
   app.patch("/user/:id", async (req, res) => {
-    const PostgresUpdateUsersRepository = new PostgresUpdateUserRepository();
+    const postgresUpdateUsersRepository = new PostgresUpdateUserRepository();
     const updateUsersController = new UpdateUserController(
-      PostgresUpdateUsersRepository
+      postgresUpdateUsersRepository
     );
 
     const { body, statusCode } = await updateUsersController.handle({
       body: req.body,
+      params: req.params,
+    });
+
+    res.status(statusCode).send(body);
+  });
+
+  app.delete("/user/:id", async (req, res) => {
+    const postgresDeleteUsersRepository = new PostgresDeleteUserRepository();
+    const daleteUsersController = new deleteUserController(
+      postgresDeleteUsersRepository
+    );
+
+    const { body, statusCode } = await daleteUsersController.handle({
       params: req.params,
     });
 
