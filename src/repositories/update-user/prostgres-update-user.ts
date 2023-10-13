@@ -5,7 +5,7 @@ import {
 import client from "../../database/postgres";
 import { User } from "../../models/user";
 
-export class PostgresUpdateUsersRepository implements IUpdateUsersRepository {
+export class PostgresUpdateUserRepository implements IUpdateUsersRepository {
   async updateUsers(id: string, params: UpdateUserparams): Promise<User> {
     await client.user.update({
       where: {

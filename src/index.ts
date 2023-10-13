@@ -4,6 +4,8 @@ import { GetUsersController } from "./Controllers/get-users/get-users";
 import { PostgresGetUsersRepository } from "./repositories/get-users/postgres-get-user";
 import { PostgresCreateUserRepository } from "./repositories/create-user/postgres-user";
 import { CreateUserController } from "./Controllers/create-user/create-user";
+import { PostgresUpdateUserRepository } from "./repositories/update-user/prostgres-update-user";
+import { UpdateUserController } from "./Controllers/update-user/update-user";
 
 const main = async () => {
   config();
@@ -26,6 +28,20 @@ const main = async () => {
 
     const { body, statusCode } = await createUserController.handle({
       body: req.body,
+    });
+
+    res.status(statusCode).send(body);
+  });
+
+  app.patch("/user/:id", async (req, res) => {
+    const PostgresUpdateUsersRepository = new PostgresUpdateUserRepository();
+    const updateUsersController = new UpdateUserController(
+      PostgresUpdateUsersRepository
+    );
+
+    const { body, statusCode } = await updateUsersController.handle({
+      body: req.body,
+      params: req.params,
     });
 
     res.status(statusCode).send(body);
