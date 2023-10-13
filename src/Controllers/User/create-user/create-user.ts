@@ -1,6 +1,6 @@
 import validator from "validator";
-import { User } from "../../models/user";
-import { HttpRequest, HttpResponse } from "../commonProtocols";
+import { User } from "../../../models/user";
+import { HttpRequest, HttpResponse } from "../../commonProtocols";
 import {
   CreateUserParams,
   ICreateUserController,

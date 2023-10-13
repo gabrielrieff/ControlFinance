@@ -1,9 +1,9 @@
 import {
   IUpdateUsersRepository,
   UpdateUserparams,
-} from "../../Controllers/update-user/protocols";
-import client from "../../database/postgres";
-import { User } from "../../models/user";
+} from "../../../Controllers/User/update-user/protocols";
+import client from "../../../database/postgres";
+import { User } from "../../../models/user";
 
 export class PostgresUpdateUserRepository implements IUpdateUsersRepository {
   async updateUsers(id: string, params: UpdateUserparams): Promise<User> {

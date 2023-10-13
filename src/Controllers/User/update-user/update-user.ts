@@ -1,5 +1,5 @@
-import { User } from "../../models/user";
-import { HttpRequest, HttpResponse } from "../commonProtocols";
+import { User } from "../../../models/user";
+import { HttpRequest, HttpResponse } from "../../commonProtocols";
 import {
   IUpdateUserController,
   IUpdateUsersRepository,

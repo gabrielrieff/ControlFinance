@@ -1,6 +1,6 @@
-import { IGetUsersRepository } from "../../Controllers/get-users/protocols";
-import client from "../../database/postgres";
-import { User } from "../../models/user";
+import { IGetUsersRepository } from "../../../Controllers/User/get-users/protocols";
+import client from "../../../database/postgres";
+import { User } from "../../../models/user";
 
 export class PostgresGetUsersRepository implements IGetUsersRepository {
   async getUsers(): Promise<User[]> {
