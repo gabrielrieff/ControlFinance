@@ -1,0 +1,49 @@
+import { compare } from "bcryptjs";
+import {
+  AuthUserParams,
+  IAuthUserParams,
+  IAuthUserRepository,
+} from "../../../Controllers/User/auth-user/protocols";
+import client from "../../../database/postgres";
+import { sign } from "jsonwebtoken";
+
+export class PostgresAuthUserRepository implements IAuthUserRepository {
+  async authUser(params: IAuthUserParams): Promise<AuthUserParams> {
+    const user = await client.user.findFirst({
+      where: { email: params.email },
+      select: {
+        id: true,
+        lastName: true,
+        email: true,
+        password: true,
+      },
+    });
+
+    if (!user) {
+      throw new Error("User/password incorrect");
+    }
+
+    const passwordMatch = await compare(params.password, user.password);
+
+    if (!passwordMatch) {
+      throw new Error("User/password incorrect");
+    }
+    console.log("ok");
+    const token = sign(
+      {
+        name: user.lastName,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        subject: user.id,
+        expiresIn: "30d",
+      }
+    );
+
+    return {
+      ...user,
+      token: token,
+    };
+  }
+}

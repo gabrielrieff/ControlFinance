@@ -4,6 +4,7 @@ import { HttpRequest, HttpResponse } from "../../commonProtocols";
 import { CreateUserParams, ICreateUserRepository } from "./protocols";
 import { IController } from "../protocolsUser";
 import { BadRequest, created, serverError } from "../../Helpers/requestHelper";
+import { hash } from "bcryptjs";
 
 export class CreateUserController implements IController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
@@ -31,6 +32,10 @@ export class CreateUserController implements IController {
       if (!emailIsValid) {
         return BadRequest("E-mail is invalid");
       }
+
+      const passwordHash = await hash(httpRequest.body!.password, 8);
+
+      httpRequest.body!.password = passwordHash;
 
       const user = await this.createUserRepository.createUser(
         httpRequest.body!
