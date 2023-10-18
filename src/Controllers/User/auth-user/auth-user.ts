@@ -12,14 +12,13 @@ export class AuthUserController implements IController {
   constructor(private readonly authUserRepository: IAuthUserRepository) {}
 
   async handle(
-    httpRequest: HttpRequest<IAuthUserParams>
-  ): Promise<HttpResponse<AuthUserParams | string>> {
+    httpRequest: HttpRequest<AuthUserParams>
+  ): Promise<HttpResponse<IAuthUserParams | string>> {
     try {
       const emailIsValid = validator.isEmail(httpRequest.body!.email);
       if (!emailIsValid) {
         return BadRequest("E-mail is invalid");
       }
-
       const user = await this.authUserRepository.authUser(httpRequest.body!);
 
       return ok(user);

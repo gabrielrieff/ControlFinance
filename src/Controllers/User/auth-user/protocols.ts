@@ -1,15 +1,15 @@
-export interface AuthUserParams {
+export interface IAuthUserParams {
   id: string;
   lastName: string;
   email: string;
   token: string;
 }
 
-export interface IAuthUserParams {
+export interface AuthUserParams {
   email: string;
   password: string;
 }
 
 export interface IAuthUserRepository {
-  authUser(params: IAuthUserParams): Promise<AuthUserParams>;
+  authUser(params: AuthUserParams): Promise<IAuthUserParams>;
 }

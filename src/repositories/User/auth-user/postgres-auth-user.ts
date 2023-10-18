@@ -8,7 +8,7 @@ import client from "../../../database/postgres";
 import { sign } from "jsonwebtoken";
 
 export class PostgresAuthUserRepository implements IAuthUserRepository {
-  async authUser(params: IAuthUserParams): Promise<AuthUserParams> {
+  async authUser(params: AuthUserParams): Promise<IAuthUserParams> {
     const user = await client.user.findFirst({
       where: { email: params.email },
       select: {

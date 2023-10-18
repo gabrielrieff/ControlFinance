@@ -15,6 +15,13 @@ export const BadRequest = (messege: string) => {
   };
 };
 
+export const Unauthorized = (messege: string) => {
+  return {
+    statusCode: HttpStatusCode.UNAUTHORIZED,
+    body: messege,
+  };
+};
+
 export const serverError = () => ({
   statusCode: HttpStatusCode.SERVER_ERROR,
   body: "Something went wrong",

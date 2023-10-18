@@ -1,4 +1,6 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
+
+import { isAuthenticated } from "./middlewares/isAuthenticated";
 
 import { GetUsersController } from "./Controllers/User/get-users/get-users";
 import { PostgresGetUsersRepository } from "./repositories/User/get-users/postgres-get-user";
@@ -16,11 +18,15 @@ const router = Router();
 router.post("/session", async (req, res) => {
   const postgresAuthUserRepository = new PostgresAuthUserRepository();
   const authUserContrller = new AuthUserController(postgresAuthUserRepository);
-  const { body, statusCode } = await authUserContrller.handle(req.body);
+  const { body, statusCode } = await authUserContrller.handle({
+    body: req.body,
+  });
   res.status(statusCode).send(body);
 });
 
-router.get("/users", async (req, res) => {
+router.get("/users", async (req: Request, res: Response) => {
+  isAuthenticated(req, res);
+
   const postgresUserRepositoriy = new PostgresGetUsersRepository();
   const getUsersController = new GetUsersController(postgresUserRepositoriy);
   const { body, statusCode } = await getUsersController.handle();
@@ -28,6 +34,7 @@ router.get("/users", async (req, res) => {
 });
 
 router.post("/users", async (req, res) => {
+  isAuthenticated;
   const postgresCreateUserRepositoriy = new PostgresCreateUserRepository();
   const createUserController = new CreateUserController(
     postgresCreateUserRepositoriy
