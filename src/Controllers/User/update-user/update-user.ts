@@ -1,21 +1,19 @@
+import { Request, Response } from "express";
 import { User } from "../../../models/user";
-import { BadRequest, ok, serverError } from "../../Helpers/requestHelper";
-import { HttpRequest, HttpResponse } from "../../commonProtocols";
-import { IController } from "../protocolsUser";
-import { IUpdateUsersRepository, UpdateUserparams } from "./protocols";
+import { UpdateUserparams } from "./protocols";
+import { PostgresUpdateUserRepository } from "../../../repositories/User/update-user/postgres-update-user";
 
-export class UpdateUserController implements IController {
-  constructor(private readonly updateUserRepository: IUpdateUsersRepository) {}
-
+export class UpdateUserController {
   async handle(
-    httpRequest: HttpRequest<UpdateUserparams>
-  ): Promise<HttpResponse<User | string>> {
+    httpRequest: Request,
+    httpResponse: Response
+  ): Promise<Response<User | string>> {
     try {
-      const id = httpRequest?.params?.id;
+      const id = httpRequest?.params?.id as string;
       const body = httpRequest?.body;
 
       if (!id) {
-        return BadRequest("Missing user id");
+        throw new Error("Missing user id");
       }
 
       const allowedFieldToUpdat: (keyof UpdateUserparams)[] = [
@@ -33,14 +31,16 @@ export class UpdateUserController implements IController {
       );
 
       if (someFieldIsNotAllowedToUpdate) {
-        return BadRequest("Some received field is not allowed");
+        throw new Error("Some received field is not allowed");
       }
 
-      const user = await this.updateUserRepository.updateUsers(id, body!);
+      const postgresUpdateUserRepository = new PostgresUpdateUserRepository();
 
-      return ok(user);
+      const user = await postgresUpdateUserRepository.updateUsers(id, body!);
+
+      return httpResponse.json(user);
     } catch (error) {
-      return serverError();
+      throw new Error(error);
     }
   }
 }

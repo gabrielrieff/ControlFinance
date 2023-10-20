@@ -1,11 +1,8 @@
-import {
-  CreateUserParams,
-  ICreateUserRepository,
-} from "../../../Controllers/User/create-user/protocols";
+import { CreateUserParams } from "../../../Controllers/User/create-user/protocols";
 import client from "../../../database/postgres";
 import { User } from "../../../models/user";
 
-export class PostgresCreateUserRepository implements ICreateUserRepository {
+export class PostgresCreateUserRepository {
   async createUser(params: CreateUserParams): Promise<User> {
     const user = await client.user.create({
       data: params,

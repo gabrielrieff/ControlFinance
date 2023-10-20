@@ -1,8 +1,7 @@
-import { IDeleteUserRepository } from "../../../Controllers/User/delete-user/Protocols";
 import client from "../../../database/postgres";
 import { User } from "../../../models/user";
 
-export class PostgresDeleteUserRepository implements IDeleteUserRepository {
+export class PostgresDeleteUserRepository {
   async deleteUser(id: string): Promise<User> {
     const user = await client.user.findFirst({
       where: {

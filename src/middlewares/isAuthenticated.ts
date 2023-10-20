@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Unauthorized } from "../Controllers/Helpers/requestHelper";
+//import { Unauthorized } from "../Controllers/Helpers/requestHelper";
 import { verify } from "jsonwebtoken";
 
 interface payLoad {
@@ -25,6 +25,6 @@ export function isAuthenticated(
 
     return next();
   } catch (error) {
-    return Unauthorized("Does not have authentication credentials");
+    return res.status(401).end();
   }
 }

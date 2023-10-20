@@ -1,5 +1,5 @@
 import { User } from "../../../models/user";
 
 export interface IGetUsersRepository {
-  getUsers(): Promise<User[]>;
+  getUsers(user_id: string): Promise<User[]>;
 }

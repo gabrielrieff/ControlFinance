@@ -18,6 +18,7 @@ export class PostgresAuthUserRepository implements IAuthUserRepository {
         password: true,
       },
     });
+    console.log(user);
 
     if (!user) {
       throw new Error("User/password incorrect");
@@ -28,7 +29,7 @@ export class PostgresAuthUserRepository implements IAuthUserRepository {
     if (!passwordMatch) {
       throw new Error("User/password incorrect");
     }
-    console.log("ok");
+
     const token = sign(
       {
         name: user.lastName,

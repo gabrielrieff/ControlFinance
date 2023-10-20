@@ -1,27 +1,26 @@
 import { User } from "../../../models/user";
-import { BadRequest, ok, serverError } from "../../Helpers/requestHelper";
-import { HttpRequest, HttpResponse } from "../../commonProtocols";
-import { IController } from "../protocolsUser";
-import { IDeleteUserRepository } from "./Protocols";
+import { Request, Response } from "express";
+import { PostgresDeleteUserRepository } from "../../../repositories/User/delete-user/postgres-dalete-user";
 
-export class deleteUserController implements IController {
-  constructor(private readonly deleteUserRepository: IDeleteUserRepository) {}
-
+export class deleteUserController {
   async handle(
-    httpRequest: HttpRequest<any>
-  ): Promise<HttpResponse<User | string>> {
+    httpRequest: Request,
+    httpResponse: Response
+  ): Promise<Response<User | string>> {
     try {
-      const id = httpRequest?.params?.id;
+      const id = httpRequest.params.id as string;
 
       if (!id) {
-        return BadRequest("Missing user id");
+        throw new Error("Missing user id");
       }
 
-      const user = await this.deleteUserRepository.deleteUser(id);
+      const postgresDeleteUserRepository = new PostgresDeleteUserRepository();
 
-      return ok(user);
+      const user = await postgresDeleteUserRepository.deleteUser(id);
+
+      return httpResponse.json(user);
     } catch (error) {
-      return serverError();
+      throw new Error(error);
     }
   }
 }

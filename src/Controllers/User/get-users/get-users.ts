@@ -1,14 +1,16 @@
-import { ok, serverError } from "../../Helpers/requestHelper";
-import { IController } from "../protocolsUser";
-import { IGetUsersRepository } from "./protocols";
+import { serverError } from "../../Helpers/requestHelper";
+import { Request, Response } from "express";
+import { PostgresGetUsersRepository } from "../../../repositories/User/get-users/postgres-get-user";
 
-export class GetUsersController implements IController {
-  constructor(private readonly getUserRepository: IGetUsersRepository) {}
-
-  async handle() {
+export class GetUsersController {
+  async handle(httpRequest: Request, httpResponse: Response) {
     try {
-      const users = await this.getUserRepository.getUsers();
-      return ok(users);
+      const postgresGetUsersRepository = new PostgresGetUsersRepository();
+
+      const users = await postgresGetUsersRepository.getUsers(
+        httpRequest.user_id
+      );
+      return httpResponse.json(users);
     } catch (error) {
       return serverError();
     }

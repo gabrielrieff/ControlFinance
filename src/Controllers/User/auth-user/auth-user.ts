@@ -1,29 +1,26 @@
+import { Request, Response } from "express";
 import validator from "validator";
-import { BadRequest, ok, serverError } from "../../Helpers/requestHelper";
-import { HttpRequest, HttpResponse } from "../../commonProtocols";
-import { IController } from "../protocolsUser";
-import {
-  AuthUserParams,
-  IAuthUserParams,
-  IAuthUserRepository,
-} from "./protocols";
+import { IAuthUserParams } from "./protocols";
+import { PostgresAuthUserRepository } from "../../../repositories/User/auth-user/postgres-auth-user";
 
-export class AuthUserController implements IController {
-  constructor(private readonly authUserRepository: IAuthUserRepository) {}
-
+export class AuthUserController {
   async handle(
-    httpRequest: HttpRequest<AuthUserParams>
-  ): Promise<HttpResponse<IAuthUserParams | string>> {
+    httpRequest: Request,
+    httpResponse: Response
+  ): Promise<Response<IAuthUserParams | string>> {
     try {
-      const emailIsValid = validator.isEmail(httpRequest.body!.email);
-      if (!emailIsValid) {
-        return BadRequest("E-mail is invalid");
-      }
-      const user = await this.authUserRepository.authUser(httpRequest.body!);
+      const emailIsValid = validator.isEmail(httpRequest.body.email);
 
-      return ok(user);
+      if (!emailIsValid) {
+        throw new Error("E-mail is invalid");
+      }
+      const postgresAuthUserRepository = new PostgresAuthUserRepository();
+
+      const user = await postgresAuthUserRepository.authUser(httpRequest.body!);
+
+      return httpResponse.json(user);
     } catch (error) {
-      return serverError();
+      throw new Error(error);
     }
   }
 }

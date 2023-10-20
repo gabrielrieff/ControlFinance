@@ -1,18 +1,18 @@
-import validator from "validator";
+import { Request, Response } from "express";
 import { User } from "../../../models/user";
-import { HttpRequest, HttpResponse } from "../../commonProtocols";
-import { CreateUserParams, ICreateUserRepository } from "./protocols";
-import { IController } from "../protocolsUser";
-import { BadRequest, created, serverError } from "../../Helpers/requestHelper";
+import { CreateUserParams } from "./protocols";
+import validator from "validator";
 import { hash } from "bcryptjs";
+import { PostgresCreateUserRepository } from "../../../repositories/User/create-user/postgres-user";
 
-export class CreateUserController implements IController {
-  constructor(private readonly createUserRepository: ICreateUserRepository) {}
-
+export class CreateUserController {
   async handle(
-    httpRequest: HttpRequest<CreateUserParams>
-  ): Promise<HttpResponse<User | string>> {
+    httpRequest: Request,
+    httpResponse: Response
+  ): Promise<Response<User | string>> {
     try {
+      const { firstName, lastName, email, password, admin } = httpRequest.body;
+
       const requiredFields = [
         "firstName",
         "lastName",
@@ -23,27 +23,33 @@ export class CreateUserController implements IController {
 
       for (const field of requiredFields) {
         if (!httpRequest?.body?.[field as keyof CreateUserParams]?.length) {
-          return BadRequest(`Fields ${field} is required!`);
+          throw new Error(`Fields ${field} is required!`);
         }
       }
 
       const emailIsValid = validator.isEmail(httpRequest.body!.email);
 
       if (!emailIsValid) {
-        return BadRequest("E-mail is invalid");
+        throw new Error("E-mail is invalid");
       }
 
       const passwordHash = await hash(httpRequest.body!.password, 8);
 
       httpRequest.body!.password = passwordHash;
 
-      const user = await this.createUserRepository.createUser(
-        httpRequest.body!
-      );
+      const postgresCreateUserRepository = new PostgresCreateUserRepository();
 
-      return created(user);
+      const user = await postgresCreateUserRepository.createUser({
+        firstName,
+        lastName,
+        email,
+        password,
+        admin,
+      });
+
+      return httpResponse.json(user);
     } catch (error) {
-      return serverError();
+      throw new Error(error);
     }
   }
 }
