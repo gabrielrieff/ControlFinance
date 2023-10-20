@@ -2,23 +2,21 @@ import { compare } from "bcryptjs";
 import {
   AuthUserParams,
   IAuthUserParams,
-  IAuthUserRepository,
 } from "../../../Controllers/User/auth-user/protocols";
 import client from "../../../database/postgres";
 import { sign } from "jsonwebtoken";
 
-export class PostgresAuthUserRepository implements IAuthUserRepository {
+export class PostgresAuthUserRepository {
   async authUser(params: AuthUserParams): Promise<IAuthUserParams> {
     const user = await client.user.findFirst({
       where: { email: params.email },
       select: {
         id: true,
-        lastName: true,
+        firstName: true,
         email: true,
         password: true,
       },
     });
-    console.log(user);
 
     if (!user) {
       throw new Error("User/password incorrect");
@@ -32,7 +30,7 @@ export class PostgresAuthUserRepository implements IAuthUserRepository {
 
     const token = sign(
       {
-        name: user.lastName,
+        name: user.firstName,
         email: user.email,
       },
       process.env.JWT_SECRET,

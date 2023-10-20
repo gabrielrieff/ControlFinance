@@ -4,6 +4,16 @@ import { User } from "../../../models/user";
 
 export class PostgresCreateUserRepository {
   async createUser(params: CreateUserParams): Promise<User> {
+    const userAlreadyExist = await client.user.findFirst({
+      where: {
+        email: params.email,
+      },
+    });
+
+    if (userAlreadyExist) {
+      throw new Error("User already exist!");
+    }
+
     const user = await client.user.create({
       data: params,
       select: {
@@ -17,11 +27,11 @@ export class PostgresCreateUserRepository {
     });
     const { id } = user;
 
-    const userAlreadyExist = await client.user.findFirst({
+    const userCreated = await client.user.findFirst({
       where: { id },
     });
 
-    if (!userAlreadyExist) {
+    if (!userCreated) {
       throw new Error("User not created!");
     }
 

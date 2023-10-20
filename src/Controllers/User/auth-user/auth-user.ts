@@ -9,14 +9,19 @@ export class AuthUserController {
     httpResponse: Response
   ): Promise<Response<IAuthUserParams | string>> {
     try {
-      const emailIsValid = validator.isEmail(httpRequest.body.email);
+      const { email, password } = httpRequest.body!;
+
+      const emailIsValid = validator.isEmail(email);
 
       if (!emailIsValid) {
         throw new Error("E-mail is invalid");
       }
       const postgresAuthUserRepository = new PostgresAuthUserRepository();
 
-      const user = await postgresAuthUserRepository.authUser(httpRequest.body!);
+      const user = await postgresAuthUserRepository.authUser({
+        email,
+        password,
+      });
 
       return httpResponse.json(user);
     } catch (error) {
