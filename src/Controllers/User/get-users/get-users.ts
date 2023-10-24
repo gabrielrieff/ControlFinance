@@ -1,4 +1,4 @@
-import { serverError } from "../../Helpers/requestHelper";
+import { serverError } from "../../../Helpers/requestHelper";
 import { Request, Response } from "express";
 import { PostgresGetUsersRepository } from "../../../repositories/User/get-users/postgres-get-user";
 

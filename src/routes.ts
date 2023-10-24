@@ -8,6 +8,7 @@ import { deleteUserController } from "./Controllers/User/delete-user/delete-user
 import { AuthUserController } from "./Controllers/User/auth-user/auth-user";
 import { GetUsersController } from "./Controllers/User/get-users/get-users";
 import { ToForgotPassword } from "./Controllers/User/to-forgot-password/to-forgot-password";
+import { ToRecoverPassword } from "./Controllers/User/to-recover-user/to-recover-password";
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.delete("/user/:id", isAuthenticated, new deleteUserController().handle);
 router.patch("/user/:id", isAuthenticated, new UpdateUserController().handle);
 
 router.post("/forgotpassword", new ToForgotPassword().handle);
+router.post("/recoverpassword", new ToRecoverPassword().handle);
 
 export { router };

@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "../commonProtocols";
+import { HttpStatusCode } from "../Controllers/commonProtocols";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const ok = (body: any) => ({ statusCode: HttpStatusCode.OK, body });

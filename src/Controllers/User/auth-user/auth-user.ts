@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import validator from "validator";
 import { IAuthUserParams } from "./protocols";
 import { PostgresAuthUserRepository } from "../../../repositories/User/auth-user/postgres-auth-user";
+import { isValidEmail } from "../../../Helpers/EmailIsValid";
 
 export class AuthUserController {
   async handle(
@@ -11,11 +11,8 @@ export class AuthUserController {
     try {
       const { email, password } = httpRequest.body!;
 
-      const emailIsValid = validator.isEmail(email);
+      isValidEmail(email);
 
-      if (!emailIsValid) {
-        throw new Error("E-mail is invalid");
-      }
       const postgresAuthUserRepository = new PostgresAuthUserRepository();
 
       const user = await postgresAuthUserRepository.authUser({

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { User } from "../../../models/user";
 import { CreateUserParams } from "./protocols";
-import validator from "validator";
 import { hash } from "bcryptjs";
 import { PostgresCreateUserRepository } from "../../../repositories/User/create-user/postgres-user";
+import { isValidEmail } from "../../../Helpers/EmailIsValid";
 
 export class CreateUserController {
   async handle(
@@ -27,11 +27,7 @@ export class CreateUserController {
         }
       }
 
-      const emailIsValid = validator.isEmail(email);
-
-      if (!emailIsValid) {
-        throw new Error("E-mail is invalid");
-      }
+      isValidEmail(email);
 
       const passwordHash = await hash(password, 8);
 
