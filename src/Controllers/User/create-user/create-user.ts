@@ -27,13 +27,13 @@ export class CreateUserController {
         }
       }
 
-      const emailIsValid = validator.isEmail(httpRequest.body!.email);
+      const emailIsValid = validator.isEmail(email);
 
       if (!emailIsValid) {
         throw new Error("E-mail is invalid");
       }
 
-      const passwordHash = await hash(httpRequest.body!.password, 8);
+      const passwordHash = await hash(password, 8);
 
       httpRequest.body!.password = passwordHash;
 
