@@ -7,7 +7,7 @@ interface IRecoverPassword {
   token: string;
 }
 
-export class PostgresToRecoverPassword {
+export class PostgresToRecoverPasswordRepository {
   async RecoverPassword(params: IRecoverPassword) {
     try {
       const passwordHash = await hash(params.password, 8);

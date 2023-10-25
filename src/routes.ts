@@ -7,18 +7,26 @@ import { UpdateUserController } from "./Controllers/User/update-user/update-user
 import { deleteUserController } from "./Controllers/User/delete-user/delete-user";
 import { AuthUserController } from "./Controllers/User/auth-user/auth-user";
 import { GetUsersController } from "./Controllers/User/get-users/get-users";
-import { ToForgotPassword } from "./Controllers/User/to-forgot-password/to-forgot-password";
-import { ToRecoverPassword } from "./Controllers/User/to-recover-user/to-recover-password";
+import { ToForgotPasswordController } from "./Controllers/User/to-forgot-password/to-forgot-password";
+import { ToRecoverPasswordController } from "./Controllers/User/to-recover-user/to-recover-password";
+import { ResetPasswordController } from "./Controllers/User/reset-password/reset-password";
 
 const router = Router();
 
+//User
 router.post("/session", new AuthUserController().handle);
 router.post("/user", isAuthenticated, new CreateUserController().handle);
 router.get("/users", isAuthenticated, new GetUsersController().handle);
 router.delete("/user/:id", isAuthenticated, new deleteUserController().handle);
 router.patch("/user/:id", isAuthenticated, new UpdateUserController().handle);
+router.post("/forgotpassword", new ToForgotPasswordController().handle);
+router.post("/recoverpassword", new ToRecoverPasswordController().handle);
+router.post(
+  "/resetpassword",
+  isAuthenticated,
+  new ResetPasswordController().handle
+);
 
-router.post("/forgotpassword", new ToForgotPassword().handle);
-router.post("/recoverpassword", new ToRecoverPassword().handle);
+//inovoice
 
 export { router };
