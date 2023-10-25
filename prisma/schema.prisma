@@ -38,8 +38,8 @@ model Invoice {
   userId String
   user User @relation(fields: [userId], references: [id])
 
-  category_id String
-  category Category @relation(fields: [category_id], references: [id])
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
 
   repeatedInvoices repeatedInvoice[]
   @@map("inovoices")
