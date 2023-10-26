@@ -9,42 +9,34 @@ export class CreateInovoiceController {
   ): Promise<Response<Invoice | string>> {
     try {
       const requiredFields = [
-        "id",
         "description",
         "value",
         "type",
-        "created_at",
-        "updated_at",
         "categoryId",
+        "dateEnd",
       ];
 
-      for (const field of requiredFields) {
-        if (!httpRequest?.body?.[field as keyof Invoice]?.length) {
-          throw new Error(`Fields ${field} is required!`);
-        }
-      }
+      // for (const field of requiredFields) {
+      //   if (!httpRequest?.body?.[field as keyof Invoice]?.length) {
+      //     throw new Error(`Fields ${field} is required!`);
+      //   }
+      // }
 
-      const {
-        id,
-        description,
-        value,
-        type,
-        created_at,
-        updated_at,
-        categoryId,
-      } = httpRequest.body;
+      const { description, value, type, categoryId } = httpRequest.body;
       const userId = httpRequest.user_id;
+      const invoiceId = "";
 
+      console.log(httpRequest.user_id);
       const data = {
-        id,
         description,
         value,
         type,
-        created_at,
-        updated_at,
         categoryId,
         userId,
-      };
+        repeatedInvoices: {
+          invoiceId,
+        },
+      } as Invoice;
 
       const createInovocieRepository = new PostgresCreateInvocieRepository();
       const inovoice = createInovocieRepository.createInovocieRepository(data);

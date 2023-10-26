@@ -9,7 +9,7 @@ export class PostgresGetUsersRepository {
       },
     });
 
-    if (user) {
+    if (!user) {
       throw new Error("User not exist");
     }
 

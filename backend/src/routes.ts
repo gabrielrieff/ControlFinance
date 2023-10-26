@@ -10,6 +10,7 @@ import { GetUsersController } from "./Controllers/User/get-users/get-users";
 import { ToForgotPasswordController } from "./Controllers/User/to-forgot-password/to-forgot-password";
 import { ToRecoverPasswordController } from "./Controllers/User/to-recover-user/to-recover-password";
 import { ResetPasswordController } from "./Controllers/User/reset-password/reset-password";
+import { CreateInovoiceController } from "./Controllers/Inovoice/create-inovoice/create-inovoice";
 
 const router = Router();
 
@@ -28,5 +29,9 @@ router.post(
 );
 
 //inovoice
-
+router.post(
+  "/invoices",
+  isAuthenticated,
+  new CreateInovoiceController().handle
+);
 export { router };
