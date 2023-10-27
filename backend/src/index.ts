@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
+import cors from "cors";
 import { config } from "dotenv";
 import { router } from "./routes";
 
@@ -6,7 +7,7 @@ const main = async () => {
   config();
   const app = express();
   app.use(express.json());
-
+  app.use(cors());
   app.use(router);
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
