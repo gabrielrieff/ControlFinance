@@ -4,7 +4,7 @@ export interface Invoice {
   type: boolean;
   categoryId: string;
   userId: string;
-  repeatedInvoices: repeatedInvoices;
+  repeatedInvoices?: repeatedInvoices;
 }
 
 export interface repeatedInvoices {

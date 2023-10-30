@@ -10,6 +10,9 @@ export class PostgresCreateInvocieRepository {
       },
     });
 
+    console.log(user);
+    console.log(params.userId);
+
     if (!user) {
       throw new Error("User not exist");
     }
