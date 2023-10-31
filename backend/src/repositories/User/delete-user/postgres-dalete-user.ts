@@ -7,16 +7,11 @@ export class PostgresDeleteUserRepository {
       where: {
         id: id,
       },
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        email: true,
-        password: true,
-        admin: true,
-        created_at: true,
-      },
     });
+
+    if (!user) {
+      throw new Error("User not exist");
+    }
 
     const { count } = await client.user.deleteMany({
       where: {
