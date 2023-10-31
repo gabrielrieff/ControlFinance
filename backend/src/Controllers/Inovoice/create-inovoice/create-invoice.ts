@@ -8,20 +8,6 @@ export class CreateInvoiceController {
     httpResponse: Response
   ): Promise<Response<Invoice | string>> {
     try {
-      const requiredFields = [
-        "description",
-        "value",
-        "type",
-        "categoryId",
-        "dateEnd",
-      ];
-
-      for (const field of requiredFields) {
-        if (!httpRequest?.body?.[field as keyof Invoice]?.length) {
-          throw new Error(`Fields ${field} is required!`);
-        }
-      }
-
       const { description, value, type, categoryId } = httpRequest.body;
       const userId = httpRequest.user_id;
       const invoiceId = "";

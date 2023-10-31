@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Invoice } from "../../../models/inovoice";
-import { DeleteInvoiceRepository } from "../../../repositories/Inovoice/create-inovoice/postgres-delete-invoice";
+import { DeleteInvoiceRepository } from "../../../repositories/Inovoice/delete-invoice/postgres-delete-invoice";
 
 export class DeleteInvoiceController {
   async handle(

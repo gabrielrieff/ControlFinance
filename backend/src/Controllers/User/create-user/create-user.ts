@@ -3,7 +3,7 @@ import { User } from "../../../models/user";
 import { CreateUserParams } from "./protocols";
 import { PostgresCreateUserRepository } from "../../../repositories/User/create-user/postgres-user";
 import { isValidEmail } from "../../../Helpers/EmailIsValid";
-import { hashPassword } from "../../../Helpers/HashPassword";
+import { hashPassword } from "../../../Helpers/hashPassword";
 
 export class CreateUserController {
   async handle(

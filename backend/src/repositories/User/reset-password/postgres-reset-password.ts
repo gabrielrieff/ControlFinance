@@ -1,5 +1,5 @@
 import { ResetPasswordParams } from "../../../Controllers/User/reset-password/protocols";
-import { hashPassword } from "../../../Helpers/HashPassword";
+import { hashPassword } from "../../../Helpers/hashPassword";
 import client from "../../../database/postgres";
 import { User } from "../../../models/user";
 
