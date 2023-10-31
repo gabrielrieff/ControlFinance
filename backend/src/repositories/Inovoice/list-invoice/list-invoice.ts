@@ -16,6 +16,7 @@ export class ListInvoiceRepository {
         userId: id,
       },
       select: {
+        id: true,
         description: true,
         value: true,
         type: true,
@@ -23,8 +24,6 @@ export class ListInvoiceRepository {
         userId: true,
       },
     });
-
-    console.log(listInvoice);
 
     return listInvoice;
   }

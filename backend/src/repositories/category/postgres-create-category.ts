@@ -3,14 +3,14 @@ import { Category } from "../../models/category";
 
 export class PostgresCreateCategoryRepository {
   async createInovocieRepository(params: Category) {
-    const user = await client.user.findFirst({
+    const existingCategory = await client.category.findFirst({
       where: {
-        id: params.userId,
+        title: params.title,
       },
     });
 
-    if (!user) {
-      throw new Error("User not exist");
+    if (existingCategory) {
+      throw new Error("Categoria ja existente");
     }
 
     const createdCategory = await client.category.create({
@@ -19,6 +19,7 @@ export class PostgresCreateCategoryRepository {
       },
       select: {
         id: true,
+        title: true,
       },
     });
 

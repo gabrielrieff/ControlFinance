@@ -25,7 +25,8 @@ export class CreateCategoryController {
       } as Category;
 
       const createCategoryRepository = new PostgresCreateCategoryRepository();
-      const category = createCategoryRepository.createInovocieRepository(data);
+      const category =
+        await createCategoryRepository.createInovocieRepository(data);
 
       return httpResponse.json(category);
     } catch (error) {
