@@ -12,7 +12,7 @@ export class DeleteInvoiceController {
       const userId = httpRequest.user_id as string;
 
       if (!id) {
-        throw new Error("Missing user id");
+        return httpResponse.status(401).json({ error: "Missing user id" });
       }
 
       const deleteInvoiceRepository = new DeleteInvoiceRepository();
@@ -23,7 +23,9 @@ export class DeleteInvoiceController {
 
       return httpResponse.json(deleteInvoice);
     } catch (error) {
-      throw new Error(error);
+      return httpResponse
+        .status(500)
+        .json({ error: "Error when trying to change your invoices" });
     }
   }
 }

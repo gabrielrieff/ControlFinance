@@ -12,7 +12,9 @@ export class CreateCategoryController {
 
       for (const field of requiredFields) {
         if (!httpRequest?.body?.[field as keyof Category]?.length) {
-          throw new Error(`Fields ${field} is required!`);
+          return httpResponse
+            .status(400)
+            .json({ error: `Fields ${field} is required!` });
         }
       }
 
@@ -30,7 +32,9 @@ export class CreateCategoryController {
 
       return httpResponse.json(category);
     } catch (error) {
-      throw new Error(error);
+      return httpResponse
+        .status(500)
+        .json({ error: "Error when trying to create a new category" });
     }
   }
 }

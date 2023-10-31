@@ -11,7 +11,7 @@ export class deleteUserController {
       const id = httpRequest.params.id as string;
 
       if (!id) {
-        throw new Error("Missing user id");
+        return httpResponse.status(400).json({ error: "Missing user id" });
       }
 
       const postgresDeleteUserRepository = new PostgresDeleteUserRepository();
@@ -20,7 +20,9 @@ export class deleteUserController {
 
       return httpResponse.json(user);
     } catch (error) {
-      throw new Error(error);
+      return httpResponse
+        .status(500)
+        .json({ error: "Error when trying to delete a user" });
     }
   }
 }

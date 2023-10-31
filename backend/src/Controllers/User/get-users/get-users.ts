@@ -1,4 +1,3 @@
-import { serverError } from "../../../Helpers/requestHelper";
 import { Request, Response } from "express";
 import { PostgresGetUsersRepository } from "../../../repositories/User/get-users/postgres-get-user";
 
@@ -12,7 +11,7 @@ export class GetUsersController {
       );
       return httpResponse.json(users);
     } catch (error) {
-      return serverError();
+      return httpResponse.status(500).json(error);
     }
   }
 }

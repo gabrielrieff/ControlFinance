@@ -13,7 +13,7 @@ export class UpdateInvoiceController {
       const body = httpRequest?.body;
 
       if (!id) {
-        throw new Error("Missing user id");
+        return httpResponse.status(400).json({ error: "Missing user id" });
       }
 
       const allowedFieldToUpdat: (keyof UpdateInvoiceParams)[] = [
@@ -31,7 +31,9 @@ export class UpdateInvoiceController {
       );
 
       if (someFieldIsNotAllowedToUpdate) {
-        throw new Error("Some received field is not allowed");
+        return httpResponse
+          .status(400)
+          .json({ error: "Some received field is not allowed" });
       }
 
       const updateInvoiceRepository = new UpdateInvoiceRepository();
@@ -39,9 +41,9 @@ export class UpdateInvoiceController {
 
       return httpResponse.status(202).json(updadeInvoice);
     } catch (error) {
-      httpResponse
+      return httpResponse
         .status(500)
-        .json({ error: "Erro ao tentar alterar sua faturas!" });
+        .json({ error: "Error when trying to change your invoices" });
     }
   }
 }

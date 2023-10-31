@@ -26,9 +26,11 @@ export class CreateInvoiceController {
       const createInovocieRepository = new PostgresCreateInvocieRepository();
       const inovoice = createInovocieRepository.createInovocieRepository(data);
 
-      return httpResponse.json(inovoice);
+      return httpResponse.status(201).json(inovoice);
     } catch (error) {
-      throw new Error(error);
+      return httpResponse
+        .status(500)
+        .json({ error: "Error when trying to create a new invoice" });
     }
   }
 }

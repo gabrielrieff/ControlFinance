@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../../../models/user";
 import { CreateUserParams } from "./protocols";
 import { PostgresCreateUserRepository } from "../../../repositories/User/create-user/postgres-user";
-import { isValidEmail } from "../../../Helpers/EmailIsValid";
+import { isValidEmail } from "../../../Helpers/emailIsValid";
 import { hashPassword } from "../../../Helpers/hashPassword";
 
 export class CreateUserController {
@@ -23,7 +23,9 @@ export class CreateUserController {
 
       for (const field of requiredFields) {
         if (!httpRequest?.body?.[field as keyof CreateUserParams]?.length) {
-          throw new Error(`Fields ${field} is required!`);
+          return httpResponse
+            .status(400)
+            .json({ error: `Fields ${field} is required!` });
         }
       }
 
@@ -43,9 +45,11 @@ export class CreateUserController {
         admin,
       });
 
-      return httpResponse.json(user);
+      return httpResponse.status(201).json(user);
     } catch (error) {
-      throw new Error(error);
+      return httpResponse
+        .status(500)
+        .json({ error: "Error when trying to create a new user" });
     }
   }
 }

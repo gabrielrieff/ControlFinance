@@ -13,7 +13,7 @@ export class ListInvoiceController {
       const listInvoiceRepository = new ListInvoiceRepository();
       const ListInvoice = await listInvoiceRepository.listInvoice(userId);
 
-      return httpResponse.status(202).json(ListInvoice);
+      return httpResponse.json(ListInvoice);
     } catch (error) {
       httpResponse
         .status(500)

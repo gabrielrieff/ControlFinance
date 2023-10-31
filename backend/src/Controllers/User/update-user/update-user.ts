@@ -13,7 +13,7 @@ export class UpdateUserController {
       const body = httpRequest?.body;
 
       if (!id) {
-        throw new Error("Missing user id");
+        return httpResponse.status(401).json({ error: "Missing user id" });
       }
 
       const allowedFieldToUpdat: (keyof UpdateUserparams)[] = [
@@ -31,7 +31,9 @@ export class UpdateUserController {
       );
 
       if (someFieldIsNotAllowedToUpdate) {
-        throw new Error("Some received field is not allowed");
+        return httpResponse
+          .status(400)
+          .json({ error: "Some received field is not allowed" });
       }
 
       const postgresUpdateUserRepository = new PostgresUpdateUserRepository();
@@ -40,7 +42,9 @@ export class UpdateUserController {
 
       return httpResponse.json(user);
     } catch (error) {
-      throw new Error(error);
+      return httpResponse
+        .status(500)
+        .json({ error: "Error when trying to change user data" });
     }
   }
 }
