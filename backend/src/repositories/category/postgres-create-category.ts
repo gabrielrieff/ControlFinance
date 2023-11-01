@@ -1,8 +1,11 @@
+import { Response } from "express";
 import client from "../../database/postgres";
 import { Category } from "../../models/category";
 
 export class PostgresCreateCategoryRepository {
-  async createInovocieRepository(params: Category) {
+  async createInovocieRepository(
+    params: Category
+  ): Promise<Category | Response<string>> {
     const existingCategory = await client.category.findFirst({
       where: {
         title: params.title,
@@ -10,7 +13,7 @@ export class PostgresCreateCategoryRepository {
     });
 
     if (existingCategory) {
-      throw new Error("Categoria ja existente");
+      throw new Error("Existing category!");
     }
 
     const createdCategory = await client.category.create({

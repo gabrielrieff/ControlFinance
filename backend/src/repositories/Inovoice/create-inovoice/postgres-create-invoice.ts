@@ -37,7 +37,7 @@ export class PostgresCreateInvocieRepository {
     });
 
     if (!existingInvoice) {
-      throw new Error("Fatura não encontrada");
+      throw new Error("Invoice not found");
     }
     const d = new Date();
     let createdrepeatedInvoice = {};

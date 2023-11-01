@@ -15,9 +15,13 @@ export class ListInvoiceController {
 
       return httpResponse.json(ListInvoice);
     } catch (error) {
-      httpResponse
-        .status(500)
-        .json({ error: "Erro ao tentar listar seus faturas!" });
+      if (error != "") {
+        return httpResponse.status(400).json({ error: error.message });
+      } else {
+        httpResponse
+          .status(500)
+          .json({ error: "Error trying to list your invoices!" });
+      }
     }
   }
 }

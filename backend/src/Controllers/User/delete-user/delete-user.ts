@@ -20,9 +20,13 @@ export class deleteUserController {
 
       return httpResponse.json(user);
     } catch (error) {
-      return httpResponse
-        .status(500)
-        .json({ error: "Error when trying to delete a user" });
+      if (error != "") {
+        return httpResponse.status(400).json({ error: error.message });
+      } else {
+        return httpResponse
+          .status(500)
+          .json({ error: "Error when trying to delete a user" });
+      }
     }
   }
 }

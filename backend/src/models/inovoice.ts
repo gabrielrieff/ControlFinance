@@ -7,11 +7,6 @@ export interface Invoice {
   repeatedInvoices?: repeatedInvoices;
 }
 
-export interface deleteInvoice {
-  id: string;
-  userId: string;
-}
-
 export interface repeatedInvoices {
   id?: string;
   dateInit?: Date;

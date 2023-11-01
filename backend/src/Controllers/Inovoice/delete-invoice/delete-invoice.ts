@@ -23,9 +23,13 @@ export class DeleteInvoiceController {
 
       return httpResponse.json(deleteInvoice);
     } catch (error) {
-      return httpResponse
-        .status(500)
-        .json({ error: "Error when trying to change your invoices" });
+      if (error != "") {
+        return httpResponse.status(400).json({ error: error.message });
+      } else {
+        return httpResponse
+          .status(500)
+          .json({ error: "Error when trying to change your invoices" });
+      }
     }
   }
 }

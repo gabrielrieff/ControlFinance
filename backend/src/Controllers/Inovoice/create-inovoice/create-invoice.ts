@@ -28,9 +28,13 @@ export class CreateInvoiceController {
 
       return httpResponse.status(201).json(inovoice);
     } catch (error) {
-      return httpResponse
-        .status(500)
-        .json({ error: "Error when trying to create a new invoice" });
+      if (error != "") {
+        return httpResponse.status(400).json({ error: error.message });
+      } else {
+        return httpResponse
+          .status(500)
+          .json({ error: "Error when trying to create a new invoice" });
+      }
     }
   }
 }

@@ -42,9 +42,13 @@ export class UpdateUserController {
 
       return httpResponse.json(user);
     } catch (error) {
-      return httpResponse
-        .status(500)
-        .json({ error: "Error when trying to change user data" });
+      if (error != "") {
+        return httpResponse.status(400).json({ error: error.message });
+      } else {
+        return httpResponse
+          .status(500)
+          .json({ error: "Error when trying to change user data" });
+      }
     }
   }
 }

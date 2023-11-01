@@ -1,5 +1,6 @@
+import { deleteInvoice } from "../../../Controllers/Inovoice/delete-invoice/protocols";
 import client from "../../../database/postgres";
-import { Invoice, deleteInvoice } from "../../../models/inovoice";
+import { Invoice } from "../../../models/inovoice";
 
 export class DeleteInvoiceRepository {
   async deleteInvoice(params: deleteInvoice): Promise<Invoice> {
@@ -21,7 +22,7 @@ export class DeleteInvoiceRepository {
     });
 
     if (!existingInvoice) {
-      throw new Error("Fatura não encontrada");
+      throw new Error("Invoice not found");
     }
 
     const invoiceId = params.id;

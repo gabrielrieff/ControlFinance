@@ -32,9 +32,13 @@ export class CreateCategoryController {
 
       return httpResponse.json(category);
     } catch (error) {
-      return httpResponse
-        .status(500)
-        .json({ error: "Error when trying to create a new category" });
+      if (error != "") {
+        return httpResponse.status(400).json({ error: error.message });
+      } else {
+        return httpResponse
+          .status(500)
+          .json({ error: "Error when trying to create a new category" });
+      }
     }
   }
 }
