@@ -6,7 +6,6 @@ export class ListCategoryRepository {
       select: {
         id: true,
         title: true,
-        invoices: true,
       },
     });
 
