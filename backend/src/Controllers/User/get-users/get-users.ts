@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PostgresGetUsersRepository } from "../../../repositories/User/get-users/postgres-get-user";
+import { PostgresGetUsersRepository } from "~/repositories/User/get-users/postgres-get-user";
 
 export class GetUsersController {
   async handle(httpRequest: Request, httpResponse: Response) {

@@ -1,5 +1,5 @@
-import client from "../../../database/postgres";
-import { Invoice } from "../../../models/inovoice";
+import client from "~/database/postgres";
+import { Invoice } from "~/models/inovoice";
 
 export class ListInvoiceRepository {
   async listInvoice(id: string): Promise<Invoice[] | string> {

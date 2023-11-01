@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-import client from "../../../database/postgres";
+import client from "~/database/postgres";
 
 interface IRecoverPassword {
   email: string;

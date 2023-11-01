@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { User } from "../../../models/user";
-import { postgresResetPasswordRepository } from "../../../repositories/User/reset-password/postgres-reset-password";
+import { User } from "~/models/user";
+import { postgresResetPasswordRepository } from "~/repositories/User/reset-password/postgres-reset-password";
 
 export class ResetPasswordController {
   async handle(

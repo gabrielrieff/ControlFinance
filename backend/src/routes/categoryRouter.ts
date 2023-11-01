@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import { isAuthenticated } from "../middlewares/isAuthenticated";
-import { CreateCategoryController } from "../Controllers/category/create-category";
+import { CreateCategoryController } from "~/Controllers/category/create-category/create-category";
+import { isAuthenticated } from "~/middlewares/isAuthenticated";
 
 const categoryRouter = Router();
 

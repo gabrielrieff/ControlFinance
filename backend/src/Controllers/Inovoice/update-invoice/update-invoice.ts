@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { Invoice } from "../../../models/inovoice";
+import { Invoice } from "~/models/inovoice";
 import { UpdateInvoiceParams } from "./protocols";
-import { UpdateInvoiceRepository } from "../../../repositories/Inovoice/update-invoice/update-invoice";
+import { UpdateInvoiceRepository } from "~/repositories/Inovoice/update-invoice/update-invoice";
 
 export class UpdateInvoiceController {
   async handle(

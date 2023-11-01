@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { User } from "../../../models/user";
+import { User } from "~/models/user";
 import { UpdateUserparams } from "./protocols";
-import { PostgresUpdateUserRepository } from "../../../repositories/User/update-user/postgres-update-user";
+import { PostgresUpdateUserRepository } from "~/repositories/User/update-user/postgres-update-user";
 
 export class UpdateUserController {
   async handle(

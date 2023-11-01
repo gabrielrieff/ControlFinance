@@ -1,5 +1,5 @@
-import client from "../../../database/postgres";
-import { User } from "../../../models/user";
+import client from "~/database/postgres";
+import { User } from "~/models/user";
 
 export class PostgresGetUsersRepository {
   async getUsers(user_id: string): Promise<User[]> {

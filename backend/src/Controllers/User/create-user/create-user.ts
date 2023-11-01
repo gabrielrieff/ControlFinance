@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { User } from "../../../models/user";
+import { User } from "~/models/user";
 import { CreateUserParams } from "./protocols";
-import { PostgresCreateUserRepository } from "../../../repositories/User/create-user/postgres-user";
-import { isValidEmail } from "../../../Helpers/emailIsValid";
-import { hashPassword } from "../../../Helpers/hashPassword";
+import { PostgresCreateUserRepository } from "~/repositories/User/create-user/postgres-user";
+import { isValidEmail } from "~/Helpers/emailIsValid";
+import { hashPassword } from "~/Helpers/hashPassword";
 
 export class CreateUserController {
   async handle(

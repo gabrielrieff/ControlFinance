@@ -2,8 +2,8 @@ import { compare } from "bcryptjs";
 import {
   AuthUserParams,
   IAuthUserParams,
-} from "../../../Controllers/User/auth-user/protocols";
-import client from "../../../database/postgres";
+} from "~/Controllers/User/auth-user/protocols";
+import client from "~/database/postgres";
 import { sign } from "jsonwebtoken";
 
 export class PostgresAuthUserRepository {

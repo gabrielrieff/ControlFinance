@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Invoice } from "../../../models/inovoice";
-import { ListInvoiceRepository } from "../../../repositories/Inovoice/list-invoice/list-invoice";
+import { Invoice } from "~/models/inovoice";
+import { ListInvoiceRepository } from "~/repositories/Inovoice/list-invoice/list-invoice";
 
 export class ListInvoiceController {
   async handle(

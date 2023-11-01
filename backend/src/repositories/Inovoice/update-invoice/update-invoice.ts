@@ -1,5 +1,5 @@
-import { UpdateInvoiceParams } from "../../../Controllers/Inovoice/update-invoice/protocols";
-import client from "../../../database/postgres";
+import { UpdateInvoiceParams } from "~/Controllers/Inovoice/update-invoice/protocols";
+import client from "~/database/postgres";
 
 export class UpdateInvoiceRepository {
   async update(id: string, params: UpdateInvoiceParams) {

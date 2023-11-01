@@ -1,5 +1,5 @@
-import client from "../../../database/postgres";
-import { User } from "../../../models/user";
+import client from "~/database/postgres";
+import { User } from "~/models/user";
 
 export class PostgresDeleteUserRepository {
   async deleteUser(id: string): Promise<User> {

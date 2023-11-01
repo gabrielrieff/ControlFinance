@@ -1,6 +1,6 @@
 import { Response } from "express";
-import client from "../../database/postgres";
-import { Category } from "../../models/category";
+import client from "~/database/postgres";
+import { Category } from "~/models/category";
 
 export class PostgresCreateCategoryRepository {
   async createInovocieRepository(

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Category } from "../../models/category";
-import { PostgresCreateCategoryRepository } from "../../repositories/category/postgres-create-category";
+import { Category } from "~/models/category";
+import { PostgresCreateCategoryRepository } from "~/repositories/category/postgres-create-category";
 
 export class CreateCategoryController {
   async handle(

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Invoice } from "../../../models/inovoice";
-import { PostgresCreateInvocieRepository } from "../../../repositories/Inovoice/create-inovoice/postgres-create-invoice";
+import { Invoice } from "~/models/inovoice";
+import { PostgresCreateInvocieRepository } from "~/repositories/Inovoice/create-inovoice/postgres-create-invoice";
 
 export class CreateInvoiceController {
   async handle(

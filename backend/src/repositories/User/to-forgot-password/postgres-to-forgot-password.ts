@@ -1,6 +1,6 @@
-import client from "../../../database/postgres";
+import client from "~/database/postgres";
 import crypto from "crypto";
-import { transporter } from "../../../services/mailer";
+import { transporter } from "~/services/mailer";
 
 export class PostgresToForgotPasswordRepository {
   async forgotPassword(email: string) {

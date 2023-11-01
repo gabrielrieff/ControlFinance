@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { PostgresToForgotPasswordRepository } from "../../../repositories/User/to-forgot-password/postgres-to-forgot-password";
-import { isValidEmail } from "../../../Helpers/emailIsValid";
+import { PostgresToForgotPasswordRepository } from "~/repositories/User/to-forgot-password/postgres-to-forgot-password";
+import { isValidEmail } from "~/Helpers/emailIsValid";
 
 export class ToForgotPasswordController {
   async handle(httpRequest: Request, httpResponse: Response) {

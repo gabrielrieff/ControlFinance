@@ -1,6 +1,6 @@
-import { deleteInvoice } from "../../../Controllers/Inovoice/delete-invoice/protocols";
-import client from "../../../database/postgres";
-import { Invoice } from "../../../models/inovoice";
+import { deleteInvoice } from "~/Controllers/Inovoice/delete-invoice/protocols";
+import client from "~/database/postgres";
+import { Invoice } from "~/models/inovoice";
 
 export class DeleteInvoiceRepository {
   async deleteInvoice(params: deleteInvoice): Promise<Invoice> {

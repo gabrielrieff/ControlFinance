@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { IAuthUserParams } from "./protocols";
-import { PostgresAuthUserRepository } from "../../../repositories/User/auth-user/postgres-auth-user";
-import { isValidEmail } from "../../../Helpers/emailIsValid";
+import { PostgresAuthUserRepository } from "~/repositories/User/auth-user/postgres-auth-user";
+import { isValidEmail } from "~/Helpers/emailIsValid";
 
 export class AuthUserController {
   async handle(

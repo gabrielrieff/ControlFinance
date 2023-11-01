@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Invoice } from "../../../models/inovoice";
-import client from "../../../database/postgres";
+import { Invoice } from "~/models/inovoice";
+import client from "~/database/postgres";
 
 export class PostgresCreateInvocieRepository {
   async createInovocieRepository(params: Invoice) {

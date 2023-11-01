@@ -1,6 +1,6 @@
-import { User } from "../../../models/user";
+import { User } from "~/models/user";
 import { Request, Response } from "express";
-import { PostgresDeleteUserRepository } from "../../../repositories/User/delete-user/postgres-dalete-user";
+import { PostgresDeleteUserRepository } from "~/repositories/User/delete-user/postgres-dalete-user";
 
 export class deleteUserController {
   async handle(
