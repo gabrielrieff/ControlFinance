@@ -1,38 +1,39 @@
 'use client';
 
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 import Foto01 from '../../../public/FotoPerfil.jpeg';
 
 export const Admin = () => {
-  const [hidden, setHidden] = useState(true);
-  const { signOut } = useContext(AuthContext);
+  const { signOut, user } = useContext(AuthContext);
 
-  const handleAdmin = () => {
-    setHidden(!hidden);
-  };
   return (
-    <button
-      onClick={handleAdmin}
-      className="p-2 flex items-center gap-2 relative"
-    >
-      <Image alt="" src={Foto01} width={46} className="rounded-full" />
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger className="flex items-center gap-2">
+        <Image alt="" src={Foto01} width={46} className="rounded-full" />
 
-      <div className="flex flex-col items-end">
-        <span>Gabriel Rieff</span>
-        <span className="text-grey-700 text-sm">Admin</span>
-      </div>
+        <div className="flex flex-col items-end">
+          <span>Gabriel Rieff</span>
+          <span className="text-grey-700 text-sm">Admin</span>
+        </div>
+      </DropdownMenu.Trigger>
 
-      <section
-        className={`${
-          hidden ? 'hidden ' : 'flex '
-        }absolute bg-grey-400 w-[200px] text-white-100`}
-      >
-        <button className="" onClick={signOut}>
-          Sair
-        </button>
-      </section>
-    </button>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          sideOffset={5}
+          alignOffset={20}
+          className="bg-grey-300 w-[200px] rounded-md p-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]"
+        >
+          <DropdownMenu.Item
+            onClick={signOut}
+            className="hover:bg-grey-400 cursor-pointer w-full text-start rounded-sm py-[3px] px-2"
+          >
+            Deslogar
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   );
 };
