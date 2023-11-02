@@ -26,6 +26,7 @@ const config: Config = {
       },
       blue: {
         200: '#D1ECFF',
+        300: '#E4F1F2',
         500: '#0500FF'
       },
       red: {
