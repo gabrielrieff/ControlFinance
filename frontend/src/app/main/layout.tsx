@@ -17,7 +17,7 @@ export default function RootLayout({
         <div className="w-[300px] mr-2">
           <NavBar />
         </div>
-        <div className="grid grid-rows-3 col-span-1 w-full">
+        <div className="flex flex-col gap-2 col-span-1 w-full">
           <Header />
           {children}
         </div>
