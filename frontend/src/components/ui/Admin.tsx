@@ -14,8 +14,10 @@ export const Admin = () => {
         <Image alt="" src={Foto01} width={46} className="rounded-full" />
 
         <div className="flex flex-col items-end">
-          <span>{user?.firstName}</span>
-          <span className="text-grey-700 text-sm">admin</span>
+          <span>
+            {user?.firstName} {user?.lastName}
+          </span>
+          <span className="text-grey-700 text-sm">{user?.admin}</span>
         </div>
       </DropdownMenu.Trigger>
 

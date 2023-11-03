@@ -11,7 +11,7 @@ export const Header = () => {
     const path = str.charAt(0).toUpperCase() + str.slice(1);
 
     if (path === 'AddUser') {
-      return 'Adicionar novo usuario';
+      return 'Adicionar novo usuário';
     } else {
       return path;
     }
