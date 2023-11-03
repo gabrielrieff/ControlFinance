@@ -8,12 +8,12 @@ export const NavBar = () => {
         MyWallet
       </h1>
       <section className=" flex flex-col gap-[40px] ml-2">
-        <ActiveLink href={'/dashboard'}>
+        <ActiveLink href={'/main/dashboard'}>
           <BiSolidDashboard size={30} />
           <span>Dashboard</span>
         </ActiveLink>
 
-        <ActiveLink href={'/AddUser'}>
+        <ActiveLink href={'/main/addUser'}>
           <BiUserPlus size={30} />
           <span>Criar novo usuário</span>
         </ActiveLink>

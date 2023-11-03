@@ -8,15 +8,14 @@ import Foto01 from '../../../public/FotoPerfil.jpeg';
 
 export const Admin = () => {
   const { signOut, user } = useContext(AuthContext);
-
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center gap-2">
         <Image alt="" src={Foto01} width={46} className="rounded-full" />
 
         <div className="flex flex-col items-end">
-          <span>Gabriel Rieff</span>
-          <span className="text-grey-700 text-sm">Admin</span>
+          <span>{user?.firstName}</span>
+          <span className="text-grey-700 text-sm">admin</span>
         </div>
       </DropdownMenu.Trigger>
 

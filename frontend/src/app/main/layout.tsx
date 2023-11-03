@@ -6,11 +6,15 @@ export const metadata: Metadata = {
   title: 'Dashboard'
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html>
       <body className="bg-blue-300 flex h-screen pt-3 pr-3 pb-3">
-        <div className="w-[300px]">
+        <div className="w-[300px] mr-2">
           <NavBar />
         </div>
         <div className="grid grid-rows-3 col-span-1 w-full">
