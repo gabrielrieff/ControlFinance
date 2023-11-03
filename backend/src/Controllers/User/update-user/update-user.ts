@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "~/models/user";
-import { UpdateUserparams } from "./protocols";
 import { PostgresUpdateUserRepository } from "~/repositories/User/update-user/postgres-update-user";
+import { UpdateUserparams } from "./protocols";
 
 export class UpdateUserController {
   async handle(
@@ -10,7 +10,8 @@ export class UpdateUserController {
   ): Promise<Response<User | string>> {
     try {
       const id = httpRequest?.params?.id as string;
-      const body = httpRequest?.body;
+      const photo = httpRequest.file.filename;
+      const body = { ...httpRequest.body, photo };
 
       if (!id) {
         return httpResponse.status(401).json({ error: "Missing user id" });
@@ -20,6 +21,7 @@ export class UpdateUserController {
         "firstName",
         "lastName",
         "email",
+        "photo",
         "password",
         "admin",
         "updated_at",

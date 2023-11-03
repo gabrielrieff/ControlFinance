@@ -15,6 +15,7 @@ model User {
   firstName String
   lastName String
   email String
+  photo String?
   password String
   admin String
   created_at DateTime? @default(now())

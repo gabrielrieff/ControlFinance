@@ -11,6 +11,7 @@ export class DetailUserRepository {
         admin: true,
         firstName: true,
         lastName: true,
+        photo: true,
         email: true,
         updated_at: true,
         created_at: true,
