@@ -1,11 +1,15 @@
 'use client';
 
+import Chart from 'react-google-charts';
 import { BoxResume } from '~/components/BoxResume';
 
 export default function Dashboard() {
   return (
-    <main className="flex justify-center items-center bg-white-100 h-full rounded-[20px]">
-      <section className="flex items-center justify-center flex-wrap gap-3">
+    <main
+      className="flex flex-col justify-center items-center bg-white-100
+     h-full rounded-[20px] p-4"
+    >
+      <section className="w-full flex items-center justify-center flex-wrap gap-3">
         <BoxResume className="bg-blue-200 font-semibold gap-2">
           <h3 className="text-sm">Total receita</h3>
           <span className="text-xl ">R$ 1000,00</span>
@@ -19,8 +23,47 @@ export default function Dashboard() {
           <span className="text-xl ">R$ 500,00</span>
         </BoxResume>
       </section>
-      <section></section>
+      <section className="w-full">
+        <Chart
+          chartType="LineChart"
+          width="100%"
+          height="400px"
+          className=""
+          data={data}
+          options={options}
+        />
+      </section>
       <section></section>
     </main>
   );
 }
+
+const options = {
+  curveType: 'function',
+  hAxis: {
+    title: 'Month'
+  },
+  vAxis: {
+    format: 'currency',
+    formatOptions: {
+      prefix: 'R',
+      fractionDigits: 0
+    },
+    title: 'Sales',
+    minValue: 0
+  },
+  chartArea: {
+    width: '80%',
+    height: '70%'
+  }
+};
+
+const data = [
+  ['Age', 'Weight'],
+  [8, 12],
+  [4, 5.5],
+  [11, 14],
+  [4, 5],
+  [3, 3.5],
+  [6.5, 7]
+];
