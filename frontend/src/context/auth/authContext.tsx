@@ -28,14 +28,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       api
         .get('/user/detail')
         .then((response) => {
-          const { id, firstName, lastName, email, admin } = response.data;
+          const { id, firstName, lastName, email, admin, photo } =
+            response.data;
 
           setUser({
             id,
             firstName,
             lastName,
             email,
-            admin
+            admin,
+            photo
           });
         })
         .catch(() => {

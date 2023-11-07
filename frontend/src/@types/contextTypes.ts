@@ -3,6 +3,7 @@ export type userProps = {
   firstName: string;
   lastName?: string;
   email: string;
+  photo?: string;
   admin?: string;
   password?: string;
   updated_at?: Date;

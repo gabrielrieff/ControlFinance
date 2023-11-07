@@ -3,15 +3,27 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
 import { useContext } from 'react';
+import { BiSolidUser } from 'react-icons/bi';
 import { AuthContext } from '~/context/auth/authContext';
-import Foto01 from '../../../public/FotoPerfil.jpeg';
 
 export const Admin = () => {
   const { signOut, user } = useContext(AuthContext);
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center gap-2">
-        <Image alt="" src={Foto01} width={46} className="rounded-full" />
+        {!user?.photo ? (
+          <div className="">
+            <BiSolidUser size={30} />
+          </div>
+        ) : (
+          <Image
+            alt={`${user!.firstName} ${user!.lastName}`}
+            src={`http://localhost:3333/files/${user!.photo}`}
+            width={46}
+            height={46}
+            className="rounded-full"
+          />
+        )}
 
         <div className="flex flex-col items-end">
           <span>
