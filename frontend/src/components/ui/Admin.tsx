@@ -7,8 +7,7 @@ import { BiSolidUser } from 'react-icons/bi';
 import { AuthContext } from '~/context/auth/authContext';
 
 export const Admin = () => {
-  const { signOut, user } = useContext(AuthContext);
-  console.log(user);
+  const { user } = useContext(AuthContext);
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center gap-2">
@@ -41,16 +40,8 @@ export const Admin = () => {
         <DropdownMenu.Content
           sideOffset={5}
           alignOffset={20}
-          className="bg-grey-300 w-[200px] rounded-md p-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]"
-        >
-          <DropdownMenu.Item
-            onClick={signOut}
-            className="hover:bg-grey-400 cursor-pointer w-full text-start 
-            rounded-sm py-[3px] px-2"
-          >
-            Sair
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
+          className="bg-grey-700 text-white-100 w-[200px] rounded-md p-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]"
+        ></DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
   );
