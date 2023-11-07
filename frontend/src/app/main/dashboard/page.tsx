@@ -2,11 +2,12 @@
 
 import Chart from 'react-google-charts';
 import { BoxResume } from '~/components/BoxResume';
+import { TransactionHistory } from '~/components/ui/TransactionHistory';
 
 export default function Dashboard() {
   return (
     <main
-      className="flex flex-col justify-center items-center bg-white-100
+      className="flex flex-col justify-between items-center bg-white-100
      h-full rounded-[20px] p-4"
     >
       <section className="w-full flex items-center justify-center flex-wrap gap-3">
@@ -24,16 +25,23 @@ export default function Dashboard() {
         </BoxResume>
       </section>
       <section className="w-full">
-        <Chart
-          chartType="LineChart"
-          width="100%"
-          height="400px"
-          className=""
-          data={data}
-          options={options}
-        />
+        <div
+          className="border border-grey-500 rounded-2xl flex flex-col
+    p-2"
+        >
+          <Chart
+            chartType="LineChart"
+            width="100%"
+            height="400px"
+            className=""
+            data={data}
+            options={options}
+          />
+        </div>
       </section>
-      <section></section>
+      <section className="w-full">
+        <TransactionHistory />
+      </section>
     </main>
   );
 }
