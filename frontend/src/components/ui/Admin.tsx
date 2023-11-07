@@ -8,11 +8,15 @@ import { AuthContext } from '~/context/auth/authContext';
 
 export const Admin = () => {
   const { signOut, user } = useContext(AuthContext);
+  console.log(user);
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center gap-2">
         {!user?.photo ? (
-          <div className="">
+          <div
+            className="bg-grey-400 h-[40px] w-[40px] flex items-center
+           justify-center rounded-full"
+          >
             <BiSolidUser size={30} />
           </div>
         ) : (
@@ -41,9 +45,10 @@ export const Admin = () => {
         >
           <DropdownMenu.Item
             onClick={signOut}
-            className="hover:bg-grey-400 cursor-pointer w-full text-start rounded-sm py-[3px] px-2"
+            className="hover:bg-grey-400 cursor-pointer w-full text-start 
+            rounded-sm py-[3px] px-2"
           >
-            Deslogar
+            Sair
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
