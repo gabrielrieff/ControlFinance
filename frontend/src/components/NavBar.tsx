@@ -41,7 +41,7 @@ export const NavBar = () => {
           <span>Adicionar despeça</span>
         </ActiveLink>
 
-        <ActiveLink href={''}>
+        <ActiveLink href={'/main/configuracao'}>
           <RiSettings5Fill size={30} />
           <span>Configurações</span>
         </ActiveLink>
