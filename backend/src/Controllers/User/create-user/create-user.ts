@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import { User } from "~/models/user";
-import { CreateUserParams } from "./protocols";
-import { PostgresCreateUserRepository } from "~/repositories/User/create-user/postgres-user";
+import { enumUser } from "~/Enums/EnumAdmin";
 import { isValidEmail } from "~/Helpers/emailIsValid";
 import { hashPassword } from "~/Helpers/hashPassword";
+import { User } from "~/models/user";
+import { PostgresCreateUserRepository } from "~/repositories/User/create-user/postgres-user";
+import { CreateUserParams } from "./protocols";
 
 export class CreateUserController {
   async handle(
@@ -22,10 +23,22 @@ export class CreateUserController {
       ];
 
       for (const field of requiredFields) {
-        if (!httpRequest?.body?.[field as keyof CreateUserParams]?.length) {
+        const fieldValue = httpRequest?.body?.[field as keyof CreateUserParams];
+
+        if (
+          field === "admin" &&
+          fieldValue !== undefined &&
+          !(fieldValue in enumUser)
+        ) {
           return httpResponse
             .status(400)
-            .json({ error: `Fields ${field} is required!` });
+            .json({ error: `Invalid value for field ${field}!` });
+        }
+
+        if (!fieldValue?.toString().length) {
+          return httpResponse
+            .status(400)
+            .json({ error: `Field ${field} is required!` });
         }
       }
 
@@ -35,13 +48,14 @@ export class CreateUserController {
 
       httpRequest.body!.password = passwordHash;
 
+      console.log();
       const postgresCreateUserRepository = new PostgresCreateUserRepository();
 
       const user = await postgresCreateUserRepository.createUser({
         firstName,
         lastName,
         email,
-        password,
+        password: httpRequest.body!.password,
         admin,
       });
 

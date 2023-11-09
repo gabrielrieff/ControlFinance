@@ -1,4 +1,5 @@
-export enum EnumAdmin {
-  Administrator = "1",
-  Padrao = "2",
+export enum enumUser {
+  Padrao = 0,
+  Admin = 1,
+  Master = 2,
 }

@@ -17,7 +17,7 @@ model User {
   email String
   photo String?
   password String
-  admin String
+  admin Int
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
@@ -32,7 +32,7 @@ model Invoice {
   id String @id @default(uuid())
   description String
   value Float
-  type Boolean
+  type Int
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
@@ -60,6 +60,7 @@ model repeatedInvoice{
 model Category {
   id String @id @default(uuid())
   title String
+  banner String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
