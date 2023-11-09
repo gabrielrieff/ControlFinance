@@ -27,7 +27,7 @@ export default function Dashboard() {
       <section className="w-full">
         <div
           className="border border-grey-500 rounded-2xl flex flex-col
-    p-2"
+                      p-2"
         >
           <Chart
             chartType="LineChart"
