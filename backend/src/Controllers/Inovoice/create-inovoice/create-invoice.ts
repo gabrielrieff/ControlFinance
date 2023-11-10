@@ -8,7 +8,8 @@ export class CreateInvoiceController {
     httpResponse: Response
   ): Promise<Response<Invoice | string>> {
     try {
-      const { description, value, type, categoryId } = httpRequest.body;
+      const { description, value, type, categoryId, dateEnd } =
+        httpRequest.body;
       const userId = httpRequest.user_id;
       const invoiceId = "";
 
@@ -20,6 +21,7 @@ export class CreateInvoiceController {
         userId,
         repeatedInvoices: {
           invoiceId,
+          dateEnd,
         },
       } as Invoice;
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Invoice } from "~/models/inovoice";
 import client from "~/database/postgres";
+import { Invoice } from "~/models/inovoice";
 
 export class PostgresCreateInvocieRepository {
   async createInovocieRepository(params: Invoice) {
@@ -39,11 +39,13 @@ export class PostgresCreateInvocieRepository {
     if (!existingInvoice) {
       throw new Error("Invoice not found");
     }
-    const d = new Date();
+
+    const dateEnd = new Date(params.repeatedInvoices.dateEnd);
+
     let createdrepeatedInvoice = {};
     createdrepeatedInvoice = await client.repeatedInvoice.create({
       data: {
-        dateEnd: d,
+        dateEnd,
         invoiceId: createdInvoice.id,
       },
     });
