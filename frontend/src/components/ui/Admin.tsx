@@ -4,10 +4,21 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
 import { useContext } from 'react';
 import { BiSolidUser } from 'react-icons/bi';
+import { enumUser } from '~/@types/enum/EnumAdmin';
 import { AuthContext } from '~/context/auth/authContext';
 
 export const Admin = () => {
   const { user } = useContext(AuthContext);
+
+  const typeUser =
+    user?.admin! === enumUser.Admin
+      ? 'Admin'
+      : user?.admin! === enumUser.Padrao
+      ? 'Padrão'
+      : user?.admin! === enumUser.Master
+      ? 'Master'
+      : 'Tipo desconhecido';
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center gap-2">
@@ -32,17 +43,17 @@ export const Admin = () => {
           <span>
             {user?.firstName} {user?.lastName}
           </span>
-          <span className="text-grey-700 text-sm">{user?.admin}</span>
+          <span className="text-grey-700 text-sm">{typeUser}</span>
         </div>
       </DropdownMenu.Trigger>
 
-      <DropdownMenu.Portal>
+      {/* <DropdownMenu.Portal>
         <DropdownMenu.Content
           sideOffset={5}
           alignOffset={20}
           className="bg-grey-700 text-white-100 w-[200px] rounded-md p-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]"
         ></DropdownMenu.Content>
-      </DropdownMenu.Portal>
+      </DropdownMenu.Portal> */}
     </DropdownMenu.Root>
   );
 };

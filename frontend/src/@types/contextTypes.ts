@@ -4,7 +4,7 @@ export type userProps = {
   lastName?: string;
   email: string;
   photo?: string;
-  admin?: string;
+  admin?: number;
   password?: string;
   updated_at?: Date;
   created_at?: Date;

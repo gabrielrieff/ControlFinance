@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-      push('/dashboard');
+      push('/main/dashboard');
     } catch (error) {
       console.log('error: ', error);
     }
