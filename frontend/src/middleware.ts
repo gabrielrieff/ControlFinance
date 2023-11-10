@@ -8,6 +8,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/main/dashboard', request.url));
   }
 
+  if (request.nextUrl.pathname === '/' && !token?.value) {
+    return;
+  }
+
   if (!token?.value) {
     return NextResponse.redirect(new URL('/', request.url));
   }
