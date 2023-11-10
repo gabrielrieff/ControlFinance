@@ -1,4 +1,10 @@
+import Image from 'next/image';
+import { useContext } from 'react';
+import { AuthContext } from '~/context/auth/authContext';
+
 export const TransactionHistory = () => {
+  const { listInvoice } = useContext(AuthContext);
+  console.log(listInvoice);
   return (
     <section
       className="border border-grey-500 rounded-2xl flex flex-col
@@ -18,21 +24,18 @@ export const TransactionHistory = () => {
         </thead>
 
         <tbody>
-          <tr className="p-3">
-            <td>Callidus</td>
-            <td>Trabalho</td>
-            <td>R$1000,00</td>
-            <td>31/10/2023</td>
-            <td>Crédito</td>
-          </tr>
-
-          <tr className="p-1">
-            <td>Nubank</td>
-            <td>Cartao de credito</td>
-            <td>R$100,00</td>
-            <td>31/10/2023</td>
-            <td>Débito</td>
-          </tr>
+          {listInvoice.map((invoice) => (
+            <tr className="p-3">
+              <td className="flex items-center">
+                <Image alt={invoice.description} src={''} />
+                <span>{}</span>
+              </td>
+              <td>{invoice.description}</td>
+              <td>R${invoice.value}</td>
+              <td>31/10/2023</td>
+              <td>Crédito</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </section>

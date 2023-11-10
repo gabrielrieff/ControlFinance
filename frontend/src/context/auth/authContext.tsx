@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import { ReactNode, createContext, useEffect, useState } from 'react';
-import { signInProps, userProps } from '~/@types/contextTypes';
+import { invoiceProps, signInProps, userProps } from '~/@types/contextTypes';
 import { api } from '~/services/api';
 
 type AuthContextData = {
@@ -12,6 +12,7 @@ type AuthContextData = {
   signIn: (credentials: signInProps) => Promise<void>;
   signOut: () => void;
   recoverPassword: (email: string) => Promise<void>;
+  listInvoice: Array<invoiceProps>;
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -20,6 +21,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { push } = useRouter();
 
   const [user, setUser] = useState<userProps>();
+  const [listInvoice, setListInvoice] = useState<Array<invoiceProps>>([]);
   const isAuthenticated = !!user;
 
   useEffect(() => {
@@ -43,6 +45,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         .catch(() => {
           signOut();
         });
+    }
+  }, []);
+
+  useEffect(() => {
+    const { '@nextauth.token': token } = parseCookies();
+    if (token) {
+      allInvoices();
     }
   }, []);
 
@@ -88,11 +97,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  async function allInvoices() {
+    const inovoice = await api.get('/invoices');
+    setListInvoice(inovoice.data);
+    return listInvoice;
+  }
+
   async function changePassword() {}
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, signIn, signOut, recoverPassword }}
+      value={{
+        user,
+        isAuthenticated,
+        signIn,
+        signOut,
+        recoverPassword,
+        listInvoice
+      }}
     >
       <>{children}</>
     </AuthContext.Provider>
