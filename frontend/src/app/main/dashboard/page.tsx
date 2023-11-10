@@ -10,7 +10,7 @@ export default function Dashboard() {
       className="flex flex-col justify-between items-center bg-white-100
      h-full rounded-[20px] p-4"
     >
-      <section className="w-full flex items-center justify-center flex-wrap gap-3">
+      <section className="w-full flex items-center justify-around flex-wrap gap-3">
         <BoxResume className="bg-blue-200 font-semibold gap-2">
           <h3 className="text-sm">Total receita</h3>
           <span className="text-xl ">R$ 1000,00</span>

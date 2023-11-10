@@ -43,7 +43,7 @@ export const TransactionHistory = () => {
                 <span>{invoice.category.title}</span>
               </td>
               <td>{invoice.description}</td>
-              <td>R${invoice.value}</td>
+              <td>R$ {invoice.value.toFixed(2)}</td>
               <td>{convertDate(invoice.created_at)}</td>
               {invoice.type == 0 ? (
                 <td className="text-green-400 font-semibold">Receita</td>
