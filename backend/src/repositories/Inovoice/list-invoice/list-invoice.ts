@@ -22,6 +22,8 @@ export class ListInvoiceRepository {
         type: true,
         categoryId: true,
         userId: true,
+        created_at: true,
+        category: true,
       },
     });
 

@@ -32,7 +32,8 @@ const config: Config = {
         500: '#0500FF'
       },
       red: {
-        200: '#FFA4A4'
+        200: '#FFA4A4',
+        500: '#FF0000'
       }
     },
     screens: {

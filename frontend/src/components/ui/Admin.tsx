@@ -32,7 +32,7 @@ export const Admin = () => {
         ) : (
           <Image
             alt={`${user!.firstName} ${user!.lastName}`}
-            src={`http://localhost:3333/files/${user!.photo}`}
+            src={`http://localhost:3333/files/image/user/${user!.photo}`}
             width={46}
             height={46}
             className="rounded-full"

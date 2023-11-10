@@ -18,11 +18,14 @@ export type signInProps = {
 };
 
 export type invoiceProps = {
+  id: string;
   description: string;
   value: number;
   type: enumInvoice;
   categoryId: string;
+  category: Category;
   userId: string;
+  created_at: Date;
   repeatedInvoices?: repeatedInvoicesProps;
 };
 
@@ -32,3 +35,10 @@ export type repeatedInvoicesProps = {
   dateEnd: Date;
   invoiceId: string;
 };
+
+export interface Category {
+  id: string;
+  title: string;
+  banner: string;
+  userId?: string;
+}
