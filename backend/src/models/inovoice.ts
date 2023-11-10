@@ -1,7 +1,9 @@
+import { enumInvoice } from "~/Enums/EnumInvoice";
+
 export interface Invoice {
   description: string;
   value: number;
-  type: boolean;
+  type: enumInvoice;
   categoryId: string;
   userId: string;
   repeatedInvoices?: repeatedInvoices;

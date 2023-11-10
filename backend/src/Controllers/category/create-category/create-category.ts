@@ -19,10 +19,12 @@ export class CreateCategoryController {
       }
 
       const { title } = httpRequest.body;
+      const banner = httpRequest.file.filename;
       const userId = httpRequest.user_id;
 
       const data = {
         title,
+        banner,
         userId,
       } as Category;
 

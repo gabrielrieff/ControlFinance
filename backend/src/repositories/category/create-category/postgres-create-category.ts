@@ -19,10 +19,12 @@ export class PostgresCreateCategoryRepository {
     const createdCategory = await client.category.create({
       data: {
         title: params.title,
+        banner: params.banner,
       },
       select: {
         id: true,
         title: true,
+        banner: true,
       },
     });
 

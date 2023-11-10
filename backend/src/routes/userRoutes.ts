@@ -1,6 +1,8 @@
 import { Router } from "express";
 
 import multer from "multer";
+import uploadConfig from "~/config/multer";
+
 import { AuthUserController } from "~/Controllers/User/auth-user/auth-user";
 import { CreateUserController } from "~/Controllers/User/create-user/create-user";
 import { deleteUserController } from "~/Controllers/User/delete-user/delete-user";
@@ -10,12 +12,11 @@ import { ResetPasswordController } from "~/Controllers/User/reset-password/reset
 import { ToForgotPasswordController } from "~/Controllers/User/to-forgot-password/to-forgot-password";
 import { ToRecoverPasswordController } from "~/Controllers/User/to-recover-user/to-recover-password";
 import { UpdateUserController } from "~/Controllers/User/update-user/update-user";
-import uploadConfig from "~/config/multer";
 import { isAuthenticated } from "~/middlewares/isAuthenticated";
 
 const userRouter = Router();
 
-const upload = multer(uploadConfig.upload("./tmp"));
+const upload = multer(uploadConfig.upload("./tmp/image/user"));
 
 userRouter.post("/session", new AuthUserController().handle);
 userRouter.post("/user", isAuthenticated, new CreateUserController().handle);
@@ -33,8 +34,8 @@ userRouter.delete(
 userRouter.patch(
   "/user/:id",
   isAuthenticated,
-  upload.single("file"),
-  new UpdateUserController().handle
+  new UpdateUserController().handle,
+  upload.single("file")
 );
 userRouter.post("/forgotpassword", new ToForgotPasswordController().handle);
 userRouter.post("/recoverpassword", new ToRecoverPasswordController().handle);
