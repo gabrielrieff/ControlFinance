@@ -1,13 +1,13 @@
 'use client';
 import { AuthContext } from '~/context/auth/authContext';
 
-import { Input } from '~/components/shared/Input';
+import Link from 'next/link';
+import { FormEvent, useContext, useRef } from 'react';
+import { AiFillEye } from 'react-icons/ai';
 import { BiSolidLock } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
-import { AiFillEye } from 'react-icons/ai';
 import { Button } from '~/components/shared/Button';
-import Link from 'next/link';
-import { FormEvent, useContext, useRef, useState } from 'react';
+import { Input } from '~/components/shared/Input';
 
 export default function Home() {
   const { signIn } = useContext(AuthContext);
@@ -29,6 +29,7 @@ export default function Home() {
   return (
     <main className="flex justify-center items-center">
       <form
+        autoComplete="off"
         onSubmit={handleLogin}
         className="w-[40%] lg:w-[60%] md:w-[75%] flex flex-col items-center justify-center gap-16 h-screen"
       >
