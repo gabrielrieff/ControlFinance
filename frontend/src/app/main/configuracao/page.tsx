@@ -1,14 +1,73 @@
 'use client';
 
-import Image from 'next/image';
-import { useContext } from 'react';
-import { AiOutlineUser } from 'react-icons/ai';
-import { Button } from '~/components/shared/Button';
-import { Input } from '~/components/shared/Input';
+import { ChangeEvent, FormEvent, useContext, useRef, useState } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
+import Image from 'next/image';
+import { Button } from '~/components/shared/Button';
+import { Input } from '~/components/shared/Input';
+
+import { AiOutlineUser } from 'react-icons/ai';
+
 export default function Configuracao() {
-  const { user } = useContext(AuthContext);
+  const { user, updateUser } = useContext(AuthContext);
+
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const firstNameRef = useRef<HTMLInputElement | null>(null);
+  const lastNameRef = useRef<HTMLInputElement | null>(null);
+
+  const [imagemAvatar, setImagemAvatar] = useState<File | null>(null);
+  const [avatar, setAvatar] = useState('');
+
+  async function handleAvatar(e: ChangeEvent<HTMLInputElement>) {
+    if (!e.target.files) {
+      return;
+    }
+
+    const image = e.target.files[0];
+
+    if (!image) {
+      return;
+    }
+
+    if (image.type === 'image/jpeg' || image.type === 'image/png') {
+      setImagemAvatar(image);
+      setAvatar(URL.createObjectURL(e.target.files[0]));
+    }
+  }
+
+  async function handleDataUser(event: FormEvent) {
+    event.preventDefault();
+    const date = new Date();
+    try {
+      const data = new FormData();
+
+      data.append(
+        'firstName',
+        firstNameRef.current?.value! != ''
+          ? firstNameRef.current?.value!
+          : user?.firstName!
+      );
+      data.append(
+        'lastName',
+        lastNameRef.current?.value! != ''
+          ? lastNameRef.current?.value!
+          : user?.lastName!
+      );
+      data.append(
+        'email',
+        emailRef.current?.value! != '' ? emailRef.current?.value! : user?.email!
+      );
+
+      if (imagemAvatar != null) {
+        data.append('file', imagemAvatar);
+      }
+
+      await updateUser(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <main
@@ -18,35 +77,62 @@ export default function Configuracao() {
       <section>
         <h1 className="text-center font-bold text-[20px]">Dados do usuário</h1>
         <form
+          onSubmit={handleDataUser}
           autoComplete="off"
           className="flex items-center justify-center gap-10"
         >
-          <div className="">
+          <div>
             {!user?.photo ? (
               <>
                 <label htmlFor="input-file">
-                  <Input id="input-file" type="file" className="hidden " />
-                  <div className="w-[256px] h-[256px] rounded-full bg-grey-300 flex items-center justify-center">
-                    <AiOutlineUser size={150} />
-                  </div>
+                  <Input
+                    onChange={handleAvatar}
+                    accept="image/png, image/jpeg"
+                    id="input-file"
+                    type="file"
+                    className="hidden "
+                  />
+                  {!avatar ? (
+                    <div className="w-[256px] h-[256px] rounded-full bg-grey-300 flex items-center justify-center">
+                      <AiOutlineUser size={150} />
+                    </div>
+                  ) : (
+                    <Image
+                      alt="Preview"
+                      src={avatar}
+                      width={256}
+                      height={256}
+                      className="rounded-full h-[256px] object-cover"
+                    />
+                  )}
                 </label>
-                <Button type="button">Adicionar uma foto</Button>
+                {/* <Button type="submit">Adicionar uma foto</Button> */}
               </>
             ) : (
               <>
                 <label htmlFor="input-file">
-                  <Input id="input-file" type="file" className="hidden " />
+                  <Input
+                    onChange={handleAvatar}
+                    accept="image/png, image/jpeg"
+                    id="input-file"
+                    type="file"
+                    className="hidden "
+                  />
                   <Image
                     alt={`${user!.firstName} ${user!.lastName}`}
-                    src={`http://localhost:3333/files/image/user/${
-                      user!.photo
-                    }`}
+                    src={
+                      !avatar
+                        ? `http://localhost:3333/files/image/user/${
+                            user!.photo
+                          }`
+                        : avatar
+                    }
                     width={256}
                     height={256}
-                    className="rounded-full"
+                    className="rounded-full h-[256px] object-cover"
                   />
                 </label>
-                <Button type="button">Alterar minha foto</Button>
+                {/* <Button type="button">Alterar minha foto</Button> */}
               </>
             )}
           </div>
@@ -54,23 +140,28 @@ export default function Configuracao() {
             <label>
               <span>Nome</span>
               <Input
+                placeholder={user?.firstName}
+                inputref={firstNameRef}
                 type="text"
-                className="border border-grey-500 bg-grey-300"
+                className="border border-grey-500 bg-grey-300 placeholder:text-black-100"
               />
             </label>
             <label>
               <span>Sobrenome</span>
               <Input
+                placeholder={user?.lastName}
+                inputref={lastNameRef}
                 type="text"
-                className="border border-grey-500 bg-grey-300"
+                className="border border-grey-500 bg-grey-300 placeholder:text-black-100"
               />
             </label>
             <label>
               <span>E-mail</span>
               <Input
-                autoComplete="off"
+                placeholder={user?.email}
+                inputref={emailRef}
                 type="email"
-                className="border border-grey-500 bg-grey-300"
+                className="border border-grey-500 bg-grey-300 placeholder:text-black-100"
               />
             </label>
 

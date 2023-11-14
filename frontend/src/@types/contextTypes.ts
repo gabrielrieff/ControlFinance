@@ -42,3 +42,10 @@ export interface Category {
   banner: string;
   userId?: string;
 }
+
+export interface updateUserProps {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  file?: FileList;
+}

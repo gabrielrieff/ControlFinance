@@ -34,8 +34,8 @@ userRouter.delete(
 userRouter.patch(
   "/user/:id",
   isAuthenticated,
-  new UpdateUserController().handle,
-  upload.single("file")
+  upload.single("file"),
+  new UpdateUserController().handle
 );
 userRouter.post("/forgotpassword", new ToForgotPasswordController().handle);
 userRouter.post("/recoverpassword", new ToRecoverPasswordController().handle);

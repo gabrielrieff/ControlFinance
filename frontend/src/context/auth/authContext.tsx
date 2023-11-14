@@ -13,6 +13,7 @@ type AuthContextData = {
   signOut: () => void;
   recoverPassword: (email: string) => Promise<void>;
   listInvoice: Array<invoiceProps>;
+  updateUser: (data: FormData) => Promise<void>;
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -103,6 +104,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return listInvoice;
   }
 
+  async function updateUser(data: FormData) {
+    await api.patch(`/user/${user?.id}`, data).then((response) => {
+      const { id, firstName, lastName, email, admin, photo } = response.data;
+
+      setUser({
+        id,
+        firstName,
+        lastName,
+        email,
+        admin,
+        photo
+      });
+    });
+  }
+
   async function changePassword() {}
 
   return (
@@ -113,7 +129,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signIn,
         signOut,
         recoverPassword,
-        listInvoice
+        listInvoice,
+        updateUser
       }}
     >
       <>{children}</>

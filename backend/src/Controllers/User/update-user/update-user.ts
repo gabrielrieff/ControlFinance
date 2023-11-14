@@ -10,7 +10,7 @@ export class UpdateUserController {
   ): Promise<Response<User | string>> {
     try {
       const id = httpRequest?.params?.id as string;
-      const photo = httpRequest.file.filename;
+      const photo = httpRequest.file?.filename;
       const body = { ...httpRequest.body, photo };
 
       if (!id) {

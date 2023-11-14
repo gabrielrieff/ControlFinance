@@ -6,7 +6,7 @@ export interface UpdateUserparams {
   email?: string;
   photo?: string;
   password?: string;
-  admin?: string;
+  admin?: number;
   updated_at: Date;
 }
 
