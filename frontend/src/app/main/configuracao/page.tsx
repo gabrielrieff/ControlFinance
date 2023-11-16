@@ -38,7 +38,6 @@ export default function Configuracao() {
 
   async function handleDataUser(event: FormEvent) {
     event.preventDefault();
-    const date = new Date();
     try {
       const data = new FormData();
 
