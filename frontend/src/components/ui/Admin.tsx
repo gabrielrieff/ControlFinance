@@ -35,7 +35,7 @@ export const Admin = () => {
             src={`http://localhost:3333/files/image/user/${user!.photo}`}
             width={46}
             height={46}
-            className="rounded-full"
+            className="rounded-full h-[46px] object-cover"
           />
         )}
 

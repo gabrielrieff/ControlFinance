@@ -25,17 +25,12 @@ export default function Dashboard() {
         </BoxResume>
       </section>
       <section className="w-full">
-        <div
-          className="border border-grey-500 rounded-2xl flex flex-col
-                      p-2"
-        >
+        <div className="border border-grey-500 rounded-2xl p-2">
           <Chart
             chartType="LineChart"
-            width="100%"
-            height="400px"
-            className=""
             data={data}
             options={options}
+            className="w-full"
           />
         </div>
       </section>
@@ -61,8 +56,8 @@ const options = {
     minValue: 0
   },
   chartArea: {
-    width: '80%',
-    height: '70%'
+    //width: '80%'
+    //height: '70%'
   }
 };
 

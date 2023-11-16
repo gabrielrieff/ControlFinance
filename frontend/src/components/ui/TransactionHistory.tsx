@@ -4,7 +4,6 @@ import { AuthContext } from '~/context/auth/authContext';
 
 export const TransactionHistory = () => {
   const { listInvoice } = useContext(AuthContext);
-  console.log(listInvoice);
 
   function convertDate(date: Date) {
     const data = new Date(date);

@@ -18,28 +18,39 @@ export const NavBar = () => {
   function handleOpenModal() {
     setIsOpen(!isOpen);
   }
+
   return (
-    <nav className="max-w-[250px] bg-white-100 h-full pe-2 rounded-br-[40px] rounded-tr-[40px]">
-      <h1 className="font-medium text-[24px] flex items-center justify-center h-[114px]">
+    <nav
+      className={`max-w-[250px] bg-white-100 h-full pe-2 rounded-br-[40px] mr-3
+        rounded-tr-[40px] relative transition-all duration-500 ease-in`}
+    >
+      <h1
+        className="font-medium text-[24px] flex items-center justify-center
+       h-[114px] lg:hidden"
+      >
         MyWallet
       </h1>
-      <section className=" flex flex-col gap-[40px] ml-2">
-        <ActiveLink href={'/main/dashboard'}>
+      <section className=" flex flex-col gap-[40px] ml-2 mt-8">
+        <ActiveLink href={'/main/dashboard'} data-title="Dashboard">
           <BiSolidDashboard size={30} />
-          <span>Dashboard</span>
+          <span className="lg:hidden">Dashboard</span>
         </ActiveLink>
 
-        <ActiveLink href={''}>
+        <ActiveLink href={''} data-title="Transações mensais">
           <BiTransfer size={30} />
-          <span>Transações mensais</span>
+          <span className="lg:hidden">Transações mensais</span>
         </ActiveLink>
 
         <Dialog.Root
           isOpen={isOpen}
           Open={
-            <ActiveLink href={''} onClick={handleOpenModal}>
+            <ActiveLink
+              href={''}
+              onClick={handleOpenModal}
+              data-title="Adicionar receita"
+            >
               <GiReceiveMoney size={30} />
-              <span>Adicionar receita</span>
+              <span className="lg:hidden">Adicionar receita</span>
             </ActiveLink>
           }
         >
@@ -75,24 +86,24 @@ export const NavBar = () => {
           <Dialog.Close isOpen={handleOpenModal}></Dialog.Close>
         </Dialog.Root>
 
-        <ActiveLink href={''}>
+        <ActiveLink href={''} data-title="Adicionar despesa">
           <GiPayMoney size={30} />
-          <span>Adicionar despeça</span>
+          <span className="lg:hidden">Adicionar despesa</span>
         </ActiveLink>
 
-        <ActiveLink href={'/main/addUser'}>
+        <ActiveLink href={'/main/addUser'} data-title="Criar novo usuário">
           <BiUserPlus size={30} />
-          <span>Criar novo usuário</span>
+          <span className="lg:hidden">Criar novo usuário</span>
         </ActiveLink>
 
-        <ActiveLink href={''}>
+        <ActiveLink href={''} data-title="Categorias">
           <MdCategory size={30} />
-          <span>Categorias</span>
+          <span className="lg:hidden">Categorias</span>
         </ActiveLink>
 
-        <ActiveLink href={'/main/configuracao'}>
+        <ActiveLink href={'/main/configuracao'} data-title="Configurações">
           <RiSettings5Fill size={30} />
-          <span>Configurações</span>
+          <span className="lg:hidden">Configurações</span>
         </ActiveLink>
 
         <ActiveLink href={''}>
