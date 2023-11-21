@@ -15,7 +15,7 @@ export const TransactionHistory = () => {
   return (
     <section
       className="border border-grey-500 rounded-2xl flex flex-col
-      p-2 h-[200px]"
+      p-2 h-[250px]"
     >
       <h1 className="font-semibold p-3">Histórico de transações mensal</h1>
 
@@ -30,7 +30,10 @@ export const TransactionHistory = () => {
           </tr>
         </thead>
 
-        <tbody className="flex flex-col items-center justify-between overflow-y-auto w-full h-[90px] scroll">
+        <tbody
+          className="flex flex-col items-center justify-between overflow-y-auto
+         w-full h-[100px] scroll"
+        >
           {listInvoice.map((invoice) => (
             <tr className="p-3 flex w-full" key={invoice.id}>
               <td className="flex items-center justify-center gap-3 w-1/5">

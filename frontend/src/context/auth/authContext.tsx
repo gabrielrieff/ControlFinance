@@ -62,6 +62,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setCategories(response.data);
         return categories;
       });
+
+      allInvoices();
     }
   }, []);
 

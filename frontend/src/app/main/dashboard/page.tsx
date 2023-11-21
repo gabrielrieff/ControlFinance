@@ -30,7 +30,7 @@ export default function Dashboard() {
             chartType="LineChart"
             data={data}
             options={options}
-            className="w-full"
+            className="w-full h-[350px]"
           />
         </div>
       </section>
@@ -43,16 +43,13 @@ export default function Dashboard() {
 
 const options = {
   curveType: 'function',
-  hAxis: {
-    title: 'Month'
-  },
+  hAxis: {},
   vAxis: {
     format: 'currency',
     formatOptions: {
       prefix: 'R',
       fractionDigits: 0
     },
-    title: 'Sales',
     minValue: 0
   },
   chartArea: {
