@@ -29,6 +29,14 @@ export type invoiceProps = {
   repeatedInvoices?: repeatedInvoicesProps;
 };
 
+export type recipeProps = {
+  description: string;
+  value: number;
+  type: enumInvoice;
+  categoryId: string;
+  dateEnd: string;
+};
+
 export type repeatedInvoicesProps = {
   id?: string;
   dateInit?: Date;

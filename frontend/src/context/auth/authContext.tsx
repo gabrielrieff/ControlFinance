@@ -3,7 +3,13 @@
 import { useRouter } from 'next/navigation';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import { ReactNode, createContext, useEffect, useState } from 'react';
-import { invoiceProps, signInProps, userProps } from '~/@types/contextTypes';
+import {
+  Category,
+  invoiceProps,
+  recipeProps,
+  signInProps,
+  userProps
+} from '~/@types/contextTypes';
 import { api } from '~/services/api';
 
 type AuthContextData = {
@@ -12,8 +18,10 @@ type AuthContextData = {
   signIn: (credentials: signInProps) => Promise<void>;
   signOut: () => void;
   recoverPassword: (email: string) => Promise<void>;
-  listInvoice: Array<invoiceProps>;
   updateUser: (data: FormData) => Promise<void>;
+  AddRecipe: (data: recipeProps) => Promise<void>;
+  listInvoice: Array<invoiceProps>;
+  categories: Array<Category>;
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -23,6 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const [user, setUser] = useState<userProps>();
   const [listInvoice, setListInvoice] = useState<Array<invoiceProps>>([]);
+  const [categories, setCategories] = useState<Array<Category>>([]);
   const isAuthenticated = !!user;
 
   useEffect(() => {
@@ -46,6 +55,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         .catch(() => {
           signOut();
         });
+
+      api.get('/category').then((response) => {
+        const { id, title, banner } = response.data;
+
+        setCategories(response.data);
+        return categories;
+      });
     }
   }, []);
 
@@ -119,6 +135,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   }
 
+  async function AddRecipe(data: recipeProps) {
+    const recipe = await api.post('/invoices', data);
+    allInvoices();
+  }
+
   async function changePassword() {}
 
   return (
@@ -129,8 +150,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signIn,
         signOut,
         recoverPassword,
+        updateUser,
+        AddRecipe,
         listInvoice,
-        updateUser
+        categories
       }}
     >
       <>{children}</>

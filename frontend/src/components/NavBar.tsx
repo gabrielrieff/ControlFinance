@@ -10,6 +10,7 @@ import { BiSolidDashboard, BiTransfer, BiUserPlus } from 'react-icons/bi';
 import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
 import { MdCategory } from 'react-icons/md';
 import { RiSettings5Fill } from 'react-icons/ri';
+import { AddRecipe } from './ui/AddRecipe';
 
 export const NavBar = () => {
   const { signOut } = useContext(AuthContext);
@@ -54,36 +55,7 @@ export const NavBar = () => {
             </ActiveLink>
           }
         >
-          <Dialog.Title>Teste de titulo</Dialog.Title>
-          <Dialog.Content description="Este modal serve para você adicionar uma nova receita">
-            <fieldset className="mb-[15px] flex items-center gap-5">
-              <label
-                className="text-violet11 w-[90px] text-right text-[15px]"
-                htmlFor="name"
-              >
-                Name
-              </label>
-              <input
-                className="text-violet11 shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-                id="name"
-                defaultValue="Pedro Duarte"
-              />
-            </fieldset>
-            <fieldset className="mb-[15px] flex items-center gap-5">
-              <label
-                className="text-violet11 w-[90px] text-right text-[15px]"
-                htmlFor="username"
-              >
-                Username
-              </label>
-              <input
-                className="text-violet11 shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-                id="username"
-                defaultValue="@peduarte"
-              />
-            </fieldset>
-          </Dialog.Content>
-          <Dialog.Close isOpen={handleOpenModal}></Dialog.Close>
+          <AddRecipe closeModal={handleOpenModal} />
         </Dialog.Root>
 
         <ActiveLink href={''} data-title="Adicionar despesa">
