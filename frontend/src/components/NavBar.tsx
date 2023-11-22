@@ -10,14 +10,21 @@ import { BiSolidDashboard, BiTransfer, BiUserPlus } from 'react-icons/bi';
 import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
 import { MdCategory } from 'react-icons/md';
 import { RiSettings5Fill } from 'react-icons/ri';
+import { AddExpense } from './ui/AddExpense';
 import { AddRecipe } from './ui/AddRecipe';
 
 export const NavBar = () => {
   const { signOut } = useContext(AuthContext);
+
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenModalExpense, setIsOpenModalExpense] = useState(false);
 
   function handleOpenModal() {
     setIsOpen(!isOpen);
+  }
+
+  function handleModalExpense() {
+    setIsOpenModalExpense(!isOpenModalExpense);
   }
 
   return (
@@ -58,10 +65,21 @@ export const NavBar = () => {
           <AddRecipe closeModal={handleOpenModal} />
         </Dialog.Root>
 
-        <ActiveLink href={''} data-title="Adicionar despesa">
-          <GiPayMoney size={30} />
-          <span className="lg:hidden">Adicionar despesa</span>
-        </ActiveLink>
+        <Dialog.Root
+          isOpen={isOpenModalExpense}
+          Open={
+            <ActiveLink
+              href={''}
+              onClick={handleModalExpense}
+              data-title="Adicionar despesa"
+            >
+              <GiPayMoney size={30} />
+              <span className="lg:hidden">Adicionar despesa</span>
+            </ActiveLink>
+          }
+        >
+          <AddExpense closeModal={handleOpenModal} />
+        </Dialog.Root>
 
         <ActiveLink href={'/main/addUser'} data-title="Criar novo usuário">
           <BiUserPlus size={30} />
