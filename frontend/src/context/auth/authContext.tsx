@@ -19,7 +19,7 @@ type AuthContextData = {
   signOut: () => void;
   recoverPassword: (email: string) => Promise<void>;
   updateUser: (data: FormData) => Promise<void>;
-  AddRecipe: (data: recipeProps) => Promise<void>;
+  AddInvoice: (data: recipeProps) => Promise<void>;
   listInvoice: Array<invoiceProps>;
   categories: Array<Category>;
 };
@@ -137,7 +137,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   }
 
-  async function AddRecipe(data: recipeProps) {
+  async function AddInvoice(data: recipeProps) {
     const recipe = await api.post('/invoices', data);
     allInvoices();
   }
@@ -153,7 +153,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signOut,
         recoverPassword,
         updateUser,
-        AddRecipe,
+        AddInvoice,
         listInvoice,
         categories
       }}

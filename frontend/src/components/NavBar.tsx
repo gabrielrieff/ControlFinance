@@ -78,7 +78,7 @@ export const NavBar = () => {
             </ActiveLink>
           }
         >
-          <AddExpense closeModal={handleOpenModal} />
+          <AddExpense closeModal={handleModalExpense} />
         </Dialog.Root>
 
         <ActiveLink href={'/main/addUser'} data-title="Criar novo usuário">

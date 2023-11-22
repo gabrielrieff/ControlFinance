@@ -1,29 +1,27 @@
 'use client';
 
-import { FormEvent, useContext, useRef, useState } from 'react';
+import { FormEvent, useContext, useRef } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
-import { IoIosArrowDown } from 'react-icons/io';
 import { Button } from '../shared/Button';
 import { Dialog } from '../shared/Dialog';
-import { Drowdown } from '../shared/Dropdown';
 import { Input } from '../shared/Input';
-import { SelectedCategories } from './SelectedCategories';
+import { SelectedCategories } from './SelectedCategories/SelectedCategories';
+import { SelectedInstallments } from './SelectedInstallments/SelectedInstallments';
 
 interface addRecipeProps {
   closeModal: () => void;
 }
 
 export const AddExpense = ({ closeModal }: addRecipeProps) => {
-  const {} = useContext(AuthContext);
-
-  const [isOpen, setIsOpen] = useState(false);
+  const { AddInvoice } = useContext(AuthContext);
 
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
   const categoriRef = useRef<HTMLDivElement | null>(null);
+  const installmentsRef = useRef<HTMLDivElement | null>(null);
   const valueRef = useRef<HTMLInputElement | null>(null);
 
-  const handleCreatedRecipe = (event: FormEvent) => {
+  const handleCreatedExpense = (event: FormEvent) => {
     event.preventDefault();
 
     const categoryId = categoriRef.current?.getAttribute('data-value');
@@ -38,12 +36,12 @@ export const AddExpense = ({ closeModal }: addRecipeProps) => {
     const data = {
       description: descriptionRef.current?.value!,
       value: valueRef.current?.valueAsNumber!,
-      type: 0,
+      type: 1,
       categoryId: categoryId!,
       dateEnd: '2024-05-10'
     };
 
-    //AddRecipe(data);
+    AddInvoice(data);
 
     if (descriptionRef.current && categoriRef.current && valueRef.current) {
       descriptionRef.current.value = '';
@@ -51,14 +49,11 @@ export const AddExpense = ({ closeModal }: addRecipeProps) => {
     }
   };
 
-  const handleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
   return (
     <>
       <Dialog.Title>Adicionar uma nova despesa</Dialog.Title>
       <Dialog.Content description="Vamos usar esse campo para adicionar novas despesas ao seu controle de finanças">
-        <form onSubmit={handleCreatedRecipe}>
+        <form onSubmit={handleCreatedExpense}>
           <fieldset className="mb-[15px] flex flex-col items-start gap-5">
             <label htmlFor="descricao">Descrições</label>
             <textarea
@@ -86,13 +81,7 @@ export const AddExpense = ({ closeModal }: addRecipeProps) => {
 
             <fieldset className="mb-[15px] flex flex-col items-start w-[50%]">
               <label htmlFor="valor">Parcelas</label>
-              <Drowdown.Root>
-                <Drowdown.Main onClick={handleDropdown}>
-                  Quantidade de parcelas a lançar
-                  <IoIosArrowDown className={`${isOpen ? 'rotate-180' : ''}`} />
-                </Drowdown.Main>
-                <Drowdown.Content open={isOpen}>1x</Drowdown.Content>
-              </Drowdown.Root>
+              <SelectedInstallments installmentsRef={installmentsRef} />
             </fieldset>
           </div>
 

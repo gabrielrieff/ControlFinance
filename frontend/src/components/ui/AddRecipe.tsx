@@ -6,14 +6,14 @@ import { AuthContext } from '~/context/auth/authContext';
 import { Button } from '../shared/Button';
 import { Dialog } from '../shared/Dialog';
 import { Input } from '../shared/Input';
-import { SelectedCategories } from './SelectedCategories';
+import { SelectedCategories } from './SelectedCategories/SelectedCategories';
 
 interface addRecipeProps {
   closeModal: () => void;
 }
 
 export const AddRecipe = ({ closeModal }: addRecipeProps) => {
-  const { AddRecipe } = useContext(AuthContext);
+  const { AddInvoice } = useContext(AuthContext);
 
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
   const categoriRef = useRef<HTMLDivElement | null>(null);
@@ -39,7 +39,7 @@ export const AddRecipe = ({ closeModal }: addRecipeProps) => {
       dateEnd: '2024-05-10'
     };
 
-    AddRecipe(data);
+    AddInvoice(data);
 
     if (descriptionRef.current && categoriRef.current && valueRef.current) {
       descriptionRef.current.value = '';

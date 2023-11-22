@@ -1,10 +1,12 @@
 'use client';
 
-import Image from 'next/image';
 import { MutableRefObject, useContext, useState } from 'react';
-import { IoIosArrowDown, IoMdCloseCircle } from 'react-icons/io';
 import { AuthContext } from '~/context/auth/authContext';
-import { Drowdown } from '../shared/Dropdown';
+
+import Image from 'next/image';
+import { Drowdown } from '~/components/shared/Dropdown';
+
+import { IoIosArrowDown, IoMdCloseCircle } from 'react-icons/io';
 
 interface selectedCategoriesProps {
   categoriRef: MutableRefObject<HTMLDivElement | null>;

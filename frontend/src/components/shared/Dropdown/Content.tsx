@@ -10,7 +10,7 @@ export const Content = (props: contentProps) => {
     <div
       className={`${
         props.open ? 'flex' : 'hidden'
-      } absolute flex-col justify-center w-full bg-grey-300 p-2`}
+      } absolute z-10 flex-col w-full bg-grey-300 p-2 max-h-[150px] scroll overflow-y-auto`}
     >
       {props.children}
     </div>
