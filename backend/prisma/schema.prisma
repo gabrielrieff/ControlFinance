@@ -17,7 +17,7 @@ model User {
   email String
   photo String?
   password String
-  admin Int
+  userType Int
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
@@ -33,8 +33,10 @@ model Invoice {
   description String
   value Float
   type Int
+  installments Int
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
+  dateEnd DateTime? @default(now())
 
   userId String
   user User @relation(fields: [userId], references: [id])
@@ -42,19 +44,7 @@ model Invoice {
   categoryId String
   category Category @relation(fields: [categoryId], references: [id])
 
-  repeatedInvoices repeatedInvoice[]
-  @@map("inovoices")
-}
-
-model repeatedInvoice{
-  id String @id @default(uuid())
-  dateInit DateTime? @default(now())
-  dateEnd DateTime
-
-  invoiceId String
-  invoice Invoice @relation(fields: [invoiceId], references: [id])
-
-  @@map("repeatedInvoices")
+  @@map("invoices")
 }
 
 model Category {
