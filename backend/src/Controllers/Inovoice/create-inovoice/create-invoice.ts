@@ -8,10 +8,10 @@ export class CreateInvoiceController {
     httpResponse: Response
   ): Promise<Response<Invoice | string>> {
     try {
-      const { description, value, type, categoryId, dateEnd } =
+      const { description, value, type, categoryId, installments, dateEnd } =
         httpRequest.body;
+
       const userId = httpRequest.user_id;
-      const invoiceId = "";
 
       const data = {
         description,
@@ -19,10 +19,8 @@ export class CreateInvoiceController {
         type,
         categoryId,
         userId,
-        repeatedInvoices: {
-          invoiceId,
-          dateEnd,
-        },
+        installments,
+        dateEnd,
       } as Invoice;
 
       const createInovocieRepository = new PostgresCreateInvocieRepository();

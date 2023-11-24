@@ -8,12 +8,6 @@ export interface Invoice {
   categoryId: string;
   category: Category;
   userId: string;
-  repeatedInvoices?: repeatedInvoices;
-}
-
-export interface repeatedInvoices {
-  id?: string;
-  dateInit?: Date;
+  installments: number;
   dateEnd: Date;
-  invoiceId: string;
 }

@@ -19,17 +19,21 @@ export class DeleteInvoiceRepository {
         id: params.id,
         userId: params.userId,
       },
+      select: {
+        description: true,
+        value: true,
+        type: true,
+        categoryId: true,
+        category: true,
+        userId: true,
+        installments: true,
+        dateEnd: true,
+      },
     });
 
     if (!existingInvoice) {
       throw new Error("Invoice not found");
     }
-
-    const invoiceId = params.id;
-
-    await client.repeatedInvoice.deleteMany({
-      where: { invoiceId },
-    });
 
     await client.invoice.delete({
       where: {

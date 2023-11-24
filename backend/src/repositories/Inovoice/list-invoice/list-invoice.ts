@@ -3,14 +3,6 @@ import { Invoice } from "~/models/inovoice";
 
 export class ListInvoiceRepository {
   async listInvoice(id: string): Promise<Invoice[] | string> {
-    const user = await client.user.findFirst({
-      where: { id: id },
-    });
-
-    if (!user) {
-      throw new Error("User not exist");
-    }
-
     const listInvoice = await client.invoice.findMany({
       where: {
         userId: id,
@@ -22,6 +14,8 @@ export class ListInvoiceRepository {
         type: true,
         categoryId: true,
         userId: true,
+        installments: true,
+        dateEnd: true,
         created_at: true,
         category: true,
       },

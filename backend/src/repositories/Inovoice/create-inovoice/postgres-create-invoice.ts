@@ -14,6 +14,7 @@ export class PostgresCreateInvocieRepository {
       throw new Error("User not exist");
     }
 
+    const dateEnd = new Date(params.dateEnd);
     const createdInvoice = await client.invoice.create({
       data: {
         description: params.description,
@@ -21,6 +22,8 @@ export class PostgresCreateInvocieRepository {
         value: params.value,
         categoryId: params.categoryId,
         userId: params.userId,
+        installments: params.installments,
+        dateEnd: dateEnd,
       },
       select: {
         id: true,
@@ -29,6 +32,7 @@ export class PostgresCreateInvocieRepository {
         type: true,
         categoryId: true,
         userId: true,
+        dateEnd: true,
       },
     });
 
@@ -40,20 +44,6 @@ export class PostgresCreateInvocieRepository {
       throw new Error("Invoice not found");
     }
 
-    const dateEnd = new Date(params.repeatedInvoices.dateEnd);
-
-    let createdrepeatedInvoice = {};
-    createdrepeatedInvoice = await client.repeatedInvoice.create({
-      data: {
-        dateEnd,
-        invoiceId: createdInvoice.id,
-      },
-    });
-
-    const data = {
-      ...createdInvoice,
-      ...createdrepeatedInvoice,
-    };
-    return data;
+    return createdInvoice;
   }
 }
