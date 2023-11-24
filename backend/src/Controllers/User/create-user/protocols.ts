@@ -5,5 +5,5 @@ export interface CreateUserParams {
   lastName: string;
   email: string;
   password: string;
-  admin: enumUser;
+  userType: enumUser;
 }

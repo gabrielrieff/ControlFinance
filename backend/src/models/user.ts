@@ -7,5 +7,8 @@ export interface User {
   photo?: string;
   email: string;
   password: string;
-  admin: enumUser;
+  userType: enumUser;
+  revenue?: number;
+  expense?: number;
+  sum?: number;
 }

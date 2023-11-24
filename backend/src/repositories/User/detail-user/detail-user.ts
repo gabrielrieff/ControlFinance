@@ -8,7 +8,7 @@ export class DetailUserRepository {
       },
       select: {
         id: true,
-        admin: true,
+        userType: true,
         firstName: true,
         lastName: true,
         photo: true,
@@ -18,10 +18,38 @@ export class DetailUserRepository {
       },
     });
 
+    const sumArray = await client.invoice.findMany({
+      where: {
+        userId: id,
+      },
+      select: {
+        value: true,
+        type: true,
+      },
+    });
+
+    let sum: number = 0;
+    let revenue: number = 0;
+    let expense: number = 0;
+
+    if (sumArray.length > 0) {
+      for (let i = 0; i < sumArray.length; i++) {
+        sum += sumArray[i].value;
+
+        if (sumArray[i].type === 0) {
+          revenue += sumArray[i].value;
+        } else {
+          expense += sumArray[i].value;
+        }
+      }
+    }
+
     if (!detailUser) {
       throw new Error("User not exist");
     }
 
-    return detailUser;
+    const user = { ...detailUser, revenue, expense, sum };
+
+    return user;
   }
 }

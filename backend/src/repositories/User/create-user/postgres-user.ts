@@ -22,7 +22,7 @@ export class PostgresCreateUserRepository {
         lastName: true,
         email: true,
         password: true,
-        admin: true,
+        userType: true,
       },
     });
     const { id } = user;

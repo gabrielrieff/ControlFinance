@@ -19,7 +19,7 @@ const userRouter = Router();
 const upload = multer(uploadConfig.upload("./tmp/image/user"));
 
 userRouter.post("/session", new AuthUserController().handle);
-userRouter.post("/user", isAuthenticated, new CreateUserController().handle);
+userRouter.post("/user", new CreateUserController().handle);
 userRouter.get("/users", isAuthenticated, new GetUsersController().handle);
 userRouter.get(
   "/user/detail",

@@ -12,21 +12,22 @@ export class CreateUserController {
     httpResponse: Response
   ): Promise<Response<User | string>> {
     try {
-      const { firstName, lastName, email, password, admin } = httpRequest.body;
+      const { firstName, lastName, email, password, userType } =
+        httpRequest.body;
 
       const requiredFields = [
         "firstName",
         "lastName",
         "email",
         "password",
-        "admin",
+        "userType",
       ];
 
       for (const field of requiredFields) {
         const fieldValue = httpRequest?.body?.[field as keyof CreateUserParams];
 
         if (
-          field === "admin" &&
+          field === "userType" &&
           fieldValue !== undefined &&
           !(fieldValue in enumUser)
         ) {
@@ -56,7 +57,7 @@ export class CreateUserController {
         lastName,
         email,
         password: httpRequest.body!.password,
-        admin,
+        userType,
       });
 
       return httpResponse.status(201).json(user);
