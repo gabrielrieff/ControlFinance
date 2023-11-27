@@ -4,11 +4,15 @@ import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
 import Chart from 'react-google-charts';
+import { transformArrayToChartData } from './transformArrayToChartData';
+
 import { BoxResume } from '~/components/BoxResume';
 import { TransactionHistory } from '~/components/ui/TransactionHistory';
 
 export default function Dashboard() {
-  const { user } = useContext(AuthContext);
+  const { user, listInvoice } = useContext(AuthContext);
+
+  const chart = transformArrayToChartData(listInvoice);
 
   return (
     <main
@@ -52,7 +56,7 @@ export default function Dashboard() {
         <div className="border border-grey-500 rounded-2xl p-2">
           <Chart
             chartType="LineChart"
-            data={data}
+            data={chart}
             options={options}
             className="w-full h-[350px]"
           />
@@ -81,13 +85,3 @@ const options = {
     //height: '70%'
   }
 };
-
-const data = [
-  ['Age', 'Weight'],
-  [8, 12],
-  [4, 5.5],
-  [11, 14],
-  [4, 5],
-  [3, 3.5],
-  [6.5, 7]
-];

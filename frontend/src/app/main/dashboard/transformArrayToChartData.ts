@@ -1,6 +1,6 @@
-import { billsProps } from '../Accounts/@type';
+import { invoiceProps } from '~/@types/contextTypes';
 
-export function transformArrayToChartData(data: billsProps[]): unknown[][] {
+export function transformArrayToChartData(data: invoiceProps[]): unknown[][] {
   const months: { [key: number]: string } = {
     1: 'Jan',
     2: 'Fev',
@@ -32,7 +32,7 @@ export function transformArrayToChartData(data: billsProps[]): unknown[][] {
       };
     }
 
-    const typeKey = item.type ? 'Receitas' : 'Despesas';
+    const typeKey = item.type ? 'Despesas' : 'Receitas';
     dataByMonth[monthKey][typeKey] += item.value;
   });
 
