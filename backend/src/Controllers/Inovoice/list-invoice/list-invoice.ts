@@ -9,9 +9,10 @@ export class ListInvoiceController {
   ): Promise<Response<Invoice[] | string>> {
     try {
       const userId = httpRequest.user_id;
+      const take = parseInt(httpRequest.query.take as string) || 0;
 
       const listInvoiceRepository = new ListInvoiceRepository();
-      const ListInvoice = await listInvoiceRepository.listInvoice(userId);
+      const ListInvoice = await listInvoiceRepository.listInvoice(userId, take);
 
       return httpResponse.json(ListInvoice);
     } catch (error) {

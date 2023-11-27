@@ -13,7 +13,7 @@ export default function Dashboard() {
   return (
     <main
       className="flex flex-col justify-between items-center bg-white-100
-     h-full rounded-[20px] p-4"
+     h-screen gap-3 rounded-[20px] p-4"
     >
       <section className="w-full flex items-center justify-around flex-wrap gap-3">
         <BoxResume className="bg-blue-200 font-semibold gap-2">

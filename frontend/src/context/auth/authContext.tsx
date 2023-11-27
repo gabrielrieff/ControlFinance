@@ -129,7 +129,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function allInvoices() {
-    const inovoice = await api.get('/invoices');
+    const inovoice = await api.get('/invoices?take=10');
     setListInvoice(inovoice.data);
     return listInvoice;
   }
