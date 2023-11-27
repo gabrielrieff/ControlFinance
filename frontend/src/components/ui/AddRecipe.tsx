@@ -35,6 +35,7 @@ export const AddRecipe = ({ closeModal }: addRecipeProps) => {
       description: descriptionRef.current?.value!,
       value: valueRef.current?.valueAsNumber!,
       type: 0,
+      installments: 1,
       categoryId: categoryId!,
       dateEnd: '2024-05-10'
     };

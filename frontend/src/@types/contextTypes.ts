@@ -26,25 +26,20 @@ export type invoiceProps = {
   value: number;
   type: enumInvoice;
   categoryId: string;
+  installments: number;
   category: Category;
   userId: string;
   created_at: Date;
-  repeatedInvoices?: repeatedInvoicesProps;
+  dateEnd: string;
 };
 
 export type recipeProps = {
   description: string;
   value: number;
   type: enumInvoice;
+  installments: number;
   categoryId: string;
   dateEnd: string;
-};
-
-export type repeatedInvoicesProps = {
-  id?: string;
-  dateInit?: Date;
-  dateEnd: Date;
-  invoiceId: string;
 };
 
 export interface Category {

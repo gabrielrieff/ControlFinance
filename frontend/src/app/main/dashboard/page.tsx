@@ -19,7 +19,7 @@ export default function Dashboard() {
         <BoxResume className="bg-blue-200 font-semibold gap-2">
           <h3 className="text-sm">Total receita</h3>
           <span className="text-xl ">
-            R$
+            R${' '}
             {user?.revenue?.toLocaleString(undefined, {
               minimumFractionDigits: 2
             })}
@@ -28,7 +28,7 @@ export default function Dashboard() {
         <BoxResume className="bg-red-200 font-semibold gap-2">
           <h3 className="text-sm">Total despesas</h3>
           <span className="text-xl ">
-            R$
+            R${' '}
             {user?.expense?.toLocaleString(undefined, {
               minimumFractionDigits: 2
             })}
@@ -41,7 +41,7 @@ export default function Dashboard() {
         >
           <h3 className="text-sm">Total lucro/prejuízo</h3>
           <span className="text-xl ">
-            R$
+            R${' '}
             {user?.sum?.toLocaleString(undefined, {
               minimumFractionDigits: 2
             })}

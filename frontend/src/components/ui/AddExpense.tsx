@@ -25,22 +25,26 @@ export const AddExpense = ({ closeModal }: addRecipeProps) => {
     event.preventDefault();
 
     const categoryId = categoriRef.current?.getAttribute('data-value');
+    const installment = Number(
+      installmentsRef.current?.getAttribute('data-value')
+    );
 
     if (
       descriptionRef.current?.value === '' ||
       categoryId === '' ||
-      valueRef.current?.valueAsNumber! < 1
+      valueRef.current?.valueAsNumber! < 1 ||
+      installment === undefined ||
+      null
     )
       return;
-
     const data = {
       description: descriptionRef.current?.value!,
       value: valueRef.current?.valueAsNumber!,
       type: 1,
+      installments: installment,
       categoryId: categoryId!,
       dateEnd: '2024-05-10'
     };
-
     AddInvoice(data);
 
     if (descriptionRef.current && categoriRef.current && valueRef.current) {
