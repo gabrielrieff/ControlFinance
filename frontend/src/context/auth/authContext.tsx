@@ -40,15 +40,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       api
         .get('/user/detail')
         .then((response) => {
-          const { id, firstName, lastName, email, admin, photo } =
-            response.data;
+          const {
+            id,
+            firstName,
+            lastName,
+            email,
+            userType,
+            photo,
+            expense,
+            sum,
+            revenue
+          } = response.data;
 
           setUser({
             id,
             firstName,
             lastName,
             email,
-            admin,
+            userType,
+            expense,
+            sum,
+            revenue,
             photo
           });
         })
@@ -124,14 +136,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   async function updateUser(data: FormData) {
     await api.patch(`/user/${user?.id}`, data).then((response) => {
-      const { id, firstName, lastName, email, admin, photo } = response.data;
+      const { id, firstName, lastName, email, userType, photo } = response.data;
 
       setUser({
         id,
         firstName,
         lastName,
         email,
-        admin,
+        userType,
         photo
       });
     });

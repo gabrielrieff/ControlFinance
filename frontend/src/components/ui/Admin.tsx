@@ -9,13 +9,12 @@ import { AuthContext } from '~/context/auth/authContext';
 
 export const Admin = () => {
   const { user } = useContext(AuthContext);
-
   const typeUser =
-    user?.admin! === enumUser.Admin
+    user?.userType! === enumUser.Admin
       ? 'Admin'
-      : user?.admin! === enumUser.Padrao
+      : user?.userType! === enumUser.Padrao
       ? 'Padrão'
-      : user?.admin! === enumUser.Master
+      : user?.userType! === enumUser.Master
       ? 'Master'
       : 'Tipo desconhecido';
 

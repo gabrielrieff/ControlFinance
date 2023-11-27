@@ -10,11 +10,12 @@ import { BiSolidDashboard, BiTransfer, BiUserPlus } from 'react-icons/bi';
 import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
 import { MdCategory } from 'react-icons/md';
 import { RiSettings5Fill } from 'react-icons/ri';
+import { enumUser } from '~/@types/enum/EnumAdmin';
 import { AddExpense } from './ui/AddExpense';
 import { AddRecipe } from './ui/AddRecipe';
 
 export const NavBar = () => {
-  const { signOut } = useContext(AuthContext);
+  const { signOut, user } = useContext(AuthContext);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModalExpense, setIsOpenModalExpense] = useState(false);
@@ -29,7 +30,7 @@ export const NavBar = () => {
 
   return (
     <nav
-      className={`max-w-[250px] bg-white-100 h-full pe-2 rounded-br-[40px] mr-3
+      className={`max-w-[250px] bg-white-100 h-screen pe-2 rounded-br-[40px] mr-3
         rounded-tr-[40px] relative transition-all duration-500 ease-in`}
     >
       <h1
@@ -80,16 +81,19 @@ export const NavBar = () => {
         >
           <AddExpense closeModal={handleModalExpense} />
         </Dialog.Root>
+        {user?.userType === enumUser.Master && (
+          <>
+            <ActiveLink href={'/main/addUser'} data-title="Criar novo usuário">
+              <BiUserPlus size={30} />
+              <span className="lg:hidden">Criar novo usuário</span>
+            </ActiveLink>
 
-        <ActiveLink href={'/main/addUser'} data-title="Criar novo usuário">
-          <BiUserPlus size={30} />
-          <span className="lg:hidden">Criar novo usuário</span>
-        </ActiveLink>
-
-        <ActiveLink href={''} data-title="Categorias">
-          <MdCategory size={30} />
-          <span className="lg:hidden">Categorias</span>
-        </ActiveLink>
+            <ActiveLink href={''} data-title="Categorias">
+              <MdCategory size={30} />
+              <span className="lg:hidden">Categorias</span>
+            </ActiveLink>
+          </>
+        )}
 
         <ActiveLink href={'/main/configuracao'} data-title="Configurações">
           <RiSettings5Fill size={30} />
