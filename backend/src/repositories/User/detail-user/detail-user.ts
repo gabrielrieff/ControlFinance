@@ -34,12 +34,12 @@ export class DetailUserRepository {
 
     if (sumArray.length > 0) {
       for (let i = 0; i < sumArray.length; i++) {
-        sum += sumArray[i].value;
-
         if (sumArray[i].type === 0) {
+          sum += sumArray[i].value;
           revenue += sumArray[i].value;
         } else {
           expense += sumArray[i].value;
+          sum -= sumArray[i].value;
         }
       }
     }
