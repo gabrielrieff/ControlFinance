@@ -15,7 +15,7 @@ export const TransactionHistory = () => {
   return (
     <section
       className="border border-grey-500 rounded-2xl flex flex-col
-      p-2 h-[250px]"
+      p-2"
     >
       <h1 className="font-semibold p-3">Histórico de transações mensal</h1>
 

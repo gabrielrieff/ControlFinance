@@ -30,7 +30,7 @@ export type invoiceProps = {
   category: Category;
   userId: string;
   created_at: Date;
-  dateEnd: string;
+  dateEnd: Date;
 };
 
 export type recipeProps = {

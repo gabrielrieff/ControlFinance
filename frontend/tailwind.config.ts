@@ -35,6 +35,9 @@ const config: Config = {
       red: {
         200: '#FFA4A4',
         500: '#FF0000'
+      },
+      orenge: {
+        500: '#FF9900'
       }
     },
     screens: {

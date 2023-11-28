@@ -20,6 +20,7 @@ type AuthContextData = {
   recoverPassword: (email: string) => Promise<void>;
   updateUser: (data: FormData) => Promise<void>;
   AddInvoice: (data: recipeProps) => Promise<void>;
+  deleteInvoice: (id: string) => Promise<void>;
   listInvoice: Array<invoiceProps>;
   categories: Array<Category>;
 };
@@ -134,6 +135,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return listInvoice;
   }
 
+  async function deleteInvoice(id: string) {
+    const response = await api.delete(`/invoice/${id}`);
+    allInvoices();
+  }
+
   async function updateUser(data: FormData) {
     await api.patch(`/user/${user?.id}`, data).then((response) => {
       const { id, firstName, lastName, email, userType, photo } = response.data;
@@ -166,6 +172,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         recoverPassword,
         updateUser,
         AddInvoice,
+        deleteInvoice,
         listInvoice,
         categories
       }}
