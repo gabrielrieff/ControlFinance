@@ -45,7 +45,7 @@ export const NavBar = () => {
           <span className="lg:hidden">Dashboard</span>
         </ActiveLink>
 
-        <ActiveLink href={''} data-title="Transações mensais">
+        <ActiveLink href={'/main/transactions'} data-title="Transações mensais">
           <BiTransfer size={30} />
           <span className="lg:hidden">Transações mensais</span>
         </ActiveLink>
