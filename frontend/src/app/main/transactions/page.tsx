@@ -6,21 +6,33 @@ import { AuthContext } from '~/context/auth/authContext';
 import Image from 'next/image';
 import { FaGear } from 'react-icons/fa6';
 import { Button } from '~/components/shared/Button';
-import { Dialog } from '~/components/shared/Dialog';
+import { ModalDelete } from '~/components/ui/ModalDelete/ModalDelete';
 
 export default function transactions() {
-  const { listInvoice, deleteInvoice } = useContext(AuthContext);
+  const { listInvoice } = useContext(AuthContext);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [data, setData] = useState({
+    type: 0,
+    value: '',
+    id: ''
+  });
+
+  function t(type: number, value: number, id: string) {
+    setData({
+      type: type,
+      value: value.toLocaleString(undefined, {
+        minimumFractionDigits: 2
+      }),
+      id: id
+    });
+    handleOpenModal();
+  }
 
   function handleOpenModal() {
     setIsOpen(!isOpen);
   }
-
-  const toLeadDelet = async (id: string) => {
-    deleteInvoice(id);
-    handleOpenModal();
-  };
 
   function convertDate(date: Date) {
     const data = new Date(date);
@@ -102,49 +114,12 @@ export default function transactions() {
               <td className="w-[10%] center">{convertDate(item.created_at)}</td>
               <td className="w-[10%] center">{convertDate(item.dateEnd)}</td>
               <td className="w-[15%] md:w-[10%] center gap-3 lg:gap-1 md:flex-col">
-                <Dialog.Root
-                  className="w-[30%] h-[30%]"
-                  isOpen={isOpen}
-                  Open={
-                    <Button
-                      onClick={handleOpenModal}
-                      className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
-                    >
-                      Excluir
-                    </Button>
-                  }
+                <Button
+                  onClick={() => t(item.type, item.value, item.id)}
+                  className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
                 >
-                  <Dialog.Title>Certeza que deseja excluir?</Dialog.Title>
-                  <Dialog.Content>
-                    <div>
-                      <h3>Tipo entrada:</h3>
-                      {item.type == 0 ? (
-                        <span className=" font-semibold">Receita</span>
-                      ) : (
-                        <span className="font-semibold">Despesa</span>
-                      )}
-                      <h3>Valor:</h3>
-                      <span>
-                        R${' '}
-                        {item.value.toLocaleString(undefined, {
-                          minimumFractionDigits: 2
-                        })}
-                      </span>
-                    </div>
-                    <div className="flex gap-5">
-                      <Button
-                        onClick={() => toLeadDelet(item.id)}
-                        className="bg-green-200"
-                      >
-                        Confirmar
-                      </Button>
-                      <Button onClick={handleOpenModal} className="bg-red-200">
-                        Cancelar
-                      </Button>
-                    </div>
-                  </Dialog.Content>
-                  <Dialog.Close isOpen={handleOpenModal}></Dialog.Close>
-                </Dialog.Root>
+                  Excluir
+                </Button>
                 <Button className="bg-orenge-500 hover:bg-orenge-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 ">
                   Editar
                 </Button>
@@ -153,6 +128,7 @@ export default function transactions() {
           ))}
         </tbody>
       </table>
+      <ModalDelete isOpen={isOpen} close={handleOpenModal} data={data} />
     </main>
   );
 }
