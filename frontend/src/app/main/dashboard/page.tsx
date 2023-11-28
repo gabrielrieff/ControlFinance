@@ -16,13 +16,13 @@ export default function Dashboard() {
 
   return (
     <main
-      className="flex flex-col justify-between items-center bg-white-100
-     h-screen gap-3 rounded-[20px] p-4"
+      className="flex flex-col items-center bg-white-100
+     h-full gap-8 rounded-[20px] p-4"
     >
-      <section className="w-full flex items-center justify-around flex-wrap gap-3">
-        <BoxResume className="bg-blue-200 font-semibold gap-2">
-          <h3 className="text-sm">Total receita</h3>
-          <span className="text-xl ">
+      <section className="w-full flex items-center justify-around gap-3">
+        <BoxResume className="bg-blue-200 font-semibold gap-2 ">
+          <h3 className="text-sm md:text-sm">Total receita</h3>
+          <span className="text-xl md:text-base">
             R${' '}
             {user?.revenue?.toLocaleString(undefined, {
               minimumFractionDigits: 2
@@ -30,8 +30,8 @@ export default function Dashboard() {
           </span>
         </BoxResume>
         <BoxResume className="bg-red-200 font-semibold gap-2">
-          <h3 className="text-sm">Total despesas</h3>
-          <span className="text-xl ">
+          <h3 className="text-sm md:text-sm">Total despesas</h3>
+          <span className="text-xl md:text-base">
             R${' '}
             {user?.expense?.toLocaleString(undefined, {
               minimumFractionDigits: 2
@@ -43,8 +43,8 @@ export default function Dashboard() {
             user?.sum! > 0 ? 'bg-green-200' : 'bg-red-500'
           } font-semibold gap-2`}
         >
-          <h3 className="text-sm">Total lucro/prejuízo</h3>
-          <span className="text-xl ">
+          <h3 className="text-sm md:text-sm">Total lucro/prejuízo</h3>
+          <span className="text-xl md:text-base">
             R${' '}
             {user?.sum?.toLocaleString(undefined, {
               minimumFractionDigits: 2

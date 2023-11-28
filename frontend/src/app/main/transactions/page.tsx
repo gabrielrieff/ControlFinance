@@ -34,28 +34,19 @@ export default function transactions() {
     >
       <table className="w-full lg:text-[12px] md:text-[10px]">
         <thead>
-          <tr className="flex w-full justify-center bg-grey-300/90 rounded-[10px] mb-3 p-2">
-            <th className="w-[15%] flex justify-center items-center">
-              Categoria
-            </th>
-            <th className="w-[10%] flex justify-center items-center">Tipo</th>
-            <th className="w-[10%] flex justify-center items-center">
-              Descrição
-            </th>
-            <th className="w-[10%] flex justify-center items-center">Valor</th>
-            <th className="w-[10%] flex justify-center items-center">
-              Parcelas pagas
-            </th>
-            <th className="w-[10%] flex justify-center items-center md:hidden">
-              Número de parcelas
-            </th>
-            <th className="w-[10%] flex justify-center items-center">
-              Data de criação
-            </th>
-            <th className="w-[10%] flex justify-center items-center">
-              Última parcela
-            </th>
-            <th className="w-[15%] flex justify-center items-center">
+          <tr
+            className="flex w-full justify-center md:justify-around bg-grey-300/90 
+          rounded-[10px] mb-3 p-2"
+          >
+            <th className="w-[15%] md:w-[10%] center">Categoria</th>
+            <th className="w-[10%] center">Tipo</th>
+            <th className="w-[10%] center">Descrição</th>
+            <th className="w-[10%] center">Valor</th>
+            <th className="w-[10%] center">Parcelas pagas</th>
+            <th className="w-[10%] center md:hidden">Número de parcelas</th>
+            <th className="w-[10%] center">Data de criação</th>
+            <th className="w-[10%] center">Última parcela</th>
+            <th className="w-[15%] md:w-[10%] center">
               <FaGear size={30} />
             </th>
           </tr>
@@ -66,7 +57,10 @@ export default function transactions() {
               key={item.id}
               className="bg-grey-300 rounded-[10px] p-2 flex w-full justify-between"
             >
-              <td className="flex items-center justify-center gap-3 md:gap-1 md:flex-col w-[15%]">
+              <td
+                className="flex items-center justify-center gap-3 md:gap-1 md:flex-col 
+              w-[15%] md:w-[10%]"
+              >
                 <Image
                   alt={item.category.title}
                   src={`http://localhost:3333/files/image/category/${item.category.banner}`}
@@ -77,47 +71,37 @@ export default function transactions() {
                 <span>{item.category.title}</span>
               </td>
               {item.type == 0 ? (
-                <td className="text-green-400 font-semibold w-[10%] flex justify-center items-center">
+                <td className="text-green-400 font-semibold w-[10%] center">
                   Receita
                 </td>
               ) : (
-                <td className="text-red-500 font-semibold w-[10%] flex justify-center items-center">
+                <td className="text-red-500 font-semibold w-[10%] center">
                   Despesa
                 </td>
               )}
-              <td className="w-[10%] flex justify-center items-center">
-                {item.description}
-              </td>
-              <td className="w-[10%] flex justify-center items-center">
+              <td className="w-[10%] center">{item.description}</td>
+              <td className="w-[10%] center">
                 R${' '}
                 {item.value.toLocaleString(undefined, {
                   minimumFractionDigits: 2
                 })}
               </td>
               {item.type == 0 ? (
-                <td className="w-[10%] flex justify-center items-center">-</td>
+                <td className="w-[10%] center">-</td>
               ) : (
-                <td className="w-[10%] flex justify-center items-center">
-                  {item.installments}
-                </td>
+                <td className="w-[10%] center">{item.installments}</td>
               )}
 
               {item.type == 0 ? (
-                <td className="w-[10%] flex justify-center items-center md:hidden">
-                  -
-                </td>
+                <td className="w-[10%] center md:hidden">-</td>
               ) : (
-                <td className="w-[10%] flex justify-center items-center md:hidden">
+                <td className="w-[10%] center md:hidden">
                   {item.installments}x
                 </td>
               )}
-              <td className="w-[10%] flex justify-center items-center">
-                {convertDate(item.created_at)}
-              </td>
-              <td className="w-[10%] flex justify-center items-center">
-                {convertDate(item.dateEnd)}
-              </td>
-              <td className="w-[15%] flex justify-center items-center gap-3 lg:gap-1 md:flex-col">
+              <td className="w-[10%] center">{convertDate(item.created_at)}</td>
+              <td className="w-[10%] center">{convertDate(item.dateEnd)}</td>
+              <td className="w-[15%] md:w-[10%] center gap-3 lg:gap-1 md:flex-col">
                 <Dialog.Root
                   className="w-[30%] h-[30%]"
                   isOpen={isOpen}

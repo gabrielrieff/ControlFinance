@@ -7,6 +7,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@layer components {
+  .center {
+    @apply flex justify-center items-center;
+  }
+}
+
 @media (max-width: 1024px) {
   [data-title]:hover:after {
     opacity: 1;

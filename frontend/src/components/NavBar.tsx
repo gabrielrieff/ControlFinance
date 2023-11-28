@@ -8,7 +8,7 @@ import { Dialog } from './shared/Dialog';
 
 import { BiSolidDashboard, BiTransfer, BiUserPlus } from 'react-icons/bi';
 import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
-import { MdCategory } from 'react-icons/md';
+import { MdCategory, MdLogout } from 'react-icons/md';
 import { RiSettings5Fill } from 'react-icons/ri';
 import { enumUser } from '~/@types/enum/EnumAdmin';
 import { AddExpense } from './ui/AddExpense';
@@ -30,8 +30,8 @@ export const NavBar = () => {
 
   return (
     <nav
-      className={`max-w-[250px] bg-white-100 h-screen pe-2 rounded-br-[40px] mr-3
-        rounded-tr-[40px] relative transition-all duration-500 ease-in`}
+      className={`max-w-[250px] md:max-w-full bg-white-100 h-full md:h-[55px]  pe-2 rounded-br-[40px] mr-3
+        rounded-tr-[40px] md:rounded-[20px] relative transition-all duration-500 ease-in md:m-0 md:mb-2`}
     >
       <h1
         className="font-medium text-[24px] flex items-center justify-center
@@ -39,7 +39,10 @@ export const NavBar = () => {
       >
         MyWallet
       </h1>
-      <section className=" flex flex-col gap-[40px] ml-2 mt-8">
+      <section
+        className="md:max-w-full flex flex-col md:flex-row md:m-0 md:p-2 gap-[40px]
+        ml-2 mt-8 overflow-x-auto overflow-y-hidden scroll"
+      >
         <ActiveLink href={'/main/dashboard'} data-title="Dashboard">
           <BiSolidDashboard size={30} />
           <span className="lg:hidden">Dashboard</span>
@@ -102,7 +105,8 @@ export const NavBar = () => {
 
         <ActiveLink href={''}>
           <button className="hover:underline" onClick={signOut}>
-            Sair
+            <span className="md:hidden">Sair</span>
+            <MdLogout size={30} className="hidden md:flex" />
           </button>
         </ActiveLink>
       </section>
