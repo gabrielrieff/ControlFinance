@@ -5,21 +5,24 @@ import { AuthContext } from '~/context/auth/authContext';
 
 import Image from 'next/image';
 import { FaGear } from 'react-icons/fa6';
+import { invoiceProps } from '~/@types/contextTypes';
 import { Button } from '~/components/shared/Button';
 import { ModalDelete } from '~/components/ui/ModalDelete/ModalDelete';
+import { ModalEdit } from '~/components/ui/ModalEdit/ModalEdit';
 
 export default function transactions() {
   const { listInvoice } = useContext(AuthContext);
 
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [data, setData] = useState({
     type: 0,
     value: '',
     id: ''
   });
+  const [dataEdit, setDataEdit] = useState<invoiceProps>();
 
-  function t(type: number, value: number, id: string) {
+  function deleteInvoice(type: number, value: number, id: string) {
     setData({
       type: type,
       value: value.toLocaleString(undefined, {
@@ -27,11 +30,21 @@ export default function transactions() {
       }),
       id: id
     });
-    handleOpenModal();
+    handleOpenModalDelete();
   }
 
-  function handleOpenModal() {
+  function handleOpenModalDelete() {
     setIsOpen(!isOpen);
+  }
+
+  function editInvoice(prop: invoiceProps) {
+    setDataEdit(prop);
+
+    handleOpenModalEdit();
+  }
+
+  function handleOpenModalEdit() {
+    setIsOpenEdit(!isOpenEdit);
   }
 
   function convertDate(date: Date) {
@@ -115,12 +128,15 @@ export default function transactions() {
               <td className="w-[10%] center">{convertDate(item.dateEnd)}</td>
               <td className="w-[15%] md:w-[10%] center gap-3 lg:gap-1 md:flex-col">
                 <Button
-                  onClick={() => t(item.type, item.value, item.id)}
+                  onClick={() => deleteInvoice(item.type, item.value, item.id)}
                   className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
                 >
                   Excluir
                 </Button>
-                <Button className="bg-orenge-500 hover:bg-orenge-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 ">
+                <Button
+                  onClick={() => editInvoice(item)}
+                  className="bg-orenge-500 hover:bg-orenge-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
+                >
                   Editar
                 </Button>
               </td>
@@ -128,7 +144,12 @@ export default function transactions() {
           ))}
         </tbody>
       </table>
-      <ModalDelete isOpen={isOpen} close={handleOpenModal} data={data} />
+      <ModalDelete isOpen={isOpen} close={handleOpenModalDelete} data={data} />
+      <ModalEdit
+        isOpen={isOpenEdit}
+        close={handleOpenModalEdit}
+        data={dataEdit}
+      />
     </main>
   );
 }
