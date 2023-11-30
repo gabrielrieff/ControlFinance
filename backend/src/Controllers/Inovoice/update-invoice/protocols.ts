@@ -1,7 +1,7 @@
 import { enumInvoice } from "~/Enums/EnumInvoice";
 
 export interface UpdateInvoiceParams {
-  id: string;
+  id?: string;
   description?: string;
   value?: number;
   type?: enumInvoice;
