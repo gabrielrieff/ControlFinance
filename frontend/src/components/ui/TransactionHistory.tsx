@@ -2,16 +2,12 @@ import Image from 'next/image';
 import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
+import { FormatDate } from '~/Helpers/FormatDate';
 import './style.css';
 
 export const TransactionHistory = () => {
   const { listInvoice } = useContext(AuthContext);
 
-  function convertDate(date: Date) {
-    const data = new Date(date);
-    const newDate = data.toLocaleDateString();
-    return newDate;
-  }
   return (
     <section
       className="border border-grey-500 rounded-2xl flex flex-col
@@ -48,9 +44,7 @@ export const TransactionHistory = () => {
               </td>
               <td className="w-1/5 center">{invoice.description}</td>
               <td className="w-1/5 center">R$ {invoice.value.toFixed(2)}</td>
-              <td className="w-1/5 center">
-                {convertDate(invoice.created_at)}
-              </td>
+              <td className="w-1/5 center">{FormatDate(invoice.created_at)}</td>
               {invoice.type == 0 ? (
                 <td className="text-green-400 font-semibold center w-1/5">
                   Receita
