@@ -34,12 +34,12 @@ export type invoiceProps = {
 };
 
 export type recipeProps = {
-  description: string;
-  value: number;
-  type: enumInvoice;
-  installments: number;
-  categoryId: string;
-  dateEnd: string;
+  description?: string;
+  value?: number;
+  type?: enumInvoice;
+  installments?: number;
+  categoryId?: string;
+  dateEnd?: string;
 };
 
 export interface Category {

@@ -8,7 +8,6 @@ interface selectedInstallmentsProps {
 
 export const SelectedInstallments = (props: selectedInstallmentsProps) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const [label, setLabel] = useState<JSX.Element | null>(null);
 
   const handleDropdown = () => {
@@ -50,11 +49,12 @@ export const SelectedInstallments = (props: selectedInstallmentsProps) => {
   function handleCleanSelectedInstallments() {
     setLabel(null);
   }
+
   return (
     <Drowdown.Root>
       <Drowdown.Main onClick={handleDropdown}>
         {label === null ? (
-          <span>Quantidade de parcelas a lançar</span>
+          <span>Parcelas</span>
         ) : (
           <>
             <>{label}</>

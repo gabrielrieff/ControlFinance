@@ -1,26 +1,36 @@
 'use client';
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
 import Image from 'next/image';
 import { FaGear } from 'react-icons/fa6';
-import { invoiceProps } from '~/@types/contextTypes';
+import { recipeProps } from '~/@types/contextTypes';
 import { Button } from '~/components/shared/Button';
+import { Input } from '~/components/shared/Input';
 import { ModalDelete } from '~/components/ui/ModalDelete/ModalDelete';
-import { ModalEdit } from '~/components/ui/ModalEdit/ModalEdit';
+import { SelectedCategories } from '~/components/ui/SelectedCategories/SelectedCategories';
+import { SelectedInstallments } from '~/components/ui/SelectedInstallments/SelectedInstallments';
+import { FormatDate } from '~/Helpers/FormatDate';
 
 export default function transactions() {
-  const { listInvoice } = useContext(AuthContext);
+  const { listInvoice, updateInvoide } = useContext(AuthContext);
 
+  const categoriRef = useRef<HTMLDivElement | null>(null);
+  const installmentsRef = useRef<HTMLDivElement | null>(null);
+
+  const [isDescription, setIsDescription] = useState<string>('');
+  const [isValue, setIsValue] = useState<number>(0);
+  const [isInstallment, setIsInstallment] = useState<number>(0);
+  const [isCategori, setIsCategori] = useState<string>('');
+
+  const [editingIndex, setEditingIndex] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [data, setData] = useState({
     type: 0,
     value: '',
     id: ''
   });
-  const [dataEdit, setDataEdit] = useState<invoiceProps>();
 
   function deleteInvoice(type: number, value: number, id: string) {
     setData({
@@ -37,21 +47,47 @@ export default function transactions() {
     setIsOpen(!isOpen);
   }
 
-  function editInvoice(prop: invoiceProps) {
-    setDataEdit(prop);
+  function editInvoice(id: string) {
+    const categoryId = categoriRef.current?.getAttribute('data-value')!;
+    const installment = Number(
+      installmentsRef.current?.getAttribute('data-value')
+    );
 
-    handleOpenModalEdit();
+    if (categoryId !== null) {
+      setIsCategori(categoryId);
+    }
+
+    if (installment !== null) {
+      setIsInstallment(installment);
+    }
+
+    const data: recipeProps = {
+      description: isDescription,
+      value: isValue,
+      installments: isInstallment,
+      categoryId: isCategori
+    };
+
+    updateInvoide(id, data);
+
+    handleOpenModalEdit(null);
   }
 
-  function handleOpenModalEdit() {
-    setIsOpenEdit(!isOpenEdit);
+  function handleOpenModalEdit(id: string | null) {
+    setEditingIndex(id);
   }
 
-  function convertDate(date: Date) {
-    const data = new Date(date);
-    const newDate = data.toLocaleDateString();
-    return newDate;
-  }
+  useEffect(() => {
+    const invoice = listInvoice.filter((item) => item.id === editingIndex)[0];
+
+    if (invoice === undefined) return;
+
+    setIsValue(invoice.value);
+    setIsDescription(invoice.description);
+    setIsInstallment(invoice.installments);
+    setIsCategori(invoice.categoryId);
+  }, [editingIndex]);
+
   return (
     <main
       className="flex flex-col justify-between items-center bg-white-100
@@ -80,21 +116,28 @@ export default function transactions() {
           {listInvoice.map((item) => (
             <tr
               key={item.id}
-              className="bg-grey-300 rounded-[10px] p-2 flex w-full justify-between"
+              className="bg-grey-300/30 rounded-[10px] p-2 flex w-full justify-between"
             >
-              <td
-                className="flex items-center justify-center gap-3 md:gap-1 md:flex-col 
-              w-[15%] md:w-[10%]"
-              >
-                <Image
-                  alt={item.category.title}
-                  src={`http://localhost:3333/files/image/category/${item.category.banner}`}
-                  width={40}
-                  height={40}
-                  className="rounded-full lg:w-[30px] lg:h-[30px]"
-                />
-                <span>{item.category.title}</span>
-              </td>
+              {item.id !== editingIndex ? (
+                <td
+                  className="flex items-center justify-center gap-3 md:gap-1 md:flex-col 
+                            w-[15%] md:w-[10%]"
+                >
+                  <Image
+                    alt={item.category.title}
+                    src={`http://localhost:3333/files/image/category/${item.category.banner}`}
+                    width={40}
+                    height={40}
+                    className="rounded-full lg:w-[30px] lg:h-[30px]"
+                  />
+                  <span>{item.category.title}</span>
+                </td>
+              ) : (
+                <td className="w-[15%] md:w-[10%] center">
+                  <SelectedCategories categoriRef={categoriRef} />
+                </td>
+              )}
+
               {item.type == 0 ? (
                 <td className="text-green-400 font-semibold w-[10%] center">
                   Receita
@@ -104,52 +147,101 @@ export default function transactions() {
                   Despesa
                 </td>
               )}
-              <td className="w-[10%] center">{item.description}</td>
-              <td className="w-[10%] center">
-                R${' '}
-                {item.value.toLocaleString(undefined, {
-                  minimumFractionDigits: 2
-                })}
-              </td>
+
+              {item.id !== editingIndex ? (
+                <td className="w-[10%] center">{item.description}</td>
+              ) : (
+                <td className="w-[10%] center p-1">
+                  <Input
+                    type="text"
+                    value={isDescription}
+                    onChange={(e) => setIsDescription(e.target.value)}
+                    className="border border-grey-500"
+                  />
+                </td>
+              )}
+
+              {item.id !== editingIndex ? (
+                <td className="w-[10%] center">
+                  R${' '}
+                  {item.value.toLocaleString(undefined, {
+                    minimumFractionDigits: 2
+                  })}
+                </td>
+              ) : (
+                <td className="w-[10%] center p-1">
+                  <Input
+                    type="number"
+                    value={isValue}
+                    onChange={(e) => setIsValue(e.target.valueAsNumber)}
+                    className="border border-grey-500"
+                  />
+                </td>
+              )}
+
               {item.type == 0 ? (
                 <td className="w-[10%] center">-</td>
               ) : (
                 <td className="w-[10%] center">{item.installments}</td>
               )}
 
-              {item.type == 0 ? (
+              {item.id !== editingIndex ? (
+                item.type == 0 ? (
+                  <td className="w-[10%] center md:hidden">-</td>
+                ) : (
+                  <td className="w-[10%] center md:hidden">
+                    {item.installments}x
+                  </td>
+                )
+              ) : item.type == 0 ? (
                 <td className="w-[10%] center md:hidden">-</td>
               ) : (
-                <td className="w-[10%] center md:hidden">
-                  {item.installments}x
+                <td className="w-[10%] center">
+                  <SelectedInstallments installmentsRef={installmentsRef} />
                 </td>
               )}
-              <td className="w-[10%] center">{convertDate(item.created_at)}</td>
-              <td className="w-[10%] center">{convertDate(item.dateEnd)}</td>
-              <td className="w-[15%] md:w-[10%] center gap-3 lg:gap-1 md:flex-col">
-                <Button
-                  onClick={() => deleteInvoice(item.type, item.value, item.id)}
-                  className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
-                >
-                  Excluir
-                </Button>
-                <Button
-                  onClick={() => editInvoice(item)}
-                  className="bg-orenge-500 hover:bg-orenge-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
-                >
-                  Editar
-                </Button>
-              </td>
+
+              <td className="w-[10%] center">{FormatDate(item.created_at)}</td>
+              <td className="w-[10%] center">{FormatDate(item.dateEnd)}</td>
+
+              {item.id !== editingIndex ? (
+                <td className="w-[15%] md:w-[10%] center gap-3 lg:gap-1 md:flex-col">
+                  <Button
+                    onClick={() =>
+                      deleteInvoice(item.type, item.value, item.id)
+                    }
+                    className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
+                  >
+                    Excluir
+                  </Button>
+                  <Button
+                    onClick={() => handleOpenModalEdit(item.id)}
+                    className="bg-orenge-500 hover:bg-orenge-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
+                  >
+                    Editar
+                  </Button>
+                </td>
+              ) : (
+                <td className="w-[15%] md:w-[10%] center gap-3 lg:gap-1 md:flex-col">
+                  <Button
+                    onClick={() => editInvoice(editingIndex)}
+                    className="bg-green-400 hover:bg-green-400/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
+                  >
+                    Salvar
+                  </Button>
+                  <Button
+                    onClick={() => handleOpenModalEdit(null)}
+                    className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
+                  >
+                    Cancelar
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
       <ModalDelete isOpen={isOpen} close={handleOpenModalDelete} data={data} />
-      <ModalEdit
-        isOpen={isOpenEdit}
-        close={handleOpenModalEdit}
-        data={dataEdit}
-      />
     </main>
   );
 }

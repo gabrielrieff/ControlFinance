@@ -20,6 +20,7 @@ type AuthContextData = {
   recoverPassword: (email: string) => Promise<void>;
   updateUser: (data: FormData) => Promise<void>;
   AddInvoice: (data: recipeProps) => Promise<void>;
+  updateInvoide: (id: string, data: recipeProps) => Promise<void>;
   deleteInvoice: (id: string) => Promise<void>;
   listInvoice: Array<invoiceProps>;
   categories: Array<Category>;
@@ -78,7 +79,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       allInvoices();
     }
-  }, []);
+  }, [listInvoice]);
 
   useEffect(() => {
     const { '@nextauth.token': token } = parseCookies();
@@ -160,6 +161,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     allInvoices();
   }
 
+  async function updateInvoide(id: string, data: recipeProps) {
+    const response = await api.patch(`/invoice/${id}`, data);
+
+    allInvoices();
+  }
+
   async function changePassword() {}
 
   return (
@@ -172,6 +179,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         recoverPassword,
         updateUser,
         AddInvoice,
+        updateInvoide,
         deleteInvoice,
         listInvoice,
         categories
