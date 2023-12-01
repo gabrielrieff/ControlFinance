@@ -19,6 +19,7 @@ type AuthContextData = {
   signOut: () => void;
   recoverPassword: (email: string) => Promise<void>;
   updateUser: (data: FormData) => Promise<void>;
+  createCategori: (data: FormData) => Promise<void>;
   AddInvoice: (data: recipeProps) => Promise<void>;
   updateInvoide: (id: string, data: recipeProps) => Promise<void>;
   deleteInvoice: (id: string) => Promise<void>;
@@ -70,12 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           signOut();
         });
 
-      api.get('/category').then((response) => {
-        const { id, title, banner } = response.data;
-
-        setCategories(response.data);
-        return categories;
-      });
+      getCategori();
 
       allInvoices();
     }
@@ -87,6 +83,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       allInvoices();
     }
   }, []);
+
+  async function getCategori() {
+    api.get('/category').then((response) => {
+      const { id, title, banner } = response.data;
+
+      setCategories(response.data);
+      return categories;
+    });
+  }
 
   async function signIn(props: signInProps) {
     try {
@@ -156,6 +161,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   }
 
+  async function createCategori(data: FormData) {
+    const response = await api.post('/category', data);
+
+    getCategori();
+  }
+
   async function AddInvoice(data: recipeProps) {
     const recipe = await api.post('/invoices', data);
     allInvoices();
@@ -178,6 +189,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signOut,
         recoverPassword,
         updateUser,
+        createCategori,
         AddInvoice,
         updateInvoide,
         deleteInvoice,

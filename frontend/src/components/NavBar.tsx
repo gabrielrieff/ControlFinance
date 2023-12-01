@@ -6,19 +6,23 @@ import { AuthContext } from '~/context/auth/authContext';
 import { ActiveLink } from './shared/ActiveLink';
 import { Dialog } from './shared/Dialog';
 
-import { BiSolidDashboard, BiTransfer, BiUserPlus } from 'react-icons/bi';
+import { BiSolidDashboard, BiTransfer } from 'react-icons/bi';
 import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
 import { MdCategory, MdLogout } from 'react-icons/md';
+import { PiUserListFill } from 'react-icons/pi';
 import { RiSettings5Fill } from 'react-icons/ri';
+
 import { enumUser } from '~/@types/enum/EnumAdmin';
 import { AddExpense } from './ui/AddExpense';
 import { AddRecipe } from './ui/AddRecipe';
+import { CategoriModal } from './ui/CategoriModal';
 
 export const NavBar = () => {
   const { signOut, user } = useContext(AuthContext);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModalExpense, setIsOpenModalExpense] = useState(false);
+  const [isModalCategori, setIsModalCategori] = useState(false);
 
   function handleOpenModal() {
     setIsOpen(!isOpen);
@@ -26,6 +30,10 @@ export const NavBar = () => {
 
   function handleModalExpense() {
     setIsOpenModalExpense(!isOpenModalExpense);
+  }
+
+  function handleModalCategori() {
+    setIsModalCategori(!isModalCategori);
   }
 
   return (
@@ -87,14 +95,25 @@ export const NavBar = () => {
         {user?.userType === enumUser.Master && (
           <>
             <ActiveLink href={'/main/addUser'} data-title="Criar novo usuário">
-              <BiUserPlus size={30} />
-              <span className="lg:hidden">Criar novo usuário</span>
+              <PiUserListFill size={30} />
+              <span className="lg:hidden">Usuários</span>
             </ActiveLink>
 
-            <ActiveLink href={''} data-title="Categorias">
-              <MdCategory size={30} />
-              <span className="lg:hidden">Categorias</span>
-            </ActiveLink>
+            <Dialog.Root
+              isOpen={isModalCategori}
+              Open={
+                <ActiveLink
+                  href={''}
+                  data-title="Categorias"
+                  onClick={handleModalCategori}
+                >
+                  <MdCategory size={30} />
+                  <span className="lg:hidden">Categorias</span>
+                </ActiveLink>
+              }
+            >
+              <CategoriModal closeModal={handleModalCategori} />
+            </Dialog.Root>
           </>
         )}
 
