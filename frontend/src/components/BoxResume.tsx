@@ -9,7 +9,7 @@ export const BoxResume = (props: boxResumeProps) => {
   return (
     <div
       className={twMerge(
-        `rounded-[16px] max-w-[267px] min-w-[200px] md:min-w-[100px] max-h-[133px] min-h-[100px]
+        `rounded-[16px] min-w-[200px] md:min-w-[100px] max-h-[133px]
         p-4 flex flex-col justify-center items-start`,
         props.className
       )}

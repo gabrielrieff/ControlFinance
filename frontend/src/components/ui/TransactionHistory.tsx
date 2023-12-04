@@ -32,7 +32,7 @@ export const TransactionHistory = () => {
         >
           {listInvoice.map((invoice) => (
             <tr className="p-3 flex w-full" key={invoice.id}>
-              <td className="center gap-3 w-1/5">
+              <td className="center gap-3 w-1/5 md:flex-col">
                 <Image
                   alt={invoice.category.title}
                   src={`http://localhost:3333/files/image/category/${invoice.category.banner}`}

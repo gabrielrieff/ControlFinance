@@ -19,8 +19,8 @@ export default function Dashboard() {
       className="flex flex-col items-center bg-white-100
      h-full gap-8 rounded-[20px] p-4"
     >
-      <section className="w-full flex items-center justify-around gap-3">
-        <BoxResume className="bg-blue-200 font-semibold gap-2 ">
+      <section className="w-full flex items-center md:flex-col justify-around gap-3">
+        <BoxResume className="bg-blue-200 font-semibold gap-2 md:w-full md:p-2">
           <h3 className="text-sm md:text-sm">Total receita</h3>
           <span className="text-xl md:text-base">
             R${' '}
@@ -29,7 +29,7 @@ export default function Dashboard() {
             })}
           </span>
         </BoxResume>
-        <BoxResume className="bg-red-200 font-semibold gap-2">
+        <BoxResume className="bg-red-200 font-semibold gap-2 md:w-full md:p-2">
           <h3 className="text-sm md:text-sm">Total despesas</h3>
           <span className="text-xl md:text-base">
             R${' '}
@@ -41,7 +41,7 @@ export default function Dashboard() {
         <BoxResume
           className={`${
             user?.sum! > 0 ? 'bg-green-200' : 'bg-red-500'
-          } font-semibold gap-2`}
+          } font-semibold gap-2 md:w-full md:p-2`}
         >
           <h3 className="text-sm md:text-sm">Total lucro/prejuízo</h3>
           <span className="text-xl md:text-base">
