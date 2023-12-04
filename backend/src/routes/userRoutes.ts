@@ -39,6 +39,7 @@ userRouter.delete(
   isAuthenticated,
   new deleteUserController().handle
 );
+
 userRouter.patch(
   "/user/:id",
   isAuthenticated,
