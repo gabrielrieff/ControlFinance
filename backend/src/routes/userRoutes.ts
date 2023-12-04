@@ -8,6 +8,7 @@ import { CreateUserController } from "~/Controllers/User/create-user/create-user
 import { deleteUserController } from "~/Controllers/User/delete-user/delete-user";
 import { DetailUserController } from "~/Controllers/User/detail-user/detail-user";
 import { GetUsersController } from "~/Controllers/User/get-users/get-users";
+import { ListUsersController } from "~/Controllers/User/list-users/list-users";
 import { ResetPasswordController } from "~/Controllers/User/reset-password/reset-password";
 import { ToForgotPasswordController } from "~/Controllers/User/to-forgot-password/to-forgot-password";
 import { ToRecoverPasswordController } from "~/Controllers/User/to-recover-user/to-recover-password";
@@ -20,12 +21,19 @@ const upload = multer(uploadConfig.upload("./tmp/image/user"));
 
 userRouter.post("/session", new AuthUserController().handle);
 userRouter.post("/user", new CreateUserController().handle);
+
 userRouter.get("/users", isAuthenticated, new GetUsersController().handle);
+userRouter.get(
+  "/users-list",
+  isAuthenticated,
+  new ListUsersController().handle
+);
 userRouter.get(
   "/user/detail",
   isAuthenticated,
   new DetailUserController().handle
 );
+
 userRouter.delete(
   "/user/:id",
   isAuthenticated,
@@ -37,6 +45,7 @@ userRouter.patch(
   upload.single("file"),
   new UpdateUserController().handle
 );
+
 userRouter.post("/forgotpassword", new ToForgotPasswordController().handle);
 userRouter.post("/recoverpassword", new ToRecoverPasswordController().handle);
 userRouter.post(
