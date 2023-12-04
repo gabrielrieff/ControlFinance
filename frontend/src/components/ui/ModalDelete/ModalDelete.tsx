@@ -23,6 +23,11 @@ interface dialogProps {
 export const ModalDelete = (props: dialogProps) => {
   const { deleteInvoice } = useContext(AuthContext);
 
+  async function handleDelete(id: string) {
+    deleteInvoice(id);
+    props.close();
+  }
+
   return (
     <Dialog.Root open={props.isOpen}>
       <Dialog.Portal>
@@ -51,7 +56,7 @@ export const ModalDelete = (props: dialogProps) => {
           <div className="center gap-7">
             <Button
               className="bg-green-200"
-              onClick={() => deleteInvoice(props.data.id)}
+              onClick={() => handleDelete(props.data.id)}
             >
               Confirmar
             </Button>

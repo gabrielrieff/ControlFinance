@@ -53,22 +53,22 @@ export default function transactions() {
       installmentsRef.current?.getAttribute('data-value')
     );
 
-    if (categoryId !== null) {
-      setIsCategori(categoryId);
-    }
-
-    if (installment !== null) {
-      setIsInstallment(installment);
-    }
-
-    const data: recipeProps = {
+    let data: recipeProps = {
       description: isDescription,
       value: isValue,
-      installments: isInstallment,
-      categoryId: isCategori
+      installments: !Number.isNaN(installment) ? installment : isInstallment,
+      categoryId:
+        categoryId !== undefined && categoryId.length > 1
+          ? categoryId
+          : isCategori
     };
 
     updateInvoide(id, data);
+
+    setIsCategori('');
+    setIsDescription('');
+    setIsInstallment(0);
+    setIsValue(0);
 
     handleOpenModalEdit(null);
   }

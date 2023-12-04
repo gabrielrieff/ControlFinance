@@ -7,6 +7,7 @@ import { Button } from '../shared/Button';
 import { Dialog } from '../shared/Dialog';
 import { Input } from '../shared/Input';
 
+import { MdDelete } from 'react-icons/md';
 import './style.css';
 
 interface CategoriProps {
@@ -114,15 +115,16 @@ export const CategoriModal = ({ closeModal }: CategoriProps) => {
         </form>
 
         <h2 className="text-[20px] font-medium mt-6 mb-6">
-          Lista de categorias existentes
+          Lista de categorias
         </h2>
 
         <table className="w-full">
           <thead className="flex w-full">
             <tr className="flex w-full bg-grey-300 text-center p-1">
-              <th className="w-2/3 center">Id</th>
-              <th className="w-1/3 center">Título</th>
-              <th className="w-1/3 center">Banner</th>
+              <th className="w-3/4 center">Id</th>
+              <th className="w-1/4 center">Título</th>
+              <th className="w-1/4 center">Banner</th>
+              <th className="w-1/4 center"></th>
             </tr>
           </thead>
           <tbody
@@ -134,9 +136,9 @@ export const CategoriModal = ({ closeModal }: CategoriProps) => {
                 className="p-1 bg-grey-300 flex w-full mt-4"
                 key={categori.id}
               >
-                <td className="w-2/3 center">{categori.id}</td>
-                <td className="w-1/3 center">{categori.title}</td>
-                <td className="w-1/3 center">
+                <td className="w-3/4 center">{categori.id}</td>
+                <td className="w-1/4 center">{categori.title}</td>
+                <td className="w-1/4 center">
                   <Image
                     alt={categori.title}
                     src={`http://localhost:3333/files/image/category/${categori.banner}`}
@@ -144,6 +146,9 @@ export const CategoriModal = ({ closeModal }: CategoriProps) => {
                     height={40}
                     className="rounded-full lg:w-[30px] lg:h-[30px]"
                   />
+                </td>
+                <td className="w-1/4 center">
+                  <MdDelete className="text-red-500 hover:text-red-500/70 cursor-pointer transition-[.3s] text-3xl" />
                 </td>
               </tr>
             ))}

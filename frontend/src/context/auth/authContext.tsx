@@ -84,14 +84,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  async function getCategori() {
-    api.get('/category').then((response) => {
-      const { id, title, banner } = response.data;
+  //User connected routers
 
-      setCategories(response.data);
-      return categories;
-    });
-  }
+  async function changePassword() {}
 
   async function signIn(props: signInProps) {
     try {
@@ -126,26 +121,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {}
   }
 
-  async function recoverPassword(email: string) {
-    try {
-      const response = await api.post('/forgotpassword', { email });
-      push('/changePassword');
-    } catch (error) {
-      console.log('error: ', error);
-    }
-  }
-
-  async function allInvoices() {
-    const inovoice = await api.get('/invoices?take=10');
-    setListInvoice(inovoice.data);
-    return listInvoice;
-  }
-
-  async function deleteInvoice(id: string) {
-    const response = await api.delete(`/invoice/${id}`);
-    allInvoices();
-  }
-
   async function updateUser(data: FormData) {
     await api.patch(`/user/${user?.id}`, data).then((response) => {
       const { id, firstName, lastName, email, userType, photo } = response.data;
@@ -161,10 +136,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   }
 
-  async function createCategori(data: FormData) {
-    const response = await api.post('/category', data);
+  async function recoverPassword(email: string) {
+    try {
+      const response = await api.post('/forgotpassword', { email });
+      push('/changePassword');
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  }
 
-    getCategori();
+  //Invoice connected routers
+  async function allInvoices() {
+    const inovoice = await api.get('/invoices?take=10');
+    setListInvoice(inovoice.data);
+    return listInvoice;
+  }
+
+  async function deleteInvoice(id: string) {
+    const response = await api.delete(`/invoice/${id}`);
+    allInvoices();
   }
 
   async function AddInvoice(data: recipeProps) {
@@ -175,10 +165,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   async function updateInvoide(id: string, data: recipeProps) {
     const response = await api.patch(`/invoice/${id}`, data);
 
+    console.log(data);
+    console.log(response.data);
+
     allInvoices();
   }
 
-  async function changePassword() {}
+  //Categori connected routers
+  async function createCategori(data: FormData) {
+    const response = await api.post('/category', data);
+
+    getCategori();
+  }
+
+  async function getCategori() {
+    api.get('/category').then((response) => {
+      const { id, title, banner } = response.data;
+
+      setCategories(response.data);
+      return categories;
+    });
+  }
 
   return (
     <AuthContext.Provider
