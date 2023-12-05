@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import { ReactNode, createContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import {
   Category,
   invoiceProps,
@@ -88,7 +89,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   //User connected routers
-
   async function changePassword() {}
 
   async function signIn(props: signInProps) {
@@ -125,18 +125,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function updateUser(data: FormData) {
-    await api.patch(`/user/${user?.id}`, data).then((response) => {
-      const { id, firstName, lastName, email, userType, photo } = response.data;
+    try {
+      await api.patch(`/user/${user?.id}`, data).then((response) => {
+        const { id, firstName, lastName, email, userType, photo } =
+          response.data;
 
-      setUser({
-        id,
-        firstName,
-        lastName,
-        email,
-        userType,
-        photo
+        setUser({
+          id,
+          firstName,
+          lastName,
+          email,
+          userType,
+          photo
+        });
       });
-    });
+      toast.success('Usuários atualizado com sucesso!');
+    } catch (error) {
+      toast.error('Não foi possível atualizar o usuário!');
+    }
   }
 
   async function recoverPassword(email: string) {
@@ -150,35 +156,59 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   //Invoice connected routers
   async function allInvoices() {
-    const inovoice = await api.get('/invoices?take=10');
-    setListInvoice(inovoice.data);
-    return listInvoice;
+    try {
+      const inovoice = await api.get('/invoices?take=10');
+      setListInvoice(inovoice.data);
+      return listInvoice;
+    } catch (error) {}
   }
 
   async function deleteInvoice(id: string) {
-    const response = await api.delete(`/invoice/${id}`);
-    allInvoices();
+    try {
+      const response = await api.delete(`/invoice/${id}`);
+      toast.success('Fatura excluída com sucesso!');
+
+      allInvoices();
+    } catch (error) {
+      toast.error('Não foi possível excluir sua fatura!');
+    }
   }
 
   async function AddInvoice(data: recipeProps) {
-    const recipe = await api.post('/invoices', data);
-    allInvoices();
+    try {
+      const recipe = await api.post('/invoices', data);
+
+      toast.success('Novo valor adicionado com sucesso!');
+      allInvoices();
+    } catch (error) {
+      toast.error(
+        'Aconteceu algo e não foi possível adicionar uma nova fatura, por favor verifique!'
+      );
+    }
   }
 
   async function updateInvoide(id: string, data: recipeProps) {
-    const response = await api.patch(`/invoice/${id}`, data);
+    try {
+      const response = await api.patch(`/invoice/${id}`, data);
 
-    console.log(data);
-    console.log(response.data);
+      toast.success('Fatura atualizada com sucesso!');
 
-    allInvoices();
+      allInvoices();
+    } catch (error) {
+      toast.error('Não foi possível atualizar a fatura!');
+    }
   }
 
   //Categori connected routers
   async function createCategori(data: FormData) {
-    const response = await api.post('/category', data);
+    try {
+      const response = await api.post('/category', data);
+      toast.success('Categoria criada com sucesso!');
 
-    getCategori();
+      getCategori();
+    } catch (error) {
+      toast.error('Não foi possível criar a categoria!');
+    }
   }
 
   async function getCategori() {
@@ -191,9 +221,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function deleteCategori(id: string) {
-    const response = await api.delete(`/category/${id}`);
+    try {
+      const response = await api.delete(`/category/${id}`);
+      toast.success('Categoria deletada com sucesso!');
 
-    getCategori();
+      getCategori();
+    } catch (error) {
+      toast.error('Não foi possível deletar a categoria!');
+    }
   }
 
   return (

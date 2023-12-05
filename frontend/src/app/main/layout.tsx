@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Header } from '~/components/Header';
 import { NavBar } from '~/components/NavBar';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const metadata: Metadata = {
   title: 'Dashboard'
 };
@@ -19,6 +22,7 @@ export default function RootLayout({
           <Header />
           {children}
         </div>
+        <ToastContainer autoClose={3000} />
       </body>
     </html>
   );
