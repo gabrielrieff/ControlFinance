@@ -15,7 +15,8 @@ interface CategoriProps {
 }
 
 export const CategoriModal = ({ closeModal }: CategoriProps) => {
-  const { categories, createCategori } = useContext(AuthContext);
+  const { categories, createCategori, deleteCategori } =
+    useContext(AuthContext);
 
   const titleRef = useRef<HTMLInputElement | null>(null);
 
@@ -82,7 +83,10 @@ export const CategoriModal = ({ closeModal }: CategoriProps) => {
                 className="hidden "
               />
               {!avatar ? (
-                <div className="w-[100px] h-[100px] rounded-full bg-grey-300 flex items-center justify-center">
+                <div
+                  className="w-[100px] h-[100px] rounded-full bg-grey-300
+                flex items-center justify-center"
+                >
                   <AiOutlineUser size={50} />
                 </div>
               ) : (
@@ -101,13 +105,15 @@ export const CategoriModal = ({ closeModal }: CategoriProps) => {
               <Input
                 inputref={titleRef}
                 type="text"
-                className="border border-grey-500 rounded-none placeholder:text-black-100"
+                className="border border-grey-500 rounded-none
+               placeholder:text-black-100"
               />
             </label>
 
             <Button
               type="submit"
-              className="bg-green-400 hover:bg-green-500 w-[30%] rounded-sm font-semibold text-white-100"
+              className="bg-green-400 hover:bg-green-500 w-[30%] rounded-sm
+              font-semibold text-white-100"
             >
               Salvar
             </Button>
@@ -128,16 +134,16 @@ export const CategoriModal = ({ closeModal }: CategoriProps) => {
             </tr>
           </thead>
           <tbody
-            className="flex gap-2 flex-col items-center justify-between overflow-y-auto scroll
-            w-full h-[350px]"
+            className="flex gap-2 flex-col items-center justify-start
+            overflow-y-auto scroll w-full h-[350px]"
           >
             {categories.map((categori) => (
               <tr
                 className="p-1 bg-grey-300 flex w-full mt-4"
                 key={categori.id}
               >
-                <td className="w-3/4 center">{categori.id}</td>
-                <td className="w-1/4 center">{categori.title}</td>
+                <td className="w-3/4 center md:text-xs">{categori.id}</td>
+                <td className="w-1/4 center md:text-xs">{categori.title}</td>
                 <td className="w-1/4 center">
                   <Image
                     alt={categori.title}
@@ -148,7 +154,11 @@ export const CategoriModal = ({ closeModal }: CategoriProps) => {
                   />
                 </td>
                 <td className="w-1/4 center">
-                  <MdDelete className="text-red-500 hover:text-red-500/70 cursor-pointer transition-[.3s] text-3xl" />
+                  <MdDelete
+                    onClick={() => deleteCategori(categori.id)}
+                    className="text-red-500 hover:text-red-500/70 
+                  cursor-pointer transition-[.3s] text-3xl md:text-2xl"
+                  />
                 </td>
               </tr>
             ))}

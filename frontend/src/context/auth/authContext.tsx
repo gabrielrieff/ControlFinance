@@ -17,12 +17,15 @@ type AuthContextData = {
   isAuthenticated: boolean;
   signIn: (credentials: signInProps) => Promise<void>;
   signOut: () => void;
-  recoverPassword: (email: string) => Promise<void>;
   updateUser: (data: FormData) => Promise<void>;
-  createCategori: (data: FormData) => Promise<void>;
+  recoverPassword: (email: string) => Promise<void>;
+
   AddInvoice: (data: recipeProps) => Promise<void>;
   updateInvoide: (id: string, data: recipeProps) => Promise<void>;
+
   deleteInvoice: (id: string) => Promise<void>;
+  createCategori: (data: FormData) => Promise<void>;
+  deleteCategori: (id: string) => Promise<void>;
   listInvoice: Array<invoiceProps>;
   categories: Array<Category>;
 };
@@ -187,6 +190,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   }
 
+  async function deleteCategori(id: string) {
+    const response = await api.delete(`/category/${id}`);
+
+    getCategori();
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -194,12 +203,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         isAuthenticated,
         signIn,
         signOut,
-        recoverPassword,
         updateUser,
-        createCategori,
+        recoverPassword,
         AddInvoice,
         updateInvoide,
         deleteInvoice,
+        deleteCategori,
+        createCategori,
         listInvoice,
         categories
       }}

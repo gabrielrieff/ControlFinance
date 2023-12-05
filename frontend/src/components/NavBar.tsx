@@ -38,8 +38,9 @@ export const NavBar = () => {
 
   return (
     <nav
-      className={`max-w-[250px] md:max-w-full bg-white-100 h-full md:h-[55px]  pe-2 rounded-br-[40px] mr-3
-        rounded-tr-[40px] md:rounded-[20px] relative transition-all duration-500 ease-in md:m-0 md:mb-2`}
+      className={`max-w-[250px] md:max-w-full bg-white-100 h-full md:h-[55px] 
+      pe-2 rounded-br-[40px] mr-3 rounded-tr-[40px] md:rounded-[20px] relative
+      transition-all duration-500 ease-in md:m-0 md:mb-2`}
     >
       <h1
         className="font-medium text-[24px] flex items-center justify-center
@@ -48,8 +49,8 @@ export const NavBar = () => {
         MyWallet
       </h1>
       <section
-        className="md:max-w-full flex flex-col md:flex-row md:m-0 md:p-2 gap-[40px]
-        ml-2 mt-8 overflow-x-auto overflow-y-hidden scroll"
+        className="flex flex-col gap-[40px] ml-2 mt-8 overflow-x-auto overflow-y-hidden
+        scroll md:max-w-full md:flex-row md:m-0 md:p-2 md:justify-center sm:justify-start"
       >
         <ActiveLink href={'/main/dashboard'} data-title="Dashboard">
           <BiSolidDashboard size={30} />
