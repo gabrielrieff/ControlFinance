@@ -6,6 +6,7 @@ interface dialogDemoProps {
   Open: React.ReactNode;
   isOpen: boolean;
   className?: string;
+  close: () => void;
 }
 
 export const Root = (props: dialogDemoProps) => {
@@ -13,7 +14,10 @@ export const Root = (props: dialogDemoProps) => {
     <Dialog.Root open={props.isOpen}>
       {props.Open}
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-black-100/30 data-[state=open]:animate-overlayShow fixed inset-0" />
+        <Dialog.Overlay
+          onClick={props.close}
+          className="bg-black-100/30 data-[state=open]:animate-overlayShow fixed inset-0"
+        />
         <Dialog.Content
           className={`${twMerge(
             props.className

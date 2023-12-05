@@ -48,3 +48,7 @@
 body::-webkit-scrollbar-thumb {
   background-color: rgb(53, 53, 53);
 }
+
+:root {
+  --toastify-color-success: #047708;
+}

@@ -64,6 +64,7 @@ export const NavBar = () => {
 
         <Dialog.Root
           isOpen={isOpen}
+          close={handleOpenModal}
           Open={
             <ActiveLink
               href={''}
@@ -80,6 +81,7 @@ export const NavBar = () => {
 
         <Dialog.Root
           isOpen={isOpenModalExpense}
+          close={handleModalExpense}
           Open={
             <ActiveLink
               href={''}
@@ -102,6 +104,7 @@ export const NavBar = () => {
 
             <Dialog.Root
               isOpen={isModalCategori}
+              close={handleModalCategori}
               Open={
                 <ActiveLink
                   href={''}
