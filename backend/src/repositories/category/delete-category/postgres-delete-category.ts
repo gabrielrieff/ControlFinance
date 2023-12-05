@@ -1,8 +1,8 @@
 import client from "~/database/postgres";
 import { Category } from "~/models/category";
 
-import fs from "fs";
 import { resolve } from "path";
+import { deletePhoto } from "~/Helpers/deletePhoto";
 
 export class DeleteCategoryRepository {
   async deleteCategory(id: string, userId: string): Promise<Category | string> {
@@ -49,8 +49,7 @@ export class DeleteCategoryRepository {
       existingCategori.banner
     );
 
-    await fs.statSync(filePath);
-    await fs.unlinkSync(filePath);
+    await deletePhoto(filePath);
 
     return existingCategori!;
   }
