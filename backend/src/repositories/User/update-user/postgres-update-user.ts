@@ -24,7 +24,7 @@ export class PostgresUpdateUserRepository {
         email: true,
         photo: true,
         password: true,
-        admin: true,
+        userType: true,
         created_at: true,
         updated_at: true,
       },
