@@ -4,13 +4,18 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
 import Image from 'next/image';
+import { BiSolidUser } from 'react-icons/bi';
 import { FaGear } from 'react-icons/fa6';
 import { IoIosArrowDown } from 'react-icons/io';
+import { enumUser } from '~/@types/enum/EnumAdmin';
+import { FormatDate } from '~/Helpers/FormatDate';
 import { Button } from '~/components/shared/Button';
 import { Input } from '~/components/shared/Input';
 
 export default function NovoUsuario() {
-  const {} = useContext(AuthContext);
+  const { users } = useContext(AuthContext);
+
+  console.log(users);
 
   const [editingIndex, setEditingIndex] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +25,8 @@ export default function NovoUsuario() {
   function handleForm() {
     setIsForm(!isForm);
   }
+
+  if (users === undefined) return;
 
   return (
     <main
@@ -122,38 +129,61 @@ export default function NovoUsuario() {
               </tr>
             </thead>
             <tbody className="gap-2 flex flex-col">
-              <tr className="bg-grey-300/30 rounded-[10px] p-2 flex w-full justify-between">
-                <td
-                  className="flex items-center justify-center gap-3 md:gap-1 md:flex-col 
-                            w-1/5"
-                >
-                  <Image
-                    alt={''}
-                    src={``}
-                    width={40}
-                    height={40}
-                    className="rounded-full lg:w-[30px] lg:h-[30px]"
-                  />
-                  <span>Gabriel Rieff</span>
-                </td>
+              {users.map((user) => (
+                <tr className="bg-grey-300/30 rounded-[10px] p-2 flex w-full justify-between">
+                  <td
+                    className="flex items-center justify-center gap-3 md:gap-1 md:flex-col 
+                                          w-1/5"
+                  >
+                    {!user?.photo ? (
+                      <div
+                        className="bg-grey-400 h-[40px] w-[40px] flex items-center
+           justify-center rounded-full"
+                      >
+                        <BiSolidUser size={30} />
+                      </div>
+                    ) : (
+                      <Image
+                        alt={`${user!.firstName} ${user!.lastName}`}
+                        src={`http://localhost:3333/files/image/user/${
+                          user!.photo
+                        }`}
+                        width={46}
+                        height={46}
+                        className="rounded-full h-[46px] object-cover"
+                      />
+                    )}
+                    <span>
+                      {user.firstName} {user.lastName}
+                    </span>
+                  </td>
 
-                <td className="w-1/5 center">Admin</td>
+                  <td className="w-1/5 center">
+                    {user.userType! === enumUser.Admin
+                      ? 'Admin'
+                      : user?.userType! === enumUser.Padrao
+                      ? 'Padrão'
+                      : user?.userType! === enumUser.Master
+                      ? 'Master'
+                      : ''}
+                  </td>
 
-                <td className="w-2/5 center">
-                  c6d0112e-a2eb-42bc-9d9b-6c7b7d6c7b85
-                </td>
+                  <td className="w-2/5 center">{user.id}</td>
 
-                <td className="w-1/5 center">13/10/2023</td>
+                  <td className="w-1/5 center">
+                    {FormatDate(user.created_at!)}
+                  </td>
 
-                <td className="w-1/5 center gap-3 lg:gap-1 md:flex-col">
-                  <Button className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 ">
-                    Excluir
-                  </Button>
-                  <Button className="bg-orenge-500 hover:bg-orenge-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 ">
-                    Editar
-                  </Button>
-                </td>
-              </tr>
+                  <td className="w-1/5 center gap-3 lg:gap-1 md:flex-col">
+                    <Button className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 ">
+                      Excluir
+                    </Button>
+                    <Button className="bg-orenge-500 hover:bg-orenge-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 ">
+                      Editar
+                    </Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

@@ -15,6 +15,7 @@ import { api } from '~/services/api';
 
 type AuthContextData = {
   user?: userProps;
+  users?: Array<userProps>;
   isAuthenticated: boolean;
   signIn: (credentials: signInProps) => Promise<void>;
   signOut: () => void;
@@ -23,11 +24,11 @@ type AuthContextData = {
 
   AddInvoice: (data: recipeProps) => Promise<void>;
   updateInvoide: (id: string, data: recipeProps) => Promise<void>;
+  listInvoice: Array<invoiceProps>;
 
   deleteInvoice: (id: string) => Promise<void>;
   createCategori: (data: FormData) => Promise<void>;
   deleteCategori: (id: string) => Promise<void>;
-  listInvoice: Array<invoiceProps>;
   categories: Array<Category>;
 };
 
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { push } = useRouter();
 
   const [user, setUser] = useState<userProps>();
+  const [users, setUsers] = useState<Array<userProps>>([]);
   const [listInvoice, setListInvoice] = useState<Array<invoiceProps>>([]);
   const [categories, setCategories] = useState<Array<Category>>([]);
   const isAuthenticated = !!user;
@@ -78,6 +80,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       getCategori();
 
       allInvoices();
+
+      getUsers();
     }
   }, [listInvoice]);
 
@@ -152,6 +156,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.log('error: ', error);
     }
+  }
+
+  async function getUsers() {
+    const response = await api.get('/users-list');
+
+    setUsers(response.data);
   }
 
   //Invoice connected routers
@@ -235,6 +245,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider
       value={{
         user,
+        users,
         isAuthenticated,
         signIn,
         signOut,
