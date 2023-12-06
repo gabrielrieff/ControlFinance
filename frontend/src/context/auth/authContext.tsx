@@ -42,7 +42,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [listInvoice, setListInvoice] = useState<Array<invoiceProps>>([]);
   const [categories, setCategories] = useState<Array<Category>>([]);
   const isAuthenticated = !!user;
-
   useEffect(() => {
     const { '@nextauth.token': token } = parseCookies();
     if (token) {
@@ -78,8 +77,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         });
 
       getCategori();
-
-      allInvoices();
 
       getUsers();
     }
@@ -241,6 +238,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  if (user === undefined) return;
   return (
     <AuthContext.Provider
       value={{
