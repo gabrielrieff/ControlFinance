@@ -6,12 +6,13 @@ import { AuthContext } from '~/context/auth/authContext';
 import Image from 'next/image';
 import { FaGear } from 'react-icons/fa6';
 import { recipeProps } from '~/@types/contextTypes';
+import { FormatDate } from '~/Helpers/FormatDate';
+import { checkInstallmentsPaid } from '~/Helpers/checkInstallmentsPaid';
 import { Button } from '~/components/shared/Button';
 import { Input } from '~/components/shared/Input';
 import { ModalDelete } from '~/components/ui/ModalDelete/ModalDelete';
 import { SelectedCategories } from '~/components/ui/SelectedCategories/SelectedCategories';
 import { SelectedInstallments } from '~/components/ui/SelectedInstallments/SelectedInstallments';
-import { FormatDate } from '~/Helpers/FormatDate';
 
 export default function transactions() {
   const { listInvoice, updateInvoide } = useContext(AuthContext);
@@ -184,7 +185,12 @@ export default function transactions() {
               {item.type == 0 ? (
                 <td className="w-[10%] center">-</td>
               ) : (
-                <td className="w-[10%] center">{item.installments}</td>
+                <td className="w-[10%] center">
+                  {checkInstallmentsPaid(
+                    new Date(item.created_at),
+                    new Date(item.dateEnd)
+                  )}
+                </td>
               )}
 
               {item.id !== editingIndex ? (
