@@ -120,7 +120,7 @@ export default function transactions() {
             >
               {item.id !== editingIndex ? (
                 <td
-                  className="flex items-center justify-center gap-3 md:gap-1 md:flex-col 
+                  className="flex items-center justify-start gap-3 md:gap-1 md:flex-col 
                             w-[15%] md:w-[10%]"
                 >
                   <Image
@@ -149,7 +149,9 @@ export default function transactions() {
               )}
 
               {item.id !== editingIndex ? (
-                <td className="w-[10%] center">{item.description}</td>
+                <td className="w-[10%] center text-center">
+                  {item.description}
+                </td>
               ) : (
                 <td className="w-[10%] center p-1">
                   <Input
