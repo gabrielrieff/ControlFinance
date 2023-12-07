@@ -3,6 +3,7 @@
 import { FormEvent, useContext, useRef } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
+import { dateInstallments } from '~/Helpers/dateInstallments';
 import { Button } from '../shared/Button';
 import { Dialog } from '../shared/Dialog';
 import { Input } from '../shared/Input';
@@ -31,13 +32,15 @@ export const AddRecipe = ({ closeModal }: addRecipeProps) => {
     )
       return;
 
+    const dateEnd = dateInstallments(1);
+
     const data = {
       description: descriptionRef.current?.value!,
       value: valueRef.current?.valueAsNumber!,
       type: 0,
       installments: 1,
       categoryId: categoryId!,
-      dateEnd: '2024-05-10'
+      dateEnd: dateEnd
     };
 
     AddInvoice(data);
