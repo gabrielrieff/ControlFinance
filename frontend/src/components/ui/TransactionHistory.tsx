@@ -11,14 +11,16 @@ export const TransactionHistory = () => {
   return (
     <section
       className="border border-grey-500 rounded-2xl flex flex-col
-      p-2"
+      p-2 h-full"
     >
       <h1 className="font-semibold p-3">Histórico de transações mensal</h1>
 
       <table className="text-grey-600 text-center w-full sm:text-xs">
         <thead className="flex w-full">
           <tr className="flex w-full text-center">
-            <th className="w-1/5 center">Transição</th>
+            <th className="w-1/5 center justify-start md:justify-center">
+              Transição
+            </th>
             <th className="w-1/5 center">Tipo</th>
             <th className="w-1/5 center">Valor</th>
             <th className="w-1/5 center">Data de lançamento</th>
@@ -28,11 +30,11 @@ export const TransactionHistory = () => {
 
         <tbody
           className="flex flex-col items-center justify-between overflow-y-auto scroll
-         w-full h-[100px] "
+         w-full h-[150px] "
         >
           {listInvoice.map((invoice) => (
             <tr className="p-3 flex w-full" key={invoice.id}>
-              <td className="center gap-3 w-1/5 md:flex-col">
+              <td className="center gap-3 w-1/5 justify-start md:flex-col">
                 <Image
                   alt={invoice.category.title}
                   src={`http://localhost:3333/files/image/category/${invoice.category.banner}`}

@@ -62,7 +62,7 @@ export default function Dashboard() {
           />
         </div>
       </section>
-      <section className="w-full">
+      <section className="w-full h-full">
         <TransactionHistory />
       </section>
     </main>
