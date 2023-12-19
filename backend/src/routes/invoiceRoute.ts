@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { isAuthenticated } from "~/middlewares/isAuthenticated";
 import { CreateInvoiceController } from "~/Controllers/Inovoice/create-inovoice/create-invoice";
-import { ListInvoiceController } from "~/Controllers/Inovoice/list-invoice/list-invoice";
 import { DeleteInvoiceController } from "~/Controllers/Inovoice/delete-invoice/delete-invoice";
+import { ListInvoiceMonthController } from "~/Controllers/Inovoice/list-invoice-month/list-invoice-month";
+import { ListInvoiceController } from "~/Controllers/Inovoice/list-invoice/list-invoice";
 import { UpdateInvoiceController } from "~/Controllers/Inovoice/update-invoice/update-invoice";
+import { isAuthenticated } from "~/middlewares/isAuthenticated";
 
 const invoiceRouter = Router();
 
@@ -23,6 +24,12 @@ invoiceRouter.get(
   "/invoices",
   isAuthenticated,
   new ListInvoiceController().handle
+);
+
+invoiceRouter.get(
+  "/invoicesmonth",
+  isAuthenticated,
+  new ListInvoiceMonthController().handle
 );
 
 invoiceRouter.patch(
