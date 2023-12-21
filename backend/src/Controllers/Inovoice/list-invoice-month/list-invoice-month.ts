@@ -8,12 +8,12 @@ export class ListInvoiceMonthController {
     httpResponse: Response
   ): Promise<Response<Invoice[] | string>> {
     try {
-      const { month, year } = httpRequest.body;
+      const { year, month } = httpRequest.query;
 
       const userId = httpRequest.user_id;
 
-      const yearConverted = parseInt(year, 10);
-      const monthConverted = parseInt(month, 10);
+      const yearConverted = parseInt(year as string, 10);
+      const monthConverted = parseInt(month as string, 10);
 
       const monthZeroBased = monthConverted - 1;
       const startDate = new Date(yearConverted, monthZeroBased, 1);

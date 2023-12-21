@@ -27,7 +27,7 @@ invoiceRouter.get(
 );
 
 invoiceRouter.get(
-  "/invoicesmonth",
+  "/invoice",
   isAuthenticated,
   new ListInvoiceMonthController().handle
 );
