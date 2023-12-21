@@ -14,8 +14,10 @@ import { ModalDelete } from '~/components/ui/ModalDelete/ModalDelete';
 import { SelectedCategories } from '~/components/ui/SelectedCategories/SelectedCategories';
 import { SelectedInstallments } from '~/components/ui/SelectedInstallments/SelectedInstallments';
 
+import '~/components/ui/style.css';
+
 export default function transactions() {
-  const { listInvoice, updateInvoide } = useContext(AuthContext);
+  const { invoices, updateInvoide } = useContext(AuthContext);
 
   const categoriRef = useRef<HTMLDivElement | null>(null);
   const installmentsRef = useRef<HTMLDivElement | null>(null);
@@ -79,7 +81,7 @@ export default function transactions() {
   }
 
   useEffect(() => {
-    const invoice = listInvoice.filter((item) => item.id === editingIndex)[0];
+    const invoice = invoices.filter((item) => item.id === editingIndex)[0];
 
     if (invoice === undefined) return;
 
@@ -113,8 +115,11 @@ export default function transactions() {
             </th>
           </tr>
         </thead>
-        <tbody className="gap-2 flex flex-col">
-          {listInvoice.map((item) => (
+        <tbody
+          className="gap-2 flex flex-col overflow-y-auto scroll
+         w-full max-h-[710px] "
+        >
+          {invoices.map((item) => (
             <tr
               key={item.id}
               className="bg-grey-300/30 rounded-[10px] p-2 flex w-full justify-between"

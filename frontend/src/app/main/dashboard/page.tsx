@@ -10,9 +10,9 @@ import { BoxResume } from '~/components/BoxResume';
 import { TransactionHistory } from '~/components/ui/TransactionHistory';
 
 export default function Dashboard() {
-  const { user, listInvoice } = useContext(AuthContext);
+  const { user, invoices } = useContext(AuthContext);
 
-  const chart = transformArrayToChartData(listInvoice);
+  const chart = transformArrayToChartData(invoices);
 
   return (
     <main

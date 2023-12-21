@@ -24,7 +24,8 @@ type AuthContextData = {
 
   AddInvoice: (data: recipeProps) => Promise<void>;
   updateInvoide: (id: string, data: recipeProps) => Promise<void>;
-  listInvoice: Array<invoiceProps>;
+  invoices: Array<invoiceProps>;
+  invoicesTake: Array<invoiceProps>;
 
   deleteInvoice: (id: string) => Promise<void>;
   createCategori: (data: FormData) => Promise<void>;
@@ -39,9 +40,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const [user, setUser] = useState<userProps>();
   const [users, setUsers] = useState<Array<userProps>>([]);
-  const [listInvoice, setListInvoice] = useState<Array<invoiceProps>>([]);
+  const [invoices, setInvoices] = useState<Array<invoiceProps>>([]);
+  const [invoicesTake, setInvoicesTake] = useState<Array<invoiceProps>>([]);
   const [categories, setCategories] = useState<Array<Category>>([]);
   const isAuthenticated = !!user;
+
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth() + 1;
 
   useEffect(() => {
     const { '@nextauth.token': token } = parseCookies();
@@ -81,12 +86,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       getUsers();
     }
-  }, [listInvoice]);
+  }, [invoices]);
 
   useEffect(() => {
     const { '@nextauth.token': token } = parseCookies();
     if (token) {
-      allInvoices();
+      getInvoices(year, month);
+      getInvoicesTake();
     }
   }, []);
 
@@ -163,11 +169,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   //Invoice connected routers
-  async function allInvoices() {
+  async function getInvoices(year?: number, month?: number) {
     try {
-      const inovoice = await api.get('/invoices?take=10');
-      setListInvoice(inovoice.data);
-      return listInvoice;
+      const inovoice = await api.get(`/invoice?year=${year}&month=${month}`);
+
+      setInvoices(inovoice.data);
+
+      return invoices;
+    } catch (error) {}
+  }
+
+  async function getInvoicesTake() {
+    try {
+      const inovoice = await api.get(`/invoices?take=10`);
+
+      setInvoicesTake(inovoice.data);
+
+      return invoices;
     } catch (error) {}
   }
 
@@ -176,7 +194,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await api.delete(`/invoice/${id}`);
       toast.success('Fatura excluída com sucesso!');
 
-      allInvoices();
+      getInvoices(year, month);
     } catch (error) {
       toast.error('Não foi possível excluir sua fatura!');
     }
@@ -187,7 +205,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const recipe = await api.post('/invoices', data);
 
       toast.success('Novo valor adicionado com sucesso!');
-      allInvoices();
+      getInvoices(year, month);
     } catch (error) {
       toast.error(
         'Aconteceu algo e não foi possível adicionar uma nova fatura, por favor verifique!'
@@ -201,7 +219,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       toast.success('Fatura atualizada com sucesso!');
 
-      allInvoices();
+      getInvoices(year, month);
     } catch (error) {
       toast.error('Não foi possível atualizar a fatura!');
     }
@@ -252,9 +270,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         AddInvoice,
         updateInvoide,
         deleteInvoice,
+        invoices,
+        invoicesTake,
         deleteCategori,
         createCategori,
-        listInvoice,
         categories
       }}
     >

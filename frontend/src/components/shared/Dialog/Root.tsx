@@ -22,7 +22,7 @@ export const Root = (props: dialogDemoProps) => {
           className={`${twMerge(
             props.className
           )} data-[state=open]:animate-contentShow fixed z-10
-          top-[50%] left-[50%] w-[40%] 2xl:w-[50%] xl:w-[60%] lg:w-[90%] h-[70%] translate-x-[-50%] 
+          top-[50%] left-[50%] w-[40%] 2xl:w-[50%] xl:w-[60%] lg:w-[90%] h-[75%] translate-x-[-50%] 
           translate-y-[-50%] rounded-[6px] bg-white-100 p-[25px] focus:outline-none`}
         >
           {props.children}

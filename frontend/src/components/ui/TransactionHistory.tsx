@@ -6,7 +6,7 @@ import { FormatDate } from '~/Helpers/FormatDate';
 import './style.css';
 
 export const TransactionHistory = () => {
-  const { listInvoice } = useContext(AuthContext);
+  const { invoicesTake } = useContext(AuthContext);
 
   return (
     <section
@@ -32,7 +32,7 @@ export const TransactionHistory = () => {
           className="flex flex-col items-center justify-between overflow-y-auto scroll
          w-full h-[150px] "
         >
-          {listInvoice.map((invoice) => (
+          {invoicesTake.map((invoice) => (
             <tr className="p-3 flex w-full" key={invoice.id}>
               <td className="center gap-3 w-1/5 justify-start md:flex-col">
                 <Image
