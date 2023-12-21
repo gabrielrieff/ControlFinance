@@ -2,7 +2,7 @@
 import { AuthContext } from '~/context/auth/authContext';
 
 import Link from 'next/link';
-import { FormEvent, useContext, useRef } from 'react';
+import { FormEvent, useContext, useRef, useState } from 'react';
 import { AiFillEye } from 'react-icons/ai';
 import { BiSolidLock } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
@@ -14,6 +14,8 @@ export default function Home() {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
+  const [viewPassword, setViewPassword] = useState(true);
+
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
 
@@ -24,6 +26,10 @@ export default function Home() {
       };
       await signIn(data);
     }
+  }
+
+  function handleViewPassword() {
+    setViewPassword(!viewPassword);
   }
 
   return (
@@ -54,14 +60,14 @@ export default function Home() {
             <BiSolidLock size={30} className="absolute bottom-[10px] left-2" />
             <Input
               inputref={passwordRef}
-              type="password"
+              type={viewPassword ? 'password' : 'text'}
               className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
               outline-green-500 bg-grey-400 ps-11 pe-11 h-[50px]"
             />
-            <button>
+            <button onClick={handleViewPassword}>
               <AiFillEye
                 size={30}
-                className="absolute bottom-[10px] right-2 hover:text-grey-300 transition-[0.3s]"
+                className="absolute bottom-[10px] right-2 hover:text-grey-600 transition-[0.3s]"
               />
             </button>
           </div>

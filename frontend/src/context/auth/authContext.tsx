@@ -129,7 +129,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       destroyCookie(undefined, '@nextauth.token');
       push('/');
-    } catch (error) {}
+    } catch (error) {
+      console.log('erro ao deslogar');
+    }
   }
 
   async function updateUser(data: FormData) {

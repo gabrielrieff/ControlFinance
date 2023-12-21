@@ -15,15 +15,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
-      <body className="bg-blue-300 flex md:flex-col h-screen w-full pt-3 pr-3 pb-3 md:p-2">
+    <div lang="pt-BR">
+      <div className="bg-blue-300 flex md:flex-col h-screen w-full pt-3 pr-3 pb-3 md:p-2">
         <NavBar />
         <div className="flex flex-col gap-2 w-full">
           <Header />
           {children}
         </div>
         <ToastContainer autoClose={3000} />
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }

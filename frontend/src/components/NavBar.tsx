@@ -126,8 +126,8 @@ export const NavBar = () => {
           <span className="lg:hidden">Configurações</span>
         </ActiveLink>
 
-        <ActiveLink href={''}>
-          <button className="hover:underline" onClick={signOut}>
+        <ActiveLink href={''} onClick={signOut}>
+          <button className="hover:underline">
             <span className="md:hidden">Sair</span>
             <MdLogout size={30} className="hidden md:flex" />
           </button>
