@@ -11,6 +11,6 @@
 > #####Back-end
 
 - [ ] Ao iniciar a tela ja ter todos dados necessarios;
-- [ ] Filtros por categoria e data (por categoria ja existe); OK
-- [ ] Lista de valores por ano;
-- [ ] Lista de valores por mês;
+- [x] Filtros por categoria e data (por categoria ja existe); OK
+- [x] Lista de valores por ano;
+- [x] Lista de valores por mês;

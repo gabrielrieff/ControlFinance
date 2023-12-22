@@ -19,6 +19,7 @@ type AuthContextData = {
   isAuthenticated: boolean;
   signIn: (credentials: signInProps) => Promise<void>;
   signOut: () => void;
+  deleteUser: (id: string) => void;
   updateUser: (data: FormData) => Promise<void>;
   recoverPassword: (email: string) => Promise<void>;
 
@@ -131,6 +132,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       push('/');
     } catch (error) {
       console.log('erro ao deslogar');
+    }
+  }
+
+  async function deleteUser(id: string) {
+    try {
+      await api.delete(`/user/${id}`);
+      toast.success('Usuário deletado com sucesso!');
+    } catch (error) {
+      toast.error('Não foi possível deletar o usuário!');
     }
   }
 
@@ -267,6 +277,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         isAuthenticated,
         signIn,
         signOut,
+        deleteUser,
         updateUser,
         recoverPassword,
         AddInvoice,

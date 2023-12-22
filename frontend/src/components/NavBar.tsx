@@ -97,7 +97,7 @@ export const NavBar = () => {
         </Dialog.Root>
         {user?.userType === enumUser.Master && (
           <>
-            <ActiveLink href={'/main/addUser'} data-title="Criar novo usuário">
+            <ActiveLink href={'/main/users'} data-title="Criar novo usuário">
               <PiUserListFill size={30} />
               <span className="lg:hidden">Usuários</span>
             </ActiveLink>

@@ -12,10 +12,8 @@ import { FormatDate } from '~/Helpers/FormatDate';
 import { Button } from '~/components/shared/Button';
 import { Input } from '~/components/shared/Input';
 
-export default function NovoUsuario() {
-  const { users } = useContext(AuthContext);
-
-  console.log(users);
+export default function Usuarios() {
+  const { users, deleteUser } = useContext(AuthContext);
 
   const [editingIndex, setEditingIndex] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -175,7 +173,10 @@ export default function NovoUsuario() {
                   </td>
 
                   <td className="w-1/5 center gap-3 lg:gap-1 md:flex-col">
-                    <Button className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 ">
+                    <Button
+                      onClick={() => deleteUser(user.id)}
+                      className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
+                    >
                       Excluir
                     </Button>
                     <Button className="bg-orenge-500 hover:bg-orenge-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 ">
