@@ -218,7 +218,7 @@ export default function transactions() {
               <td className="w-[10%] center">{FormatDate(item.dateEnd)}</td>
 
               {item.id !== editingIndex ? (
-                <td className="w-[15%] md:w-[10%] center gap-3 lg:gap-1 md:flex-col">
+                <td className="w-[15%] md:w-[10%] center gap-3 lg:gap-1 lg:flex-col">
                   <Button
                     onClick={() =>
                       deleteInvoice(item.type, item.value, item.id)

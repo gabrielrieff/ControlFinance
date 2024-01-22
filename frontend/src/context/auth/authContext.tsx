@@ -52,8 +52,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const { '@nextauth.token': token } = parseCookies();
     if (token) {
+      const data = {
+        year,
+        month
+      };
+
       api
-        .get('/user/detail')
+        .get(`/user/detail?year=${year}&month=${month}`)
         .then((response) => {
           const {
             id,
@@ -93,7 +98,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { '@nextauth.token': token } = parseCookies();
     if (token) {
       getInvoices(year, month);
-      getInvoicesTake();
+      getInvoicesTake(year, month);
     }
   }, []);
 
@@ -138,6 +143,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   async function deleteUser(id: string) {
     try {
       await api.delete(`/user/${id}`);
+      getUsers();
       toast.success('Usuário deletado com sucesso!');
     } catch (error) {
       toast.error('Não foi possível deletar o usuário!');
@@ -191,9 +197,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {}
   }
 
-  async function getInvoicesTake() {
+  async function getInvoicesTake(year?: number, month?: number) {
     try {
-      const inovoice = await api.get(`/invoices?take=10`);
+      const inovoice = await api.get(
+        `/invoices?take=10&${year}&month=${month}`
+      );
 
       setInvoicesTake(inovoice.data);
 

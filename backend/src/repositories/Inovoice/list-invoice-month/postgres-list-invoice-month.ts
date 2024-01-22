@@ -38,10 +38,3 @@ export class ListInvoiceMonthRepository {
     return invoices;
   }
 }
-
-// {
-//   created_at: {
-//     gte: new Date(`${year}-${month}-01T00:00:00.000Z`),
-//     lt: new Date(`${year}-${month}-01T00:00:00.000Z`),
-//   },
-// },

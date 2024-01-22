@@ -2,10 +2,25 @@ import client from "~/database/postgres";
 import { Invoice } from "~/models/inovoice";
 
 export class ListInvoiceRepository {
-  async listInvoice(id: string, take?: number): Promise<Invoice[] | string> {
+  async listInvoice(
+    id: string,
+    take?: number,
+    startDate?: Date,
+    endDate?: Date
+  ): Promise<Invoice[] | string> {
     const listInvoice = await client.invoice.findMany({
       where: {
         userId: id,
+        AND: [
+          {
+            created_at: { gte: startDate },
+          },
+          {
+            created_at: {
+              lt: endDate,
+            },
+          },
+        ],
       },
       take: take,
       select: {

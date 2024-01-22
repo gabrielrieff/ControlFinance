@@ -20,7 +20,7 @@ export class PostgresGetUsersRepository {
         lastName: true,
         email: true,
         password: true,
-        admin: true,
+        userType: true,
         created_at: true,
       },
     });

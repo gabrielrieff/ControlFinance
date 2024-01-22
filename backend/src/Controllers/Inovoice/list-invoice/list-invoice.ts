@@ -9,10 +9,26 @@ export class ListInvoiceController {
   ): Promise<Response<Invoice[] | string>> {
     try {
       const userId = httpRequest.user_id;
+      const { year, month } = httpRequest.query;
       const take = parseInt(httpRequest.query.take as string) || 0;
+      console.log(take);
+      console.log(year);
+      console.log(month);
+
+      const yearConverted = parseInt(year as string, 10);
+      const monthConverted = parseInt(month as string, 10);
+
+      const monthZeroBased = monthConverted - 1;
+      const startDate = new Date(yearConverted, monthZeroBased, 1);
+      const endDate = new Date(yearConverted, monthZeroBased + 1, 1);
 
       const listInvoiceRepository = new ListInvoiceRepository();
-      const ListInvoice = await listInvoiceRepository.listInvoice(userId, take);
+      const ListInvoice = await listInvoiceRepository.listInvoice(
+        userId,
+        take,
+        startDate,
+        endDate
+      );
 
       return httpResponse.json(ListInvoice);
     } catch (error) {

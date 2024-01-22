@@ -1,7 +1,7 @@
 import client from "~/database/postgres";
 
 export class DetailUserRepository {
-  async detailUser(id: string) {
+  async detailUser(id: string, startDate: Date, endDate: Date) {
     const detailUser = await client.user.findFirst({
       where: {
         id: id,
@@ -21,6 +21,16 @@ export class DetailUserRepository {
     const sumArray = await client.invoice.findMany({
       where: {
         userId: id,
+        AND: [
+          {
+            created_at: { gte: startDate },
+          },
+          {
+            created_at: {
+              lt: endDate,
+            },
+          },
+        ],
       },
       select: {
         value: true,
