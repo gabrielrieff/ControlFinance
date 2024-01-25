@@ -3,6 +3,7 @@ import { CreateInvoiceController } from "~/Controllers/Inovoice/create-inovoice/
 import { DeleteInvoiceController } from "~/Controllers/Inovoice/delete-invoice/delete-invoice";
 import { ListInvoiceMonthController } from "~/Controllers/Inovoice/list-invoice-month/list-invoice-month";
 import { ListInvoiceController } from "~/Controllers/Inovoice/list-invoice/list-invoice";
+import { ListInvoiceYearController } from "~/Controllers/Inovoice/list-invoices-year/list-invoices-year";
 import { UpdateInvoiceController } from "~/Controllers/Inovoice/update-invoice/update-invoice";
 import { isAuthenticated } from "~/middlewares/isAuthenticated";
 
@@ -30,6 +31,12 @@ invoiceRouter.get(
   "/invoice",
   isAuthenticated,
   new ListInvoiceMonthController().handle
+);
+
+invoiceRouter.get(
+  "/invoicesyear",
+  isAuthenticated,
+  new ListInvoiceYearController().handle
 );
 
 invoiceRouter.patch(

@@ -200,7 +200,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   async function getInvoicesTake(year?: number, month?: number) {
     try {
       const inovoice = await api.get(
-        `/invoices?take=10&${year}&month=${month}`
+        `/invoices?year=${year}&month=${month}&take=10`
       );
 
       setInvoicesTake(inovoice.data);

@@ -3,16 +3,12 @@
 import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
-import Chart from 'react-google-charts';
-import { transformArrayToChartData } from './transformArrayToChartData';
-
 import { BoxResume } from '~/components/BoxResume';
 import { TransactionHistory } from '~/components/ui/TransactionHistory';
+import { Charts } from '~/components/Charts';
 
 export default function Dashboard() {
-  const { user, invoices } = useContext(AuthContext);
-
-  const chart = transformArrayToChartData(invoices);
+  const { user } = useContext(AuthContext);
 
   return (
     <main
@@ -54,12 +50,7 @@ export default function Dashboard() {
       </section>
       <section className="w-full">
         <div className="border border-grey-500 rounded-2xl p-2">
-          <Chart
-            chartType="LineChart"
-            data={chart}
-            options={options}
-            className="w-full h-[350px]"
-          />
+            <Charts/> 
         </div>
       </section>
       <section className="w-full h-full">
@@ -69,19 +60,4 @@ export default function Dashboard() {
   );
 }
 
-const options = {
-  curveType: 'function',
-  hAxis: {},
-  vAxis: {
-    format: 'currency',
-    formatOptions: {
-      prefix: 'R',
-      fractionDigits: 0
-    },
-    minValue: 0
-  },
-  chartArea: {
-    //width: '80%'
-    //height: '70%'
-  }
-};
+
