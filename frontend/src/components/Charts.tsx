@@ -10,13 +10,11 @@ export const Charts = () => {
     const [invoices, setInvoices] = useState<Array<invoiceProps>>([]);
     const [chart, setChart] = useState<any>(null);
 
-    const fetch = async (year?: number, month?: number) => {
+    const fetch = async (year?: number) => {
       try {
         const data = await api.get(`/invoicesyear?year=${year}`)
-        console.log(data.data);
         return setInvoices(data.data)
       } catch (error) {
-        console.log("error")
       }
     }
 
@@ -25,7 +23,7 @@ export const Charts = () => {
       setDateFilter(selectedDate);
 
       const [selectedYear, selectedMonth] = selectedDate.split('-').map(Number);
-      fetch(selectedYear, selectedMonth);
+      fetch(selectedYear);
     };
 
     function formatDefaultDate(): string {
@@ -37,32 +35,31 @@ export const Charts = () => {
 
     useEffect(() => {
       const [defaultYear, defaultMonth] = dateFilter.split('-').map(Number);
-      fetch(defaultYear, defaultMonth);
+      fetch(defaultYear);
   }, [dateFilter]);
 
   useEffect(() => {
     const chart = transformArrayToChartData(invoices);
     setChart(chart);
-    console.log(chart)
 }, [invoices]);
 
     return (
       <>
+          <input
+            type="month"
+            value={dateFilter}
+            id="anoInput"
+            name="anoInput"
+            onChange={handleInputChange}
+            min="2022"
+            max="2027"
+          />
         <Chart
           chartType="LineChart"
           data={chart}
           options={options}
           className="w-full h-[350px]"
         />
-      <input
-        type="month"
-        value={dateFilter}
-        id="anoInput"
-        name="anoInput"
-        onChange={handleInputChange}
-        min="2022"
-        max="2027"
-      />
       </>
     )
 }
