@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { convertedDates } from "~/Helpers/converterDate";
 import { Invoice } from "~/models/inovoice";
 import { ListInvoiceMonthRepository } from "~/repositories/Inovoice/list-invoice-month/postgres-list-invoice-month";
 
@@ -12,12 +13,7 @@ export class ListInvoiceMonthController {
 
       const userId = httpRequest.user_id;
 
-      const yearConverted = parseInt(year as string, 10);
-      const monthConverted = parseInt(month as string, 10);
-
-      const monthZeroBased = monthConverted - 1;
-      const startDate = new Date(yearConverted, monthZeroBased, 1);
-      const endDate = new Date(yearConverted, monthZeroBased + 1, 1);
+      const { startDate, endDate} = convertedDates(year as string, month as string);
 
       const InvoicesMonthRepository = new ListInvoiceMonthRepository();
       const invoices = await InvoicesMonthRepository.ListInvoiceMonth(
