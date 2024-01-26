@@ -15,6 +15,7 @@ import { SelectedCategories } from '~/components/ui/SelectedCategories/SelectedC
 import { SelectedInstallments } from '~/components/ui/SelectedInstallments/SelectedInstallments';
 
 import '~/components/ui/style.css';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 export default function transactions() {
   const { invoices, updateInvoide } = useContext(AuthContext);
@@ -93,9 +94,25 @@ export default function transactions() {
 
   return (
     <main
-      className="flex flex-col justify-between items-center bg-white-100
-   h-screen gap-3 rounded-[20px] p-4"
-    >
+      className="flex flex-col items-center bg-white-100
+                h-screen gap-3 rounded-[20px] p-4">
+
+  <DropdownMenu.Root>
+      <DropdownMenu.Trigger className="flex items-center gap-2">
+        <button type="button">Filtros</button>
+      </DropdownMenu.Trigger>
+
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          sideOffset={5}
+          alignOffset={20}
+          className="bg-blue-200 text-white-100 rounded-md p-2"
+        >
+          <input type="month" />
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+      </DropdownMenu.Root>
+
       <table className="w-full lg:text-[12px] md:text-[10px]">
         <thead>
           <tr

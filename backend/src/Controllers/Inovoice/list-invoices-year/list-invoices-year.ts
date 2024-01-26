@@ -11,12 +11,12 @@ export class ListInvoiceYearController {
       const { year } = httpRequest.query;
 
       const userId = httpRequest.user_id;
-      const yearConverted = parseInt(year);
+      //const yearConverted = parseInt(year);
 
       const InvoicesYearRepository = new ListInvoiceYearRepository();
       const invoices = await InvoicesYearRepository.ListInvoiceYear(
         userId,
-        yearConverted,
+        //yearConverted,
       );
 
       return httpResponse.json(invoices);
