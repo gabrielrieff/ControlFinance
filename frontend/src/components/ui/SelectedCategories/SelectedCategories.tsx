@@ -1,6 +1,6 @@
 'use client';
 
-import { MutableRefObject, useContext, useState } from 'react';
+import { MutableRefObject, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
 import Image from 'next/image';
@@ -44,9 +44,10 @@ export const SelectedCategories = (props: selectedCategoriesProps) => {
   function handleCleanSelectedCategorie() {
     setLabelCategorie(null);
   }
+
   return (
     <Drowdown.Root>
-      <Drowdown.Main onClick={handleDropdown}>
+      <Drowdown.Main onClick={handleDropdown} className='bg-grey-200'>
         {labelCategorie === null ? (
           <>
             <span>Selecione uma categoria</span>
@@ -54,12 +55,12 @@ export const SelectedCategories = (props: selectedCategoriesProps) => {
         ) : (
           <>
             <>{labelCategorie}</>
-            <button
+            <div
               className="absolute right-9"
               onClick={handleCleanSelectedCategorie}
             >
               <IoMdCloseCircle size={26} className="hover:text-red-200" />
-            </button>
+            </div>
           </>
         )}
         <IoIosArrowDown className={`${isOpen ? 'rotate-180' : ''}`} />

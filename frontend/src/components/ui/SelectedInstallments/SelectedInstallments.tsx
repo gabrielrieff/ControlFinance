@@ -58,12 +58,12 @@ export const SelectedInstallments = (props: selectedInstallmentsProps) => {
         ) : (
           <>
             <>{label}</>
-            <button
+            <div
               className="absolute right-9"
               onClick={handleCleanSelectedInstallments}
             >
               <IoMdCloseCircle size={26} className="hover:text-red-200" />
-            </button>
+            </div>
           </>
         )}
         <IoIosArrowDown className={`${isOpen ? 'rotate-180' : ''}`} />
