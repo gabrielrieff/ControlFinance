@@ -14,10 +14,9 @@ import { SelectedCategories } from '~/components/ui/SelectedCategories/SelectedC
 import { SelectedInstallments } from '~/components/ui/SelectedInstallments/SelectedInstallments';
 
 import { FaGear } from 'react-icons/fa6';
-import { MdFilterListAlt } from "react-icons/md";
-import { IoIosArrowDown } from 'react-icons/io';
 
 import '~/components/ui/style.css';
+import { Filter } from '~/components/Filter';
 
 export default function transactions() {
   const { invoices, updateInvoide } = useContext(AuthContext);
@@ -29,8 +28,6 @@ export default function transactions() {
   const [isValue, setIsValue] = useState<number>(0);
   const [isInstallment, setIsInstallment] = useState<number>(0);
   const [isCategori, setIsCategori] = useState<string>('');
-
-  const [isFormFilter, setIsFormFilter] = useState(true);
 
   const [editingIndex, setEditingIndex] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -85,10 +82,6 @@ export default function transactions() {
     setEditingIndex(id);
   }
 
-  function handleFilter() {
-    setIsFormFilter(!isFormFilter);
-  }
-
   useEffect(() => {
     const invoice = invoices.filter((item) => item.id === editingIndex)[0];
 
@@ -102,77 +95,11 @@ export default function transactions() {
 
   return (
     <main
-      className="flex flex-col items-center bg-white-100
-                h-screen gap-3 rounded-[20px] p-4"
+    className="flex flex-col items-center bg-white-100
+              h-screen gap-3 rounded-[20px] p-4"
     >
 
-        <div
-          className={`border border-grey-600 w-full flex justify-between
-        items-center p-2`}
-        >
-          <div className='center'>
-            <span>Filtros</span>
-            <MdFilterListAlt size={25}/>
-          </div>
-          <IoIosArrowDown
-            size={25}
-            className={`cursor-pointer hover:text-orenge-500 transition-[.3s] ${
-              isFormFilter ? 'rotate-180' : 'rotate-0'
-            }`}
-            onClick={handleFilter}
-          />
-        </div>
-
-        <div className='w-full'>
-          <div
-            className={`bg-grey-300 p-2 pt-5  ${
-              isFormFilter ? 'flex' : 'hidden'
-            } flex-row transition-[.3s] gap-3`}
-          >
-              <label className="w-1/5" htmlFor="created-date">
-                <span>Data criação</span>
-                <Input
-                  id="created-date"
-                  type="month"
-                  min="2022"
-                  max="2027"      
-                  className="border border-grey-500 rounded-none"
-                />
-              </label>
-
-              <label className="w-1/5" htmlFor="last-portion">
-                <span>Última parcela</span>
-                <Input
-                  id="last-portion"
-                  type="month"
-                  min="2022"
-                  max="2027"      
-                  className="border border-grey-500 rounded-none"
-                />
-              </label>
-
-              <label className="w-1/5" htmlFor="type">
-                <span>Tipo</span>
-                <select>
-                  <option value=""></option>
-                  <option value={0} >Crédito</option>
-                  <option value={1} >Débito</option>
-                </select>
-              </label>
-
-              <label className="w-1/5" htmlFor="category">
-                <span>Categoria</span>
-                <SelectedCategories categoriRef={categoriRef} />
-              </label>
-
-              <label className="w-1/5">
-                <button className="bg-green-400 px-4 py-2 rounded-md">Aplicar filtros</button>
-                
-              </label>
-
-            </div>
-        </div>
-
+      <Filter />
       <table className="w-full lg:text-[12px] md:text-[10px]">
         <thead>
           <tr
@@ -194,7 +121,7 @@ export default function transactions() {
         </thead>
         <tbody
           className="gap-2 flex flex-col overflow-y-auto scroll
-         w-full max-h-[710px] "
+         w-full max-h-[650px] "
         >
           {invoices.map((item) => (
             <tr

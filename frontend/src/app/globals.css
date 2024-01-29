@@ -50,7 +50,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 input[type="month"]{
-  background-color: #f0f0f0;
+  background-color: #FCFCFC;
   border-radius: 4px;
   padding: 3px 5px;
   border: 0;

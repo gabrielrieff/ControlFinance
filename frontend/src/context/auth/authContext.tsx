@@ -27,6 +27,8 @@ type AuthContextData = {
   updateInvoide: (id: string, data: recipeProps) => Promise<void>;
   invoices: Array<invoiceProps>;
   invoicesTake: Array<invoiceProps>;
+  getFilterInvoices: (url: string) => Promise<void>;
+  getInvoices: () => Promise<void>; 
 
   deleteInvoice: (id: string) => Promise<void>;
   createCategori: (data: FormData) => Promise<void>;
@@ -97,7 +99,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const { '@nextauth.token': token } = parseCookies();
     if (token) {
-      getInvoices(year, month);
+      getInvoices();
       getInvoicesTake(year, month);
     }
   }, []);
@@ -187,13 +189,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   //Invoice connected routers
-  async function getInvoices(year?: number, month?: number) {
+  async function getInvoices() {
     try {
       const inovoice = await api.get(`/invoice?year=${year}&month=${month}`);
 
       setInvoices(inovoice.data);
-
-      return invoices;
     } catch (error) {}
   }
 
@@ -214,7 +214,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await api.delete(`/invoice/${id}`);
       toast.success('Fatura excluída com sucesso!');
 
-      getInvoices(year, month);
+      getInvoices();
     } catch (error) {
       toast.error('Não foi possível excluir sua fatura!');
     }
@@ -225,7 +225,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const recipe = await api.post('/invoices', data);
 
       toast.success('Novo valor adicionado com sucesso!');
-      getInvoices(year, month);
+      getInvoices();
     } catch (error) {
       toast.error(
         'Aconteceu algo e não foi possível adicionar uma nova fatura, por favor verifique!'
@@ -239,9 +239,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       toast.success('Fatura atualizada com sucesso!');
 
-      getInvoices(year, month);
+      getInvoices();
     } catch (error) {
       toast.error('Não foi possível atualizar a fatura!');
+    }
+  }
+
+  async function getFilterInvoices(url: string){
+
+    try {
+      const res = await api.get(url);
+      setInvoices(res.data);
+      console.log(invoices)
+    } catch (error) {
+      
     }
   }
 
@@ -293,6 +304,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         deleteInvoice,
         invoices,
         invoicesTake,
+        getFilterInvoices,
+        getInvoices,
         deleteCategori,
         createCategori,
         categories
