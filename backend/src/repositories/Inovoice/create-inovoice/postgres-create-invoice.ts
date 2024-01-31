@@ -41,7 +41,7 @@ export class PostgresCreateInvocieRepository {
     if (params.installments && params.installments > 1) {
       for (let i = 0; i < params.installments - 1; i++) {
         const date = new Date(createdDate.setMonth(i + 1));
-        console.log(date);
+
         await client.invoice.create({
           data: {
             description: params.description,

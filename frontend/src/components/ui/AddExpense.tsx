@@ -49,12 +49,13 @@ export const AddExpense = ({ closeModal }: addRecipeProps) => {
       dateEnd: dateEnd
     };
 
+    console.log(data);
+
     AddInvoice(data);
 
     if (descriptionRef.current && categoriRef.current && valueRef.current) {
       descriptionRef.current.value = '';
       valueRef.current.valueAsNumber = 0;
-      categoriRef.current = null
     }
   };
 
