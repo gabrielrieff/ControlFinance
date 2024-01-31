@@ -11,10 +11,7 @@ export default function Dashboard() {
   const { user } = useContext(AuthContext);
 
   return (
-    <main
-      className="flex flex-col items-center bg-white-100
-     h-full gap-8 rounded-[20px] p-4"
-    >
+    <main className="flex flex-col items-center bg-white-100 h-full gap-8 rounded-[20px] p-4">
       <section className="w-full flex items-center md:flex-col justify-around gap-3">
         <BoxResume className="bg-blue-200 font-semibold gap-2 md:w-full md:p-2">
           <h3 className="text-sm md:text-sm">Total receita</h3>
@@ -50,7 +47,7 @@ export default function Dashboard() {
       </section>
       <section className="w-full">
         <div className="border border-grey-500 rounded-2xl p-2">
-            <Charts/> 
+          <Charts />
         </div>
       </section>
       <section className="w-full h-full">
@@ -59,5 +56,3 @@ export default function Dashboard() {
     </main>
   );
 }
-
-
