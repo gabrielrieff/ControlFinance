@@ -9,16 +9,27 @@ export class FilterMonthController {
     httpResponse: Response
   ): Promise<Response<Invoice[] | string>> {
     try {
-     const { categoryId, monthEnd, yearEnd, monthCreated, yearCreated, TypeInvoice } = httpRequest.query;
+      const {
+        categoryId,
+        monthEnd,
+        yearEnd,
+        monthCreated,
+        yearCreated,
+        TypeInvoice,
+      } = httpRequest.query;
 
       const userId = httpRequest.user_id;
 
       const category = categoryId as string;
       const type = parseInt(TypeInvoice as string);
 
-      
-      const { startDate: startDateEnd, endDate: endDateEnd } = convertedDates(yearEnd as string, monthEnd as string);
-      const { startDate: startDateCreated, endDate: endDateCreated } = convertedDates(yearCreated as string, monthCreated as string);
+      const { startDate: startDateEnd, endDate: endDateEnd } = convertedDates(
+        yearEnd as string,
+        monthEnd as string
+      );
+
+      const { startDate: startDateCreated, endDate: endDateCreated } =
+        convertedDates(yearCreated as string, monthCreated as string);
 
       const filterMonthRepository = new FilterMonthRepository();
       const invoices = await filterMonthRepository.FilterMonth(
@@ -28,7 +39,7 @@ export class FilterMonthController {
         startDateEnd,
         endDateEnd,
         startDateCreated,
-        endDateCreated,
+        endDateCreated
       );
 
       return httpResponse.json(invoices);

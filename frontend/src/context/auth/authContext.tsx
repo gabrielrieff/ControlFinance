@@ -28,7 +28,7 @@ type AuthContextData = {
   invoices: Array<invoiceProps>;
   invoicesTake: Array<invoiceProps>;
   getFilterInvoices: (url: string) => Promise<void>;
-  getInvoices: () => Promise<void>; 
+  getInvoices: () => Promise<void>;
 
   deleteInvoice: (id: string) => Promise<void>;
   createCategori: (data: FormData) => Promise<void>;
@@ -245,15 +245,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  async function getFilterInvoices(url: string){
-
+  async function getFilterInvoices(url: string) {
     try {
       const res = await api.get(url);
       setInvoices(res.data);
-      console.log(invoices)
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 
   //Categori connected routers
