@@ -1,54 +1,84 @@
 import type { Config } from 'tailwindcss';
 
-const config: Config = {
+const config = {
+  darkMode: ['class'],
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}'
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}'
   ],
-  important: true,
+  prefix: '',
   theme: {
-    colors: {
-      black: {
-        100: '#000000'
-      },
-      white: {
-        100: '#FFFFFF'
-      },
-      grey: {
-        200: '#FCFCFC',
-        300: '#E8E8E8',
-        400: '#AAAAAA',
-        500: '#959595',
-        600: '#505050',
-        700: '#292D32'
-      },
-      green: {
-        200: '#ABFFC3',
-        400: '#08C804',
-        500: '#03A200'
-      },
-      blue: {
-        200: '#D1ECFF',
-        300: '#E4F1F2',
-        500: '#0500FF'
-      },
-      red: {
-        200: '#FFA4A4',
-        500: '#FF0000'
-      },
-      orenge: {
-        500: '#FF9900'
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px'
       }
     },
-    screens: {
-      '2xl': { max: '1536px' },
-      xl: { max: '1280px' },
-      lg: { max: '1024px' },
-      md: { max: '768px' },
-      sm: { max: '640px' }
-    },
-    keyframes: {
+    extend: {
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))'
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))'
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))'
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))'
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))'
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))'
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))'
+        }
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)'
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' }
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' }
+        }
+      },
+      screens: {
+        '2xl': { max: '1536px' },
+        xl: { max: '1280px' },
+        lg: { max: '1024px' },
+        md: { max: '768px' },
+        sm: { max: '640px' }
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out'
+      },
       overlayShow: {
         from: { opacity: '0' },
         to: { opacity: '1' }
@@ -68,6 +98,7 @@ const config: Config = {
       spin: 'spin 1s linear infinite;'
     }
   },
-  plugins: []
-};
+  plugins: [require('tailwindcss-animate')]
+} satisfies Config;
+
 export default config;
