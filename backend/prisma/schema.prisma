@@ -37,6 +37,7 @@ model Invoice {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
   dateEnd DateTime? @default(now())
+  invoiceID String?
 
   userId String
   user User @relation(fields: [userId], references: [id])

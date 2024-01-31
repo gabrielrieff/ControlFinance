@@ -31,6 +31,15 @@ export class DeleteInvoiceRepository {
       },
     });
 
+    const repetInvoices = await client.invoice.findMany({
+      where: {
+        invoiceID: params.id,
+      },
+      select: {
+        id: true,
+      },
+    });
+
     if (!existingInvoice) {
       throw new Error("Invoice not found");
     }
@@ -40,6 +49,18 @@ export class DeleteInvoiceRepository {
         id: params.id,
       },
     });
+
+    if (repetInvoices.length > 0) {
+      for (let i = 0; i < repetInvoices.length; i++) {
+        const id = repetInvoices[i].id;
+        console.log(id);
+        await client.invoice.delete({
+          where: {
+            id: id,
+          },
+        });
+      }
+    }
 
     return existingInvoice!;
   }

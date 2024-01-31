@@ -15,6 +15,10 @@ export class FilterMonthRepository {
 
     const filters: any = {};
 
+    if(id) {
+        filters.userId = id;
+    }
+
     if (categoryId) {
         filters.categoryId = categoryId as string;
       }
@@ -23,12 +27,12 @@ export class FilterMonthRepository {
           filters.type = type;
         }
 
-      if(id) {
-          filters.userId = id;
-      }
 
       if (!isNaN(monthEnd) && !isNaN(yearEnd)) {
         filters.dateEnd = {};
+        filters.invoiceID = null
+        filters.type = 1;
+
         if (monthEnd) {
           filters.dateEnd.gte = monthEnd;
         }
@@ -37,9 +41,6 @@ export class FilterMonthRepository {
         }
       }
 
-      console.log(typeof monthCreated)
-      console.log(yearCreated)
-  
       if (!isNaN(monthCreated) && !isNaN(yearCreated)) {
         filters.created_at = {};
         if (monthCreated) {
@@ -49,8 +50,6 @@ export class FilterMonthRepository {
           filters.created_at.lt = yearCreated;
         }
       }
-
-      console.log(filters)
 
     const invoices = await client.invoice.findMany({
       where: filters,

@@ -15,7 +15,9 @@ export class PostgresCreateInvocieRepository {
     }
 
     const dateEnd = new Date(params.dateEnd);
-    const createdInvoice = await client.invoice.create({
+    const createdDate = new Date();
+
+    const initialInvoice = await client.invoice.create({
       data: {
         description: params.description,
         type: params.type,
@@ -36,14 +38,26 @@ export class PostgresCreateInvocieRepository {
       },
     });
 
-    const existingInvoice = await client.invoice.findUnique({
-      where: { id: createdInvoice.id },
-    });
-
-    if (!existingInvoice) {
-      throw new Error("Invoice not found");
+    if (params.installments && params.installments > 1) {
+      for (let i = 0; i < params.installments - 1; i++) {
+        const date = new Date(createdDate.setMonth(i + 1));
+        console.log(date);
+        await client.invoice.create({
+          data: {
+            description: params.description,
+            type: params.type,
+            value: params.value,
+            categoryId: params.categoryId,
+            userId: params.userId,
+            installments: params.installments,
+            created_at: date,
+            dateEnd: dateEnd,
+            invoiceID: initialInvoice.id,
+          },
+        });
+      }
     }
 
-    return createdInvoice;
+    return initialInvoice;
   }
 }

@@ -10,4 +10,5 @@ export interface Invoice {
   userId: string;
   installments: number;
   dateEnd: Date;
+  invoiceID?: string;
 }
