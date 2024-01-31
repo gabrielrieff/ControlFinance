@@ -6,17 +6,16 @@ import { AuthContext } from '~/context/auth/authContext';
 import { Input } from './shared/Input';
 import { SelectedCategories } from './ui/SelectedCategories/SelectedCategories';
 
-import { MdFilterListAlt } from 'react-icons/md';
+import { FiFilter } from 'react-icons/fi';
 import { IoIosArrowDown } from 'react-icons/io';
 
 export const Filter = () => {
-  const [isFormFilter, setIsFormFilter] = useState(true);
+  const [isFormFilter, setIsFormFilter] = useState(false);
   const categoriRef = useRef<HTMLDivElement | null>(null);
 
   const [dateCreatedFilter, setDateCreatedFilter] = useState('');
   const [dateEndFilter, setDateEndFilter] = useState('');
   const [type, setType] = useState('');
-  const [t, setT] = useState(false);
 
   const { getFilterInvoices, getInvoices } = useContext(AuthContext);
 
@@ -48,7 +47,6 @@ export const Filter = () => {
     if (category !== undefined) {
       baseURL += `&categoryId=${category}`;
     }
-    console.log(baseURL);
     getFilterInvoices(baseURL);
   };
 
@@ -68,7 +66,7 @@ export const Filter = () => {
       >
         <div className="center">
           <span>Filtros</span>
-          <MdFilterListAlt size={25} />
+          <FiFilter size={25} />
         </div>
         <IoIosArrowDown
           size={25}
