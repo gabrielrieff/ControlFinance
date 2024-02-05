@@ -13,10 +13,10 @@ export const Admin = () => {
     user?.userType! === enumUser.Admin
       ? 'Admin'
       : user?.userType! === enumUser.Padrao
-      ? 'Padrão'
-      : user?.userType! === enumUser.Master
-      ? 'Master'
-      : 'Tipo desconhecido';
+        ? 'Padrão'
+        : user?.userType! === enumUser.Master
+          ? 'Master'
+          : 'Tipo desconhecido';
 
   return (
     <DropdownMenu.Root>
@@ -45,14 +45,6 @@ export const Admin = () => {
           <span className="text-grey-700 text-sm">{typeUser}</span>
         </div>
       </DropdownMenu.Trigger>
-
-      {/* <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          sideOffset={5}
-          alignOffset={20}
-          className="bg-grey-700 text-white-100 w-[200px] rounded-md p-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]"
-        ></DropdownMenu.Content>
-      </DropdownMenu.Portal> */}
     </DropdownMenu.Root>
   );
 };
