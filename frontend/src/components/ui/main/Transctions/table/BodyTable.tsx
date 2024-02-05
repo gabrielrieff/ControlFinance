@@ -3,9 +3,7 @@ import Image from 'next/image';
 
 import { invoiceProps, recipeProps } from '~/@types/contextTypes';
 import { TableBody, TableCell, TableRow } from '~/components/shadcn/table';
-import { SelectedCategories } from '~/components/ui/SelectedCategories/SelectedCategories';
 import { Input } from '~/components/shadcn/input';
-import { SelectedInstallments } from '~/components/ui/SelectedInstallments/SelectedInstallments';
 import { FormatDate } from '~/Helpers/FormatDate';
 import { Button } from '~/components/shadcn/button';
 import { AuthContext } from '~/context/auth/authContext';
@@ -13,6 +11,8 @@ import { checkInstallmentsPaid } from '~/Helpers/checkInstallmentsPaid';
 import { MdDelete, MdEditDocument } from 'react-icons/md';
 import { FaSave } from 'react-icons/fa';
 import { TiCancel } from 'react-icons/ti';
+import { SelectCategories } from '~/components/shared/Select-categorias';
+import { SelectInstallments } from '~/components/shared/Select-Installments';
 
 export const BodyTable = () => {
   const { invoices, updateInvoide } = useContext(AuthContext);
@@ -22,8 +22,8 @@ export const BodyTable = () => {
   const [editingIndex, setEditingIndex] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const categoriRef = useRef<HTMLDivElement | null>(null);
-  const installmentsRef = useRef<HTMLDivElement | null>(null);
+  const categoriRef = useRef<HTMLButtonElement | null>(null);
+  const installmentsRef = useRef<HTMLButtonElement | null>(null);
 
   const [isDescription, setIsDescription] = useState<string>('');
   const [isValue, setIsValue] = useState<number>(0);
@@ -94,7 +94,7 @@ export const BodyTable = () => {
 
   return (
     <TableBody className="gap-2 flex flex-col overflow-y-auto scroll w-full max-h-[650px] ">
-      {arrayInvoices.map((item) => (
+      {invoices.map((item) => (
         <TableRow key={item.id} className="flex justify-between">
           {item.id !== editingIndex ? (
             <TableCell className="center text-center w-[10%] justify-start">
@@ -109,7 +109,7 @@ export const BodyTable = () => {
             </TableCell>
           ) : (
             <TableCell className="center text-center w-[10%] justify-start">
-              <SelectedCategories categoriRef={categoriRef} />
+              <SelectCategories refCategories={categoriRef} />
             </TableCell>
           )}
 
@@ -179,7 +179,7 @@ export const BodyTable = () => {
             <TableCell className="center md:hidden w-[10%]">-</TableCell>
           ) : (
             <TableCell className="center w-[10%]">
-              <SelectedInstallments installmentsRef={installmentsRef} />
+              <SelectInstallments refInstallments={installmentsRef} />
             </TableCell>
           )}
           <TableCell className="center justify-end w-[10%]">

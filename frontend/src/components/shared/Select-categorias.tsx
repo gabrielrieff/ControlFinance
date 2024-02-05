@@ -17,9 +17,6 @@ interface selectCategoriesProps {
 
 export const SelectCategories = ({ refCategories }: selectCategoriesProps) => {
   const { categories } = useContext(AuthContext);
-  const [sel, setSel] = useState('');
-
-  console.log();
 
   return (
     <Select>

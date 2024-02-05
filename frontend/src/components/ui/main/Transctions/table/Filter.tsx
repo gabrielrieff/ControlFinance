@@ -12,10 +12,15 @@ import {
   SelectTrigger,
   SelectValue
 } from '~/components/shadcn/select';
+import { SelectCategories } from '~/components/shared/Select-categorias';
 import { AuthContext } from '~/context/auth/authContext';
 
+interface filterProps {
+  baseURL: string;
+}
+
 export const Filter = () => {
-  const categoriRef = useRef<HTMLDivElement | null>(null);
+  const categoriRef = useRef<HTMLButtonElement | null>(null);
 
   const [dateCreatedFilter, setDateCreatedFilter] = useState('');
   const [dateEndFilter, setDateEndFilter] = useState('');
@@ -26,7 +31,10 @@ export const Filter = () => {
   const applayFilters = async () => {
     var baseURL = `/filter-invoices?`;
 
-    const category = categoriRef.current?.getAttribute('data-value')!;
+    const category =
+      categoriRef.current?.children[0].children[0]?.getAttribute(
+        'data-value'
+      ) || '';
 
     if (dateCreatedFilter) {
       const [defaultYear, defaultMonth] = dateCreatedFilter
@@ -44,9 +52,10 @@ export const Filter = () => {
       baseURL += `&TypeInvoice=${type}`;
     }
 
-    if (category !== undefined) {
+    if (category !== undefined && category !== '') {
       baseURL += `&categoryId=${category}`;
     }
+    console.log(baseURL);
     getFilterInvoices(baseURL);
   };
 
@@ -66,7 +75,7 @@ export const Filter = () => {
       </div>
       <div className="flex w-full mt-3">
         <section className="flex items-end gap-7 w-full">
-          <Label>
+          <Label className="flex flex-col gap-2">
             <span>Data criação</span>
             <Input
               type="month"
@@ -77,7 +86,7 @@ export const Filter = () => {
             />
           </Label>
 
-          <Label>
+          <Label className="flex flex-col gap-2">
             <span>Última parcela</span>
             <Input
               type="month"
@@ -88,19 +97,25 @@ export const Filter = () => {
             />
           </Label>
 
-          <Label>
+          <Label className="flex flex-col gap-2">
             <span>Tipo</span>
-            <Select>
+            <Select onValueChange={(e) => setType(e)} value={type}>
               <SelectTrigger className="w-[220px]">
                 <SelectValue placeholder="Crédito/Débito" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent onChange={(e) => console.log(e)}>
                 <SelectGroup>
                   <SelectItem value="0">Crédito</SelectItem>
                   <SelectItem value="1">Débito</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
+          </Label>
+
+          <Label className="flex flex-col gap-2">
+            <span>Categorias</span>
+
+            <SelectCategories refCategories={categoriRef} />
           </Label>
         </section>
 

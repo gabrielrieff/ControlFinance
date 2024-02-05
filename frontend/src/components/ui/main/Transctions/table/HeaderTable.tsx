@@ -25,6 +25,7 @@ export const HeaderTable = () => {
   const [ascDescType, setAscDescType] = useState<string>('asc');
   const [ascDescCategory, setAscDescCategory] = useState<string>('asc');
   const [ascDescActive, setAscDescActive] = useState<string>('');
+  const [baseUrlFilter, setBaseUrlFilter] = useState<string>('');
 
   const orderByValue = async function () {
     if (ascDescVelue === 'asc') {

@@ -249,6 +249,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const res = await api.get(url);
       setInvoices(res.data);
+      console.log(invoices);
     } catch (error) {}
   }
 
