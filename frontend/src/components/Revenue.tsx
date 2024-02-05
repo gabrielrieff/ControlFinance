@@ -1,0 +1,129 @@
+import { Cross2Icon } from '@radix-ui/react-icons';
+import { Button } from './shadcn/button';
+import {
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from './shadcn/dialog';
+
+import { Input } from './shadcn/input';
+import { Label } from './shadcn/label';
+import { Textarea } from './shadcn/textarea';
+import { SelectCategories } from './shared/Select-categorias';
+import {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
+import { AuthContext } from '~/context/auth/authContext';
+import { dateInstallments } from '~/Helpers/dateInstallments';
+import { InputMaskReal } from './shared/InputMaskReal';
+
+interface revenueProps {}
+
+export const Revenue = ({}: revenueProps) => {
+  const { AddInvoice } = useContext(AuthContext);
+
+  const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
+  const categoriRef = useRef<HTMLButtonElement | null>(null);
+  const valueRef = useRef<HTMLInputElement | null>(null);
+
+  const [valor, setValor] = useState('');
+
+  const handleCreatedRecipe = (event: FormEvent) => {
+    event.preventDefault();
+
+    const categoryId =
+      categoriRef.current?.children[0].children[0]?.getAttribute(
+        'data-value'
+      ) || '';
+
+    const value = valueRef.current?.value?.split(' ')[1]!;
+    const valueNumber = parseFloat(value.replace(/\./g, '').replace(',', '.'));
+    const description = descriptionRef.current?.value;
+
+    if (description === '' || categoryId === '' || valueNumber < 1) return;
+
+    const dateEnd = dateInstallments(new Date().getMonth() + 1);
+
+    const data = {
+      description: description,
+      value: valueNumber,
+      type: 0,
+      installments: 1,
+      categoryId: categoryId!,
+      dateEnd: dateEnd
+    };
+
+    AddInvoice(data);
+
+    if (descriptionRef.current && categoriRef.current && valueRef.current) {
+      descriptionRef.current.value = '';
+      valueRef.current.value = 'R$ ';
+    }
+  };
+
+  return (
+    <>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader className="flex items-start">
+          <DialogTitle>Adicionar receita</DialogTitle>
+          <DialogDescription className="text-left">
+            Vamos usar esse campo para adicionar novas receitas ao seu controle
+            de finanças.
+          </DialogDescription>
+        </DialogHeader>
+        <form className="grid gap-4 py-4" onSubmit={handleCreatedRecipe}>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="descricao" className="text-right">
+              Descrição
+            </Label>
+            <Textarea
+              placeholder="Descrição do gasto"
+              ref={descriptionRef}
+              className="col-span-3"
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="categoria" className="text-right">
+              Categoria
+            </Label>
+
+            <SelectCategories refCategories={categoriRef} />
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="valor" className="text-right">
+              Valor
+            </Label>
+            <InputMaskReal
+              valueRef={valueRef}
+              setValor={setValor}
+              valor={valor}
+            />
+          </div>
+        </form>
+        <DialogFooter className="flex gap-3 justify-center flex-row">
+          <DialogClose asChild>
+            <Button type="button" variant={'destructive'}>
+              Cancelar
+            </Button>
+          </DialogClose>
+          <Button
+            type="submit"
+            onClick={handleCreatedRecipe}
+            className="bg-green-900"
+          >
+            Salvar
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </>
+  );
+};
