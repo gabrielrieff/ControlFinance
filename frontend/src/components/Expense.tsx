@@ -15,19 +15,19 @@ import { FormEvent, useContext, useRef, useState } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 import { dateInstallments } from '~/Helpers/dateInstallments';
 import { InputMaskReal } from './shared/InputMaskReal';
+import { SelectInstallments } from './shared/Select-Installments';
 
-interface revenueProps {}
-
-export const Revenue = ({}: revenueProps) => {
+export const Expense = () => {
   const { AddInvoice } = useContext(AuthContext);
 
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
   const categoriRef = useRef<HTMLButtonElement | null>(null);
+  const installmentsRef = useRef<HTMLButtonElement | null>(null);
   const valueRef = useRef<HTMLInputElement | null>(null);
 
   const [valor, setValor] = useState('');
 
-  const handleCreatedRecipe = (event: FormEvent) => {
+  const handleCreatedExpense = (event: FormEvent) => {
     event.preventDefault();
 
     const categoryId =
@@ -35,19 +35,25 @@ export const Revenue = ({}: revenueProps) => {
         'data-value'
       ) || '';
 
+    const installment =
+      Number(
+        installmentsRef.current?.children[0].children[0]?.getAttribute(
+          'data-value'
+        )
+      ) || 0;
+
     const value = valueRef.current?.value?.split(' ')[1]!;
     const valueNumber = parseFloat(value.replace(/\./g, '').replace(',', '.'));
     const description = descriptionRef.current?.value;
 
     if (description === '' || categoryId === '' || valueNumber < 1) return;
 
-    const dateEnd = dateInstallments(new Date().getMonth() + 1);
-
+    const dateEnd = dateInstallments(installment);
     const data = {
-      description: description,
+      description: descriptionRef.current?.value!,
       value: valueNumber,
-      type: 0,
-      installments: 1,
+      type: 1,
+      installments: installment,
       categoryId: categoryId!,
       dateEnd: dateEnd
     };
@@ -59,24 +65,23 @@ export const Revenue = ({}: revenueProps) => {
       valueRef.current.value = 'R$ ';
     }
   };
-
   return (
     <>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="flex items-start">
-          <DialogTitle>Adicionar receita</DialogTitle>
+          <DialogTitle>Adicionar despesa</DialogTitle>
           <DialogDescription className="text-left">
-            Vamos usar esse campo para adicionar novas receitas ao seu controle
+            Vamos usar esse campo para adicionar novas despesas ao seu controle
             de finanças.
           </DialogDescription>
         </DialogHeader>
-        <form className="grid gap-4 py-4" onSubmit={handleCreatedRecipe}>
+        <form className="grid gap-4 py-4" onSubmit={handleCreatedExpense}>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="descricao" className="text-right">
               Descrição
             </Label>
             <Textarea
-              placeholder="Descrição da receita"
+              placeholder="Descrição do gasto"
               ref={descriptionRef}
               className="col-span-3"
             />
@@ -87,6 +92,14 @@ export const Revenue = ({}: revenueProps) => {
             </Label>
 
             <SelectCategories refCategories={categoriRef} />
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="categoria" className="text-right">
+              Parcelas
+            </Label>
+
+            <SelectInstallments refInstallments={installmentsRef} />
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
@@ -108,7 +121,7 @@ export const Revenue = ({}: revenueProps) => {
           </DialogClose>
           <Button
             type="submit"
-            onClick={handleCreatedRecipe}
+            onClick={handleCreatedExpense}
             className="bg-green-900"
           >
             Salvar

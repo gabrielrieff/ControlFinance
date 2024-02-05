@@ -11,7 +11,7 @@ import {
   navigationMenuTriggerStyle
 } from './shadcn/navigation-menu';
 import { Avatar, AvatarImage } from './shadcn/avatar';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 import { enumUser } from '~/@types/enum/EnumAdmin';
 import { BiSolidDashboard, BiTransfer } from 'react-icons/bi';
@@ -26,6 +26,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from './shadcn/dropdown-menu';
+import { Expense } from './Expense';
+import { Categories } from './Categories';
 
 export const Header = () => {
   const { user } = useContext(AuthContext);
@@ -87,12 +89,14 @@ export const Header = () => {
                 <DialogTrigger asChild>
                   <Button variant="link">Adicionar despesa</Button>
                 </DialogTrigger>
+                <Expense />
               </Dialog>
 
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="link">Categorias</Button>
                 </DialogTrigger>
+                <Categories />
               </Dialog>
             </DropdownMenuContent>
           </DropdownMenu>

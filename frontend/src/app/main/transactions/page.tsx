@@ -12,6 +12,8 @@ import { Filter } from '~/components/ui/main/Transctions/table/Filter';
 
 export default function transactions() {
   const [isOpen, setIsOpen] = useState(false);
+  const [baseUrlFilter, setBaseUrlFilter] = useState<string>('');
+
   const [data, setData] = useState({
     type: 0,
     value: '',
