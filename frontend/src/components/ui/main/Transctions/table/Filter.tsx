@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { FaFilterCircleXmark } from 'react-icons/fa6';
 import { FiFilter } from 'react-icons/fi';
 import { Button } from '~/components/shadcn/button';
@@ -20,21 +20,14 @@ interface filterProps {
 }
 
 export const Filter = () => {
-  const categoriRef = useRef<HTMLButtonElement | null>(null);
-
   const [dateCreatedFilter, setDateCreatedFilter] = useState('');
   const [dateEndFilter, setDateEndFilter] = useState('');
   const [type, setType] = useState('');
+  const [valueCategory, setValueCategory] = useState('');
 
   const { getFilterInvoices, getInvoices } = useContext(AuthContext);
-
   const applayFilters = async () => {
     var baseURL = `/filter-invoices?`;
-
-    const category =
-      categoriRef.current?.children[0].children[0]?.getAttribute(
-        'data-value'
-      ) || '';
 
     if (dateCreatedFilter) {
       const [defaultYear, defaultMonth] = dateCreatedFilter
@@ -52,10 +45,9 @@ export const Filter = () => {
       baseURL += `&TypeInvoice=${type}`;
     }
 
-    if (category !== undefined && category !== '') {
-      baseURL += `&categoryId=${category}`;
+    if (valueCategory !== undefined && valueCategory !== '') {
+      baseURL += `&categoryId=${valueCategory}`;
     }
-    console.log(baseURL);
     getFilterInvoices(baseURL);
   };
 
@@ -63,17 +55,17 @@ export const Filter = () => {
     setDateCreatedFilter('');
     setDateEndFilter('');
     setType('');
-    categoriRef.current = null;
+    setValueCategory('');
 
     getInvoices();
   }
 
   return (
-    <form className="w-full flex flex-col items-start justify-center p-2">
+    <form className="w-full flex flex-col items-start justify-center p-2 mb-5">
       <div>
         <h2 className="text-2xl">Filtros</h2>
       </div>
-      <div className="flex w-full mt-3">
+      <div className="flex w-full mt-3 bg-slate-100 p-4 rounded-md">
         <section className="flex items-end gap-7 w-full">
           <Label className="flex flex-col gap-2">
             <span>Data criação</span>
@@ -115,7 +107,10 @@ export const Filter = () => {
           <Label className="flex flex-col gap-2">
             <span>Categorias</span>
 
-            <SelectCategories refCategories={categoriRef} />
+            <SelectCategories
+              setValor={setValueCategory}
+              valor={valueCategory}
+            />
           </Label>
         </section>
 

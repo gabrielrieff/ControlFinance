@@ -21,48 +21,39 @@ export const Expense = () => {
   const { AddInvoice } = useContext(AuthContext);
 
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
-  const categoriRef = useRef<HTMLButtonElement | null>(null);
-  const installmentsRef = useRef<HTMLButtonElement | null>(null);
   const valueRef = useRef<HTMLInputElement | null>(null);
 
   const [valor, setValor] = useState('');
+  const [valueCategory, setValueCategory] = useState('');
+  const [valuePortion, setValuePortion] = useState('');
 
   const handleCreatedExpense = (event: FormEvent) => {
     event.preventDefault();
 
-    const categoryId =
-      categoriRef.current?.children[0].children[0]?.getAttribute(
-        'data-value'
-      ) || '';
-
-    const installment =
-      Number(
-        installmentsRef.current?.children[0].children[0]?.getAttribute(
-          'data-value'
-        )
-      ) || 0;
-
     const value = valueRef.current?.value?.split(' ')[1]!;
     const valueNumber = parseFloat(value.replace(/\./g, '').replace(',', '.'));
     const description = descriptionRef.current?.value;
+    const valuePortionNum = Number(valuePortion);
 
-    if (description === '' || categoryId === '' || valueNumber < 1) return;
+    if (description === '' || valueCategory === '' || valueNumber < 1) return;
 
-    const dateEnd = dateInstallments(installment);
+    const dateEnd = dateInstallments(valuePortionNum);
     const data = {
       description: descriptionRef.current?.value!,
       value: valueNumber,
       type: 1,
-      installments: installment,
-      categoryId: categoryId!,
+      installments: valuePortionNum,
+      categoryId: valueCategory!,
       dateEnd: dateEnd
     };
 
     AddInvoice(data);
 
-    if (descriptionRef.current && categoriRef.current && valueRef.current) {
+    if (descriptionRef.current && valueCategory && valueRef.current) {
       descriptionRef.current.value = '';
       valueRef.current.value = 'R$ ';
+      setValueCategory('');
+      setValuePortion('');
     }
   };
   return (
@@ -91,7 +82,10 @@ export const Expense = () => {
               Categoria
             </Label>
 
-            <SelectCategories refCategories={categoriRef} />
+            <SelectCategories
+              setValor={setValueCategory}
+              valor={valueCategory}
+            />
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
@@ -99,7 +93,10 @@ export const Expense = () => {
               Parcelas
             </Label>
 
-            <SelectInstallments refInstallments={installmentsRef} />
+            <SelectInstallments
+              setValor={setValuePortion}
+              valor={valuePortion}
+            />
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">

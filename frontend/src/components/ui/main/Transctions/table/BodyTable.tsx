@@ -13,6 +13,7 @@ import { FaSave } from 'react-icons/fa';
 import { TiCancel } from 'react-icons/ti';
 import { SelectCategories } from '~/components/shared/Select-categorias';
 import { SelectInstallments } from '~/components/shared/Select-Installments';
+import { InputMaskReal } from '~/components/shared/InputMaskReal';
 
 export const BodyTable = () => {
   const { invoices, updateInvoide } = useContext(AuthContext);
@@ -20,15 +21,15 @@ export const BodyTable = () => {
   const [arrayInvoices, setArrayInvoices] =
     useState<Array<invoiceProps>>(invoices);
   const [editingIndex, setEditingIndex] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
 
-  const categoriRef = useRef<HTMLButtonElement | null>(null);
   const installmentsRef = useRef<HTMLButtonElement | null>(null);
+  const valueRef = useRef<HTMLInputElement | null>(null);
 
   const [isDescription, setIsDescription] = useState<string>('');
-  const [isValue, setIsValue] = useState<number>(0);
-  const [isInstallment, setIsInstallment] = useState<number>(0);
+  const [isValue, setIsValue] = useState<string>('');
   const [isCategori, setIsCategori] = useState<string>('');
+  const [valueCategory, setValueCategory] = useState('');
+  const [valuePortion, setValuePortion] = useState('');
 
   const [data, setData] = useState({
     type: 0,
@@ -44,26 +45,20 @@ export const BodyTable = () => {
       }),
       id: id
     });
-    handleOpenModalDelete();
-  }
-
-  function handleOpenModalDelete() {
-    setIsOpen(!isOpen);
   }
 
   function editInvoice(id: string) {
-    const categoryId = categoriRef.current?.getAttribute('data-value')!;
-    const installment = Number(
-      installmentsRef.current?.getAttribute('data-value')
-    );
+    const value = valueRef.current?.value?.split(' ')[1]!;
+    const valueNumber = parseFloat(value.replace(/\./g, '').replace(',', '.'));
+    const valuePortionNum = Number(valuePortion);
 
     let data: recipeProps = {
       description: isDescription,
-      value: isValue,
-      installments: !Number.isNaN(installment) ? installment : isInstallment,
+      value: valueNumber,
+      installments: valuePortionNum,
       categoryId:
-        categoryId !== undefined && categoryId.length > 1
-          ? categoryId
+        valueCategory !== undefined && valueCategory.length > 1
+          ? valueCategory
           : isCategori
     };
 
@@ -71,8 +66,9 @@ export const BodyTable = () => {
 
     setIsCategori('');
     setIsDescription('');
-    setIsInstallment(0);
-    setIsValue(0);
+    valueRef.current!.value = 'R$ ';
+    setValueCategory('');
+    setValuePortion('');
 
     handleOpenModalEdit(null);
   }
@@ -86,10 +82,11 @@ export const BodyTable = () => {
 
     if (invoice === undefined) return;
 
-    setIsValue(invoice.value);
+    valueRef.current!.value = `${invoice.value}`;
     setIsDescription(invoice.description);
-    setIsInstallment(invoice.installments);
     setIsCategori(invoice.categoryId);
+    setValueCategory(invoice.categoryId);
+    setValuePortion(String(invoice.installments));
   }, [editingIndex]);
 
   return (
@@ -109,7 +106,10 @@ export const BodyTable = () => {
             </TableCell>
           ) : (
             <TableCell className="center text-center w-[10%] justify-start">
-              <SelectCategories refCategories={categoriRef} />
+              <SelectCategories
+                setValor={setValueCategory}
+                valor={valueCategory}
+              />
             </TableCell>
           )}
 
@@ -128,7 +128,7 @@ export const BodyTable = () => {
               {item.description}
             </TableCell>
           ) : (
-            <TableCell className="center p-1">
+            <TableCell className="center p-1 w-[20%]">
               <Input
                 type="text"
                 value={isDescription}
@@ -146,12 +146,11 @@ export const BodyTable = () => {
               })}
             </TableCell>
           ) : (
-            <TableCell className="center p-1 w-[10%]">
-              <Input
-                type="number"
-                value={isValue}
-                onChange={(e) => setIsValue(e.target.valueAsNumber)}
-                className="border border-grey-500"
+            <TableCell className="center justify-end w-[10%]">
+              <InputMaskReal
+                valueRef={valueRef}
+                setValor={setIsValue}
+                valor={isValue}
               />
             </TableCell>
           )}
@@ -179,7 +178,10 @@ export const BodyTable = () => {
             <TableCell className="center md:hidden w-[10%]">-</TableCell>
           ) : (
             <TableCell className="center w-[10%]">
-              <SelectInstallments refInstallments={installmentsRef} />
+              <SelectInstallments
+                setValor={setValuePortion}
+                valor={valuePortion}
+              />
             </TableCell>
           )}
           <TableCell className="center justify-end w-[10%]">

@@ -22,24 +22,19 @@ export const Revenue = ({}: revenueProps) => {
   const { AddInvoice } = useContext(AuthContext);
 
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
-  const categoriRef = useRef<HTMLButtonElement | null>(null);
   const valueRef = useRef<HTMLInputElement | null>(null);
 
   const [valor, setValor] = useState('');
+  const [valueCategory, setValueCategory] = useState('');
 
   const handleCreatedRecipe = (event: FormEvent) => {
     event.preventDefault();
-
-    const categoryId =
-      categoriRef.current?.children[0].children[0]?.getAttribute(
-        'data-value'
-      ) || '';
 
     const value = valueRef.current?.value?.split(' ')[1]!;
     const valueNumber = parseFloat(value.replace(/\./g, '').replace(',', '.'));
     const description = descriptionRef.current?.value;
 
-    if (description === '' || categoryId === '' || valueNumber < 1) return;
+    if (description === '' || valueCategory === '' || valueNumber < 1) return;
 
     const dateEnd = dateInstallments(new Date().getMonth() + 1);
 
@@ -48,15 +43,16 @@ export const Revenue = ({}: revenueProps) => {
       value: valueNumber,
       type: 0,
       installments: 1,
-      categoryId: categoryId!,
+      categoryId: valueCategory,
       dateEnd: dateEnd
     };
 
     AddInvoice(data);
 
-    if (descriptionRef.current && categoriRef.current && valueRef.current) {
+    if (descriptionRef.current && valueCategory && valueRef.current) {
       descriptionRef.current.value = '';
       valueRef.current.value = 'R$ ';
+      setValueCategory('');
     }
   };
 
@@ -86,7 +82,10 @@ export const Revenue = ({}: revenueProps) => {
               Categoria
             </Label>
 
-            <SelectCategories refCategories={categoriRef} />
+            <SelectCategories
+              setValor={setValueCategory}
+              valor={valueCategory}
+            />
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">

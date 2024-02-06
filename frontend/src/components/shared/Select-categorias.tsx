@@ -1,4 +1,4 @@
-import { MutableRefObject, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
 import {
@@ -12,25 +12,26 @@ import {
 import Image from 'next/image';
 
 interface selectCategoriesProps {
-  refCategories: MutableRefObject<HTMLButtonElement | null>;
+  setValor: (valor: string) => void;
+  valor: string;
 }
 
-export const SelectCategories = ({ refCategories }: selectCategoriesProps) => {
+export const SelectCategories = ({
+  setValor,
+  valor
+}: selectCategoriesProps) => {
   const { categories } = useContext(AuthContext);
 
   return (
-    <Select>
-      <SelectTrigger className="col-span-3" ref={refCategories}>
+    <Select onValueChange={(e) => setValor(e)} value={valor}>
+      <SelectTrigger className="col-span-3">
         <SelectValue placeholder="Selecione uma categoria" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           {categories.map((category) => (
             <SelectItem value={category.id} key={category.id}>
-              <div
-                data-value={category.id}
-                className="flex flex-row items-center gap-2"
-              >
+              <div className="flex flex-row items-center gap-2">
                 <Image
                   width={26}
                   height={26}

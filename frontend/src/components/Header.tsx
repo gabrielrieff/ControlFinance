@@ -76,7 +76,7 @@ export const Header = () => {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="flex flex-col items-start">
-              <DropdownMenuLabel>Edit Entry</DropdownMenuLabel>
+              <DropdownMenuLabel>Transações/Categoria</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <Dialog>
                 <DialogTrigger asChild>
@@ -101,44 +101,41 @@ export const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <NavigationMenuItem className="flex">
-            <NavigationMenuTrigger className="flex gap-2">
-              <div className="flex flex-col items-end">
-                {user?.firstName} {user?.lastName}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex gap-2 px-4 py-1.5 w-full hover:bg-accent rounded-md">
+              <div className="flex flex-col items-end w-[115px]">
+                <span>
+                  {user?.firstName} {user?.lastName}
+                </span>
                 <span className="font-light text-sm">{typeUser}</span>
               </div>
               <Avatar>
-                {/* <AvatarImage
-                  src={`http://localhost:3333/files/image/user/${user!.photo!}`}
-                  alt={`${user!.firstName} ${user!.lastName}`}
-                  className="object-cover"
-                /> */}
+                {user?.photo && (
+                  <AvatarImage
+                    src={`http://localhost:3333/files/image/user/${user.photo}`}
+                    alt={`${user!.firstName} ${user!.lastName}`}
+                    className="object-cover"
+                  />
+                )}
               </Avatar>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent className="">
-              <ul className="grid gap-3 p-4 w-[580px]">
-                <li className="row-span-3">
-                  <Button variant={'link'}>
-                    <NavigationMenuLink asChild>
-                      <a className="" href="/main/configuracao">
-                        Configurações
-                      </a>
-                    </NavigationMenuLink>
-                  </Button>
-                </li>
+            </DropdownMenuTrigger>
 
-                <li className="row-span-3">
-                  <Button variant={'link'}>
-                    <NavigationMenuLink asChild>
-                      <a className="" href="/main/users">
-                        Usuários
-                      </a>
-                    </NavigationMenuLink>
-                  </Button>
-                </li>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+            <DropdownMenuContent className="flex flex-col items-start">
+              <DropdownMenuLabel>Usuário</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <Button variant="link" asChild>
+                <a className="" href="/main/configuracao">
+                  Configurações
+                </a>
+              </Button>
+
+              <Button variant="link" asChild>
+                <a className="" href="/main/users">
+                  Usuários
+                </a>
+              </Button>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </NavigationMenuList>
       </NavigationMenu>
     </div>

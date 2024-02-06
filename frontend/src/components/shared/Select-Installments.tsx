@@ -11,14 +11,14 @@ import {
 } from '../shadcn/select';
 
 interface selectInstallmentsProps {
-  refInstallments: MutableRefObject<HTMLButtonElement | null>;
+  setValor: (valor: string) => void;
+  valor: string;
 }
 
 export const SelectInstallments = ({
-  refInstallments
+  setValor,
+  valor
 }: selectInstallmentsProps) => {
-  const [sel, setSel] = useState('');
-
   const installments = [
     { id: '1', parcela: '1x', valor: 1 },
     { id: '2', parcela: '2x', valor: 2 },
@@ -35,8 +35,8 @@ export const SelectInstallments = ({
   ];
 
   return (
-    <Select>
-      <SelectTrigger className="col-span-3" ref={refInstallments}>
+    <Select onValueChange={(e) => setValor(e)} value={valor}>
+      <SelectTrigger className="col-span-3">
         <SelectValue placeholder="Selecione em quantas parcelas" />
       </SelectTrigger>
       <SelectContent>
