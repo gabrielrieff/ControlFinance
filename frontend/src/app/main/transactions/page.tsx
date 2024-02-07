@@ -1,29 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { Table } from '~/components/shadcn/table';
 
-import { Table, TableCaption } from '~/components/shadcn/table';
-import { ModalDelete } from '~/components/ui/ModalDelete/ModalDelete';
-
-import '~/components/ui/style.css';
 import { HeaderTable } from '~/components/ui/main/Transctions/table/HeaderTable';
 import { BodyTable } from '~/components/ui/main/Transctions/table/BodyTable';
 import { Filter } from '~/components/ui/main/Transctions/table/Filter';
 
 export default function transactions() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [baseUrlFilter, setBaseUrlFilter] = useState<string>('');
-
-  const [data, setData] = useState({
-    type: 0,
-    value: '',
-    id: ''
-  });
-
-  function handleOpenModalDelete() {
-    setIsOpen(!isOpen);
-  }
-
   return (
     <main className="flex flex-col items-center h-screen gap-3 rounded-[20px] p-4">
       <Filter />
@@ -35,7 +18,6 @@ export default function transactions() {
           <BodyTable />
         </Table>
       </div>
-      <ModalDelete isOpen={isOpen} close={handleOpenModalDelete} data={data} />
     </main>
   );
 }

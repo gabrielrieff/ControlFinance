@@ -132,3 +132,8 @@ input[type='month'] {
 :root {
   --toastify-color-success: #047708;
 }
+
+.scroll::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+}

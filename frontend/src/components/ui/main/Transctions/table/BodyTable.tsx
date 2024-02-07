@@ -14,17 +14,19 @@ import { TiCancel } from 'react-icons/ti';
 import { SelectCategories } from '~/components/shared/Select-categorias';
 import { SelectInstallments } from '~/components/shared/Select-Installments';
 import { InputMaskReal } from '~/components/shared/InputMaskReal';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger
+} from '~/components/shadcn/dropdown-menu';
+import { Dialog, DialogTrigger } from '~/components/shadcn/dialog';
+import { ModelDeleteInvoice } from '~/components/shared/ModelDelete-Invoice';
 
 export const BodyTable = () => {
   const { invoices, updateInvoide } = useContext(AuthContext);
 
-  const [arrayInvoices, setArrayInvoices] =
-    useState<Array<invoiceProps>>(invoices);
-  const [editingIndex, setEditingIndex] = useState<string | null>(null);
-
-  const installmentsRef = useRef<HTMLButtonElement | null>(null);
   const valueRef = useRef<HTMLInputElement | null>(null);
 
+  const [editingIndex, setEditingIndex] = useState<string | null>(null);
   const [isDescription, setIsDescription] = useState<string>('');
   const [isValue, setIsValue] = useState<string>('');
   const [isCategori, setIsCategori] = useState<string>('');
@@ -87,6 +89,7 @@ export const BodyTable = () => {
     setIsCategori(invoice.categoryId);
     setValueCategory(invoice.categoryId);
     setValuePortion(String(invoice.installments));
+    setIsValue(String(invoice.value));
   }, [editingIndex]);
 
   return (
@@ -193,12 +196,21 @@ export const BodyTable = () => {
 
           {item.id !== editingIndex ? (
             <TableCell className="center gap-3 lg:gap-1 lg:flex-col w-[10%]">
-              <Button
-                onClick={() => deleteInvoice(item.type, item.value, item.id)}
-                className="bg-red-500 hover:bg-red-500/60 w-max transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
-              >
-                <MdDelete size={25} className="text-white-100" />
-              </Button>
+              <DropdownMenu>
+                <Dialog>
+                  <DialogTrigger asChild className="!w-max p-1">
+                    <Button
+                      variant="destructive"
+                      onClick={() =>
+                        deleteInvoice(item.type, item.value, item.id)
+                      }
+                    >
+                      <MdDelete size={25} />
+                    </Button>
+                  </DialogTrigger>
+                  <ModelDeleteInvoice data={data} />
+                </Dialog>
+              </DropdownMenu>
               <Button
                 onClick={() => handleOpenModalEdit(item.id)}
                 className="bg-orange-500 hover:bg-orange-500/60 w-max transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "

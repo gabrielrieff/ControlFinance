@@ -42,6 +42,7 @@ export const InputMaskReal = ({
   return (
     <Input
       id="valor"
+      value={valor}
       ref={valueRef}
       type="text"
       onChange={handleInputChange}
