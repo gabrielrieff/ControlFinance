@@ -8,18 +8,17 @@ import {
   LiaSortAmountDownAltSolid,
   LiaSortAmountDownSolid
 } from 'react-icons/lia';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { invoiceProps } from '~/@types/contextTypes';
 import { orderByInvoices } from '~/Helpers/orderByInvoices';
 import { FaGear } from 'react-icons/fa6';
-import { AuthContext } from '~/context/auth/authContext';
 
-export const HeaderTable = () => {
-  const { invoices } = useContext(AuthContext);
+interface headerTableProps {
+  setInvoices: (valor: Array<invoiceProps>) => void;
+  invoices: Array<invoiceProps>;
+}
 
-  const [arrayInvoices, setArrayInvoices] =
-    useState<Array<invoiceProps>>(invoices);
-
+export const HeaderTable = ({ invoices, setInvoices }: headerTableProps) => {
   const [ascDescVelue, setAscDescVelue] = useState<string>('asc');
   const [ascDescDescription, setAscDescDescription] = useState<string>('asc');
   const [ascDescType, setAscDescType] = useState<string>('asc');
@@ -28,13 +27,13 @@ export const HeaderTable = () => {
 
   const orderByValue = async function () {
     if (ascDescVelue === 'asc') {
-      const order = await orderByInvoices(arrayInvoices, 'value', 'asc')!;
-      setArrayInvoices(order);
+      const order = await orderByInvoices(invoices, 'value', 'asc')!;
+      setInvoices(order);
       setAscDescVelue('desc');
       setAscDescActive('value');
     } else {
-      const order = await orderByInvoices(arrayInvoices, 'value', 'desc')!;
-      setArrayInvoices(order);
+      const order = await orderByInvoices(invoices, 'value', 'desc')!;
+      setInvoices(order);
       setAscDescVelue('asc');
       setAscDescActive('value');
     }
@@ -42,17 +41,13 @@ export const HeaderTable = () => {
 
   const orderByDescription = async function () {
     if (ascDescDescription === 'asc') {
-      const order = await orderByInvoices(arrayInvoices, 'description', 'asc')!;
-      setArrayInvoices(order);
+      const order = await orderByInvoices(invoices, 'description', 'asc')!;
+      setInvoices(order);
       setAscDescDescription('desc');
       setAscDescActive('description');
     } else {
-      const order = await orderByInvoices(
-        arrayInvoices,
-        'description',
-        'desc'
-      )!;
-      setArrayInvoices(order);
+      const order = await orderByInvoices(invoices, 'description', 'desc')!;
+      setInvoices(order);
       setAscDescDescription('asc');
       setAscDescActive('description');
     }
@@ -60,13 +55,13 @@ export const HeaderTable = () => {
 
   const orderByType = async function () {
     if (ascDescType === 'asc') {
-      const order = await orderByInvoices(arrayInvoices, 'type', 'asc')!;
-      setArrayInvoices(order);
+      const order = await orderByInvoices(invoices, 'type', 'asc')!;
+      setInvoices(order);
       setAscDescType('desc');
       setAscDescActive('type');
     } else {
-      const order = await orderByInvoices(arrayInvoices, 'type', 'desc')!;
-      setArrayInvoices(order);
+      const order = await orderByInvoices(invoices, 'type', 'desc')!;
+      setInvoices(order);
       setAscDescType('asc');
       setAscDescActive('type');
     }
@@ -74,20 +69,20 @@ export const HeaderTable = () => {
 
   const orderByCategory = async function () {
     if (ascDescCategory === 'asc') {
-      const order = await orderByInvoices(arrayInvoices, 'category', 'asc')!;
-      setArrayInvoices(order);
+      const order = await orderByInvoices(invoices, 'category', 'asc')!;
+      setInvoices(order);
       setAscDescCategory('desc');
       setAscDescActive('category');
     } else {
-      const order = await orderByInvoices(arrayInvoices, 'category', 'desc')!;
-      setArrayInvoices(order);
+      const order = await orderByInvoices(invoices, 'category', 'desc')!;
+      setInvoices(order);
       setAscDescCategory('asc');
       setAscDescActive('category');
     }
   };
 
   useEffect(() => {
-    setArrayInvoices(invoices);
+    setInvoices(invoices);
   }, [invoices]);
   return (
     <TableHeader>

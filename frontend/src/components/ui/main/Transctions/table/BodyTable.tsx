@@ -14,15 +14,16 @@ import { TiCancel } from 'react-icons/ti';
 import { SelectCategories } from '~/components/shared/Select-categorias';
 import { SelectInstallments } from '~/components/shared/Select-Installments';
 import { InputMaskReal } from '~/components/shared/InputMaskReal';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger
-} from '~/components/shadcn/dropdown-menu';
+import { DropdownMenu } from '~/components/shadcn/dropdown-menu';
 import { Dialog, DialogTrigger } from '~/components/shadcn/dialog';
 import { ModelDeleteInvoice } from '~/components/shared/ModelDelete-Invoice';
 
-export const BodyTable = () => {
-  const { invoices, updateInvoide } = useContext(AuthContext);
+interface bodyTableProps {
+  invoices: Array<invoiceProps>;
+}
+
+export const BodyTable = ({ invoices }: bodyTableProps) => {
+  const { updateInvoide } = useContext(AuthContext);
 
   const valueRef = useRef<HTMLInputElement | null>(null);
 
