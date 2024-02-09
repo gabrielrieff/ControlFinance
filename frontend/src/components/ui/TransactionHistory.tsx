@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
 import { FormatDate } from '~/Helpers/FormatDate';
-import './style.css';
 
 export const TransactionHistory = () => {
   const { invoicesTake } = useContext(AuthContext);

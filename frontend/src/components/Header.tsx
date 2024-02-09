@@ -28,6 +28,7 @@ import {
 } from './shadcn/dropdown-menu';
 import { Expense } from './Expense';
 import { Categories } from './Categories';
+import { SheetSide } from './SheetSide';
 
 export const Header = () => {
   const { user } = useContext(AuthContext);
@@ -42,10 +43,12 @@ export const Header = () => {
 
   return (
     <div className="w-full flex justify-around">
-      <Link href={'/'} className="font-medium text-[24px]">
+      <SheetSide />
+
+      <Link href={'/'} className="font-medium text-[24px] center">
         MyWallet
       </Link>
-      <NavigationMenu className="flex items-center justify-around">
+      <NavigationMenu className="flex items-center justify-around xl:hidden">
         <NavigationMenuList className="w-2/3">
           <NavigationMenuItem>
             <Link href="/main/dashboard" legacyBehavior passHref>
