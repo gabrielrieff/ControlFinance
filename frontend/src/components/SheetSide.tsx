@@ -20,6 +20,7 @@ import { Avatar, AvatarImage } from './shadcn/avatar';
 import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 import { enumUser } from '~/@types/enum/EnumAdmin';
+import { IoMenuOutline } from 'react-icons/io5';
 
 export function SheetSide() {
   const { user } = useContext(AuthContext);
@@ -32,11 +33,11 @@ export function SheetSide() {
       ? 'Master'
       : 'Tipo desconhecido';
   return (
-    <div className="grid grid-cols-2 gap-2 xl:block">
+    <div className="hidden xl:block">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline">
-            <CgMenuMotion size={30} />
+            <IoMenuOutline />
           </Button>
         </SheetTrigger>
         <SheetContent side={'left'} className="w-1/3">
