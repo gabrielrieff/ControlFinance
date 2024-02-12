@@ -1,9 +1,11 @@
-import { Input } from '~/components/shared/Input';
+import Link from 'next/link';
+import { Input } from '~/components/shadcn/input';
+import { Button } from '~/components/shadcn/button';
+
 import { BiSolidLock } from 'react-icons/bi';
 import { MdEmail, MdOutlineSecurity } from 'react-icons/md';
 import { AiFillEye } from 'react-icons/ai';
-import { Button } from '~/components/shared/Button';
-import Link from 'next/link';
+
 
 export default function changePassword() {
   return (
@@ -17,8 +19,7 @@ export default function changePassword() {
             <MdEmail size={30} className="absolute bottom-[10px] left-2" />
             <Input
               type="email"
-              className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-              outline-green-500 bg-grey-400 ps-11 h-[50px]"
+              className="bg-slate-100 ps-11 h-[50px]"
             />
           </div>
         </label>
@@ -26,16 +27,15 @@ export default function changePassword() {
         <label className="w-full">
           <span>Senha:</span>
           <div className="relative">
-            <BiSolidLock size={30} className="absolute bottom-[10px] left-2" />
+            <BiSolidLock size={30} className="absolute bottom-[35px] left-2" />
             <Input
               type="password"
-              className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-              outline-green-500 bg-grey-400 ps-11 pe-11 h-[50px]"
+              className="bg-slate-100 ps-11 pe-11 h-[50px]"
             />
             <button>
               <AiFillEye
                 size={30}
-                className="absolute bottom-[10px] right-2 hover:text-grey-300 transition-[0.3s]"
+                className="absolute bottom-[35px] right-2 hover:text-grey-300 transition-[0.3s]"
               />
             </button>
           </div>
@@ -50,15 +50,13 @@ export default function changePassword() {
             />
             <Input
               type="text"
-              className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-              outline-green-500 bg-grey-400 ps-11 pe-11 h-[50px]"
+              className="bg-slate-100 ps-11 pe-11 h-[50px]"
             />
           </div>
         </label>
         <Button
           type="button"
-          className="bg-green-500 text-[26px] font-semibold w-[40%] text-white-100 hover:bg-green-400 hover:text-grey-700 transition-[.3s]"
-        >
+          variant={'default'}        >
           Salvar
         </Button>
 

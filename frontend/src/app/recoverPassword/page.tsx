@@ -1,11 +1,11 @@
 'use client';
 
-import { Input } from '~/components/shared/Input';
 import { MdEmail } from 'react-icons/md';
-import { Button } from '~/components/shared/Button';
 import Link from 'next/link';
 import { FormEvent, useContext, useRef } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
+import { Input } from '~/components/shadcn/input';
+import { Button } from '~/components/shadcn/button';
 
 export default function recoverPassword() {
   const { recoverPassword } = useContext(AuthContext);
@@ -32,15 +32,14 @@ export default function recoverPassword() {
             <MdEmail size={30} className="absolute bottom-[10px] left-2" />
             <Input
               type="email"
-              inputref={emailRef}
-              className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-              outline-green-500 bg-grey-400 ps-11 h-[50px]"
+              ref={emailRef}
+              className="bg-slate-100 ps-11 h-[50px]"
             />
           </div>
         </label>
         <Button
           type="submit"
-          className="bg-green-500 text-[26px] font-semibold w-[40%] text-white-100 hover:bg-green-400 hover:text-grey-700 transition-[.3s]"
+          variant={'default'}
         >
           Recuperar
         </Button>
