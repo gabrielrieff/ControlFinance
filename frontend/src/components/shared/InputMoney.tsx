@@ -7,7 +7,7 @@ interface inputMaskRealProps {
   valueRef: MutableRefObject<HTMLInputElement | null>;
 }
 
-export const InputMaskReal = ({
+export const InputMoney = ({
   valor,
   setValor,
   valueRef

@@ -14,7 +14,7 @@ import { SelectCategories } from './shared/Select-categorias';
 import { FormEvent, useContext, useRef, useState } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 import { dateInstallments } from '~/Helpers/dateInstallments';
-import { InputMaskReal } from './shared/InputMaskReal';
+import { InputMoney } from './shared/InputMoney';
 
 interface revenueProps {}
 
@@ -92,11 +92,7 @@ export const Revenue = ({}: revenueProps) => {
             <Label htmlFor="valor" className="text-right">
               Valor
             </Label>
-            <InputMaskReal
-              valueRef={valueRef}
-              setValor={setValor}
-              valor={valor}
-            />
+            <InputMoney valueRef={valueRef} setValor={setValor} valor={valor} />
           </div>
         </form>
         <DialogFooter className="flex gap-3 justify-center flex-row">

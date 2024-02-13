@@ -1,44 +1,23 @@
 'use client';
 import { AuthContext } from '~/context/auth/authContext';
 
-import Link from 'next/link';
 import { useContext, useState } from 'react';
+import Link from 'next/link';
+import { Input } from '~/components/shadcn/input';
+import { Button } from '~/components/shadcn/button';
+import { useFormSchema } from './schema';
 
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import { AiFillEye } from 'react-icons/ai';
 import { BiSolidLock } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
-import { Input } from '~/components/shadcn/input';
-import { Button } from '~/components/shadcn/button';
-
-const schema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'Por gentileza informe um email valido' })
-    .email(),
-  password: z.string().min(1, { message: 'Por gentileza forneça uma senha' })
-});
-
-type formDataProps = z.infer<typeof schema>;
 
 export default function Home() {
   const { signIn } = useContext(AuthContext);
-  const {
-    handleSubmit,
-    register,
-    formState: { errors }
-  } = useForm<formDataProps>({
-    mode: 'all',
-    criteriaMode: 'all',
-    resolver: zodResolver(schema),
-    defaultValues: {
-      email: '',
-      password: ''
-    }
-  });
+  const { handleSubmit, register, schema, errors } = useFormSchema();
+
+  type formDataProps = z.infer<typeof schema>;
 
   const [viewPassword, setViewPassword] = useState(true);
 

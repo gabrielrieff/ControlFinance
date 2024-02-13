@@ -1,38 +1,20 @@
 'use client';
 
-import { MdEmail } from 'react-icons/md';
-import Link from 'next/link';
 import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
+
+import Link from 'next/link';
 import { Input } from '~/components/shadcn/input';
 import { Button } from '~/components/shadcn/button';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { recoverPasswordSchema } from './schemaRec-Password';
 
-const schema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'Por gentileza informe um email' })
-    .email({ message: 'Por gentileza informe um email valido' })
-});
-
-type formDataProps = z.infer<typeof schema>;
+import { MdEmail } from 'react-icons/md';
 
 export default function recoverPassword() {
   const { recoverPassword } = useContext(AuthContext);
-  const {
-    handleSubmit,
-    register,
-    formState: { errors }
-  } = useForm<formDataProps>({
-    mode: 'all',
-    criteriaMode: 'all',
-    resolver: zodResolver(schema),
-    defaultValues: {
-      email: ''
-    }
-  });
+  const { handleSubmit, errors, register, schema } = recoverPasswordSchema();
+  type formDataProps = z.infer<typeof schema>;
 
   async function handleRecoverPassword(data: formDataProps) {
     const { email } = data;
