@@ -135,7 +135,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   function signOut() {
     try {
-      destroyCookie(undefined, '@nextauth.token');
+      destroyCookie(null, '@nextauth.token');
       push('/');
     } catch (error) {
       console.log('erro ao deslogar');
