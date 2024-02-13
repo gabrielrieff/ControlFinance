@@ -40,7 +40,7 @@ export function SheetSide() {
             <IoMenuOutline />
           </Button>
         </SheetTrigger>
-        <SheetContent side={'left'} className="w-1/3">
+        <SheetContent side={'left'} className="w-1/3 md:w-2/3">
           <SheetHeader>
             <div className="flex flex-row gap-3">
               <SheetClose>
@@ -49,69 +49,73 @@ export function SheetSide() {
               <SheetTitle>MyWallet</SheetTitle>
             </div>
           </SheetHeader>
-          <div className="grid gap-4 py-4">
-            <Button variant="link" asChild>
-              <Link className="" href="/main/configuracao">
-                Configurações
-              </Link>
-            </Button>
+          <div className="flex flex-col justify-around items-start mt-7 h-full">
+            <div className="flex flex-col items-start justify-center gap-4 py-4 ml-8">
+              <Button variant="link" asChild>
+                <Link className="" href="/main/configuracao">
+                  Configurações
+                </Link>
+              </Button>
 
-            <Button variant="link" asChild>
-              <Link className="" href="/main/users">
-                Usuários
-              </Link>
-            </Button>
+              <Button variant="link" asChild>
+                <Link className="" href="/main/users">
+                  Usuários
+                </Link>
+              </Button>
 
-            <Button variant="link" asChild>
-              <Link href="/main/dashboard">Dashboar</Link>
-            </Button>
+              <Button variant="link" asChild>
+                <Link href="/main/dashboard">Dashboar</Link>
+              </Button>
 
-            <Button variant="link" asChild>
-              <Link href="/main/transactions">Lista de transações</Link>
-            </Button>
+              <Button variant="link" asChild>
+                <Link href="/main/transactions">Lista de transações</Link>
+              </Button>
 
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="link">Adicionar receita</Button>
-              </DialogTrigger>
-              <Revenue />
-            </Dialog>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link">Adicionar receita</Button>
+                </DialogTrigger>
+                <Revenue />
+              </Dialog>
 
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="link">Adicionar despesa</Button>
-              </DialogTrigger>
-              <Expense />
-            </Dialog>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link">Adicionar despesa</Button>
+                </DialogTrigger>
+                <Expense />
+              </Dialog>
 
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="link">Categorias</Button>
-              </DialogTrigger>
-              <Categories />
-            </Dialog>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link">Categorias</Button>
+                </DialogTrigger>
+                <Categories />
+              </Dialog>
 
-            <Button variant="link" onClick={signOut}>
-              sair
-            </Button>
-          </div>
-          <SheetFooter>
-            <div className="flex flex-col items-end w-[115px]">
-              <span>
-                {user?.firstName} {user?.lastName}
-              </span>
-              <span className="font-light text-sm">{typeUser}</span>
+              <Button variant="link" onClick={signOut}>
+                sair
+              </Button>
             </div>
-            <Avatar>
-              {user?.photo && (
-                <AvatarImage
-                  src={`http://localhost:3333/files/image/user/${user.photo}`}
-                  alt={`${user!.firstName} ${user!.lastName}`}
-                  className="object-cover"
-                />
-              )}
-            </Avatar>
-          </SheetFooter>
+            <SheetFooter>
+              <div className="flex">
+                <Avatar>
+                  {user?.photo && (
+                    <AvatarImage
+                      src={`http://localhost:3333/files/image/user/${user.photo}`}
+                      alt={`${user!.firstName} ${user!.lastName}`}
+                      className="object-cover"
+                    />
+                  )}
+                </Avatar>
+                <div className="flex flex-col items-end w-[115px]">
+                  <span>
+                    {user?.firstName} {user?.lastName}
+                  </span>
+                  <span className="font-light text-sm">{typeUser}</span>
+                </div>
+              </div>
+            </SheetFooter>
+          </div>
         </SheetContent>
       </Sheet>
     </div>

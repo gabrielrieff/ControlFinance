@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useContext, useState } from 'react';
 
 import { z } from 'zod';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { AiFillEye } from 'react-icons/ai';
@@ -29,7 +29,6 @@ export default function Home() {
   const {
     handleSubmit,
     register,
-    control,
     formState: { errors }
   } = useForm<formDataProps>({
     mode: 'all',
