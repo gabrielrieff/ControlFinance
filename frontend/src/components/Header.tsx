@@ -3,11 +3,9 @@
 import Link from 'next/link';
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from './shadcn/navigation-menu';
 import { Avatar, AvatarImage } from './shadcn/avatar';
@@ -31,7 +29,7 @@ import { Categories } from './Categories';
 import { SheetSide } from './SheetSide';
 
 export const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, signOut } = useContext(AuthContext);
   const typeUser =
     user?.userType! === enumUser.Admin
       ? 'Admin'
@@ -136,6 +134,14 @@ export const Header = () => {
                 <a className="" href="/main/users">
                   Usuários
                 </a>
+              </Button>
+
+              <Button
+                className="cursor-pointer"
+                variant="link"
+                onClick={signOut}
+              >
+                Sair
               </Button>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -23,7 +23,7 @@ import { enumUser } from '~/@types/enum/EnumAdmin';
 import { IoMenuOutline } from 'react-icons/io5';
 
 export function SheetSide() {
-  const { user } = useContext(AuthContext);
+  const { user, signOut } = useContext(AuthContext);
   const typeUser =
     user?.userType! === enumUser.Admin
       ? 'Admin'
@@ -90,6 +90,10 @@ export function SheetSide() {
               </DialogTrigger>
               <Categories />
             </Dialog>
+
+            <Button variant="link" onClick={signOut}>
+              sair
+            </Button>
           </div>
           <SheetFooter>
             <div className="flex flex-col items-end w-[115px]">
