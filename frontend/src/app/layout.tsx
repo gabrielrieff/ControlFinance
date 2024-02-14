@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google';
 import { AuthProvider } from '~/context/auth/authContext';
 
 import './globals.css';
+import { ThemeProvider } from '~/components/ProviderTheme';
 
 export const metadata: Metadata = {
   title: 'Login'
@@ -21,7 +22,16 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${poppins.className}`}>
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
