@@ -87,7 +87,7 @@ export const HeaderTable = ({ invoices, setInvoices }: headerTableProps) => {
   return (
     <TableHeader>
       <TableRow className="flex justify-between">
-        <TableHead className="w-[10%] center justify-start text-black pt-2 pb-2 items-end">
+        <TableHead className="w-[10%] center justify-start pt-2 pb-2 items-end">
           Categoria
           <button onClick={orderByCategory} type="button">
             {ascDescCategory === 'asc' ? (
@@ -163,10 +163,7 @@ export const HeaderTable = ({ invoices, setInvoices }: headerTableProps) => {
           </button>
         </TableHead>
         <TableHead className="w-[10%] !text-black pt-2 pb-2 items-end center">
-          Parcelas pagas
-        </TableHead>
-        <TableHead className="w-[10%] !text-black pt-2 pb-2 items-end center">
-          Número de parcelas
+          Parcelas
         </TableHead>
         <TableHead className="w-[10%] !text-black pt-2 pb-2 items-end center justify-end">
           Data de criação

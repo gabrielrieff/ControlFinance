@@ -14,8 +14,8 @@ import { SelectCategories } from './shared/Select-categorias';
 import { FormEvent, useContext, useRef, useState } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 import { dateInstallments } from '~/Helpers/dateInstallments';
+import { InputMaskReal } from './shared/InputMaskReal';
 import { SelectInstallments } from './shared/Select-Installments';
-import { InputMoney } from './shared/InputMoney';
 
 export const Expense = () => {
   const { AddInvoice } = useContext(AuthContext);
@@ -36,6 +36,7 @@ export const Expense = () => {
     const valuePortionNum = Number(valuePortion);
 
     if (description === '' || valueCategory === '' || valueNumber < 1) return;
+
     const dateEnd = dateInstallments(valuePortionNum);
     const data = {
       description: descriptionRef.current?.value!,
@@ -102,7 +103,11 @@ export const Expense = () => {
             <Label htmlFor="valor" className="text-right">
               Valor
             </Label>
-            <InputMoney valueRef={valueRef} setValor={setValor} valor={valor} />
+            <InputMaskReal
+              valueRef={valueRef}
+              setValor={setValor}
+              valor={valor}
+            />
           </div>
         </form>
         <DialogFooter className="flex gap-3 justify-center flex-row">
@@ -111,7 +116,11 @@ export const Expense = () => {
               Cancelar
             </Button>
           </DialogClose>
-          <Button type="submit" className="bg-green-900">
+          <Button
+            type="submit"
+            onClick={handleCreatedExpense}
+            className="bg-green-900"
+          >
             Salvar
           </Button>
         </DialogFooter>

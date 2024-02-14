@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { FaFilterCircleXmark } from 'react-icons/fa6';
 import { FiFilter } from 'react-icons/fi';
 import { Button } from '~/components/shadcn/button';
+import { Card } from '~/components/shadcn/card';
 import { Input } from '~/components/shadcn/input';
 import { Label } from '~/components/shadcn/label';
 import {
@@ -62,13 +63,11 @@ export const Filter = () => {
 
   return (
     <form className="w-full flex flex-col items-start justify-center p-2 mb-5">
-      <div>
-        <h2 className="text-2xl">Filtros</h2>
-      </div>
-      <div className="flex w-full mt-3 bg-slate-100 p-4 rounded-md">
-        <section className="flex items-end gap-7 w-full">
+      <h2 className="text-2xl">Filtros</h2>
+      <Card className="flex mt-3 gap-2 bg-slate-100 dark:bg-slate-950 p-4">
+        <section className="flex items-end gap-2 w-full">
           <Label className="flex flex-col gap-2">
-            <span>Data criação</span>
+            <span className="text-black dark:text-white">Data criação</span>
             <Input
               type="month"
               max="2027"
@@ -79,7 +78,7 @@ export const Filter = () => {
           </Label>
 
           <Label className="flex flex-col gap-2">
-            <span>Última parcela</span>
+            <span className="text-black dark:text-white">Última parcela</span>
             <Input
               type="month"
               max="2027"
@@ -90,7 +89,7 @@ export const Filter = () => {
           </Label>
 
           <Label className="flex flex-col gap-2">
-            <span>Tipo</span>
+            <span className="text-black dark:text-white">Tipo</span>
             <Select onValueChange={(e) => setType(e)} value={type}>
               <SelectTrigger className="w-[220px]">
                 <SelectValue placeholder="Crédito/Débito" />
@@ -105,7 +104,7 @@ export const Filter = () => {
           </Label>
 
           <Label className="flex flex-col gap-2">
-            <span>Categorias</span>
+            <span className="text-black dark:text-white">Categorias</span>
 
             <SelectCategories
               setValor={setValueCategory}
@@ -114,7 +113,7 @@ export const Filter = () => {
           </Label>
         </section>
 
-        <div className="flex items-end gap-4">
+        <div className="flex items-end gap-3">
           <Button
             variant={'outline'}
             type="button"
@@ -131,11 +130,14 @@ export const Filter = () => {
             className="flex gap-2"
             onClick={cleanFilters}
           >
-            <FaFilterCircleXmark size={20} className="text-white" />
+            <FaFilterCircleXmark
+              size={20}
+              className="text-white dark:text-slate-700"
+            />
             Limpar
           </Button>
         </div>
-      </div>
+      </Card>
     </form>
   );
 };

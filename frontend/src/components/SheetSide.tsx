@@ -21,9 +21,22 @@ import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 import { enumUser } from '~/@types/enum/EnumAdmin';
 import { IoMenuOutline } from 'react-icons/io5';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from './shadcn/dropdown-menu';
+import { MdOutlineWbSunny } from 'react-icons/md';
+import { BsMoonStarsFill } from 'react-icons/bs';
+import { useTheme } from 'next-themes';
+import { BiSolidDashboard } from 'react-icons/bi';
+import { GrGoogleWallet } from 'react-icons/gr';
 
 export function SheetSide() {
   const { user, signOut } = useContext(AuthContext);
+  const { setTheme } = useTheme();
+
   const typeUser =
     user?.userType! === enumUser.Admin
       ? 'Admin'
@@ -46,7 +59,10 @@ export function SheetSide() {
               <SheetClose>
                 <CgMenuMotion size={20} />
               </SheetClose>
-              <SheetTitle>MyWallet</SheetTitle>
+              <SheetTitle>
+                <GrGoogleWallet />
+                MyWallet
+              </SheetTitle>
             </div>
           </SheetHeader>
           <div className="flex flex-col justify-around items-start mt-7 h-full">
@@ -97,6 +113,30 @@ export function SheetSide() {
               </Button>
             </div>
             <SheetFooter>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="border-none shadow-none"
+                  >
+                    <MdOutlineWbSunny className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                    <BsMoonStarsFill className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                    <span className="sr-only">Toggle theme</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => setTheme('light')}>
+                    Light
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme('dark')}>
+                    Dark
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme('system')}>
+                    System
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <div className="flex">
                 <Avatar>
                   {user?.photo && (

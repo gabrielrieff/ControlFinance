@@ -13,10 +13,10 @@ import { FaSave } from 'react-icons/fa';
 import { TiCancel } from 'react-icons/ti';
 import { SelectCategories } from '~/components/shared/Select-categorias';
 import { SelectInstallments } from '~/components/shared/Select-Installments';
+import { InputMaskReal } from '~/components/shared/InputMaskReal';
 import { DropdownMenu } from '~/components/shadcn/dropdown-menu';
 import { Dialog, DialogTrigger } from '~/components/shadcn/dialog';
 import { ModelDeleteInvoice } from '~/components/shared/ModelDelete-Invoice';
-import { InputMoney } from '~/components/shared/InputMoney';
 
 interface bodyTableProps {
   invoices: Array<invoiceProps>;
@@ -151,22 +151,11 @@ export const BodyTable = ({ invoices }: bodyTableProps) => {
             </TableCell>
           ) : (
             <TableCell className="center justify-end w-[10%]">
-              <InputMoney
+              <InputMaskReal
                 valueRef={valueRef}
                 setValor={setIsValue}
                 valor={isValue}
               />
-            </TableCell>
-          )}
-
-          {item.type == 0 ? (
-            <TableCell className="center w-[10%]">-</TableCell>
-          ) : (
-            <TableCell className="center w-[10%]">
-              {checkInstallmentsPaid(
-                new Date(item.created_at),
-                new Date(item.dateEnd)
-              )}
             </TableCell>
           )}
 
