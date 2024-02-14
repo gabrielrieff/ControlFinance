@@ -17,11 +17,13 @@ export class PostgresCreateInvocieRepository {
     const dateEnd = new Date(params.dateEnd);
     const createdDate = new Date();
 
+    const calcValeu = params.value / params.installments;
+
     const initialInvoice = await client.invoice.create({
       data: {
         description: params.description,
         type: params.type,
-        value: params.value,
+        value: calcValeu,
         categoryId: params.categoryId,
         userId: params.userId,
         installments: params.installments,
@@ -40,13 +42,12 @@ export class PostgresCreateInvocieRepository {
 
     if (params.installments && params.installments > 1) {
       for (let i = 0; i < params.installments - 1; i++) {
-        const date = new Date(createdDate.setMonth(i + 1));
-
+        const date = new Date(createdDate.setMonth(i + 2));
         await client.invoice.create({
           data: {
             description: params.description,
             type: params.type,
-            value: params.value,
+            value: calcValeu,
             categoryId: params.categoryId,
             userId: params.userId,
             installments: params.installments,
