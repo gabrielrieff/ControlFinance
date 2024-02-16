@@ -87,19 +87,19 @@ export const HeaderTable = ({ invoices, setInvoices }: headerTableProps) => {
   return (
     <TableHeader>
       <TableRow className="flex justify-between">
-        <TableHead className="w-[10%] center justify-start pt-2 pb-2 items-end">
+        <TableHead className="w-1/5 center justify-center items-center pt-2 pb-2">
           Categoria
           <button onClick={orderByCategory} type="button">
             {ascDescCategory === 'asc' ? (
               <LiaSortAlphaUpAltSolid
-                size={25}
+                size={20}
                 className={
                   ascDescActive === 'category' ? 'text-orange-500' : ''
                 }
               />
             ) : (
               <LiaSortAlphaDownSolid
-                size={25}
+                size={20}
                 className={
                   ascDescActive === 'category' ? 'text-orange-500' : ''
                 }
@@ -108,7 +108,7 @@ export const HeaderTable = ({ invoices, setInvoices }: headerTableProps) => {
           </button>
         </TableHead>
 
-        <TableHead className="w-[10%] !text-black pt-2 pb-2 items-end center">
+        <TableHead className="w-1/5 !text-black pt-2 pb-2 center">
           Tipo
           <button onClick={orderByType} type="button">
             {ascDescType === 'asc' ? (
@@ -125,19 +125,19 @@ export const HeaderTable = ({ invoices, setInvoices }: headerTableProps) => {
           </button>
         </TableHead>
 
-        <TableHead className="w-[20%] !text-black pt-2 pb-2 items-end center">
+        <TableHead className="w-[20%] !text-black pt-2 pb-2 center">
           Descrição
           <button onClick={orderByDescription} type="button">
             {ascDescDescription === 'asc' ? (
               <LiaSortAlphaUpAltSolid
-                size={25}
+                size={20}
                 className={
                   ascDescActive === 'description' ? 'text-orange-500' : ''
                 }
               />
             ) : (
               <LiaSortAlphaDownSolid
-                size={25}
+                size={20}
                 className={
                   ascDescActive === 'description' ? 'text-orange-500' : ''
                 }
@@ -146,33 +146,25 @@ export const HeaderTable = ({ invoices, setInvoices }: headerTableProps) => {
           </button>
         </TableHead>
 
-        <TableHead className="w-[10%] !text-black pt-2 pb-2 items-end center justify-end">
+        <TableHead className="w-1/5 !text-black pt-2 pb-2 center justify-end">
           Valor
           <button onClick={orderByValue} type="button">
             {ascDescVelue === 'asc' ? (
               <LiaSortAmountDownSolid
-                size={25}
+                size={20}
                 className={ascDescActive === 'value' ? 'text-orange-500' : ''}
               />
             ) : (
               <LiaSortAmountDownAltSolid
-                size={25}
+                size={20}
                 className={ascDescActive === 'value' ? 'text-orange-500' : ''}
               />
             )}
           </button>
         </TableHead>
-        <TableHead className="w-[10%] !text-black pt-2 pb-2 items-end center">
-          Parcelas
-        </TableHead>
-        <TableHead className="w-[10%] !text-black pt-2 pb-2 items-end center justify-end">
-          Data de criação
-        </TableHead>
-        <TableHead className="w-[10%] !text-black pt-2 pb-2 items-end center justify-end">
-          Última parcela
-        </TableHead>
-        <TableHead className="w-[10%] !text-black pt-2 pb-2 items-end center">
-          <FaGear size={25} />
+
+        <TableHead className="w-1/5 !text-black pt-2 pb-2 items-end center">
+          <FaGear size={20} />
         </TableHead>
       </TableRow>
     </TableHeader>

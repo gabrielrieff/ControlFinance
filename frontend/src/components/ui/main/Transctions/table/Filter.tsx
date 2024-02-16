@@ -1,8 +1,7 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaFilterCircleXmark } from 'react-icons/fa6';
 import { FiFilter } from 'react-icons/fi';
 import { Button } from '~/components/shadcn/button';
-import { Card } from '~/components/shadcn/card';
 import { Input } from '~/components/shadcn/input';
 import { Label } from '~/components/shadcn/label';
 import {
@@ -15,10 +14,6 @@ import {
 } from '~/components/shadcn/select';
 import { SelectCategories } from '~/components/shared/Select-categorias';
 import { AuthContext } from '~/context/auth/authContext';
-
-interface filterProps {
-  baseURL: string;
-}
 
 export const Filter = () => {
   const [dateCreatedFilter, setDateCreatedFilter] = useState('');
@@ -63,10 +58,9 @@ export const Filter = () => {
 
   return (
     <form className="w-full flex flex-col items-start justify-center p-2 mb-5">
-      <h2 className="text-2xl">Filtros</h2>
-      <Card className="flex mt-3 gap-2 bg-slate-100 dark:bg-slate-950 p-4">
-        <section className="flex items-end gap-2 w-full">
-          <Label className="flex flex-col gap-2">
+      <div className="flex flex-col mt-3 gap-5 dark:bg-slate-950 p-4">
+        <section className="flex flex-col items-start gap-4 w-full">
+          <Label className="flex flex-col gap-2 w-full">
             <span className="text-black dark:text-white">Data criação</span>
             <Input
               type="month"
@@ -77,7 +71,7 @@ export const Filter = () => {
             />
           </Label>
 
-          <Label className="flex flex-col gap-2">
+          <Label className="flex flex-col gap-2 w-full">
             <span className="text-black dark:text-white">Última parcela</span>
             <Input
               type="month"
@@ -88,7 +82,7 @@ export const Filter = () => {
             />
           </Label>
 
-          <Label className="flex flex-col gap-2">
+          <Label className="flex flex-col gap-2 w-full">
             <span className="text-black dark:text-white">Tipo</span>
             <Select onValueChange={(e) => setType(e)} value={type}>
               <SelectTrigger className="w-[220px]">
@@ -103,7 +97,7 @@ export const Filter = () => {
             </Select>
           </Label>
 
-          <Label className="flex flex-col gap-2">
+          <Label className="flex flex-col gap-2 w-full">
             <span className="text-black dark:text-white">Categorias</span>
 
             <SelectCategories
@@ -137,7 +131,7 @@ export const Filter = () => {
             Limpar
           </Button>
         </div>
-      </Card>
+      </div>
     </form>
   );
 };

@@ -12,8 +12,6 @@ import { Avatar, AvatarImage } from './shadcn/avatar';
 import { useContext } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 import { enumUser } from '~/@types/enum/EnumAdmin';
-import { BiSolidDashboard, BiTransfer } from 'react-icons/bi';
-import { FaList } from 'react-icons/fa';
 import { Revenue } from './Revenue';
 import { Dialog, DialogTrigger } from './shadcn/dialog';
 import { Button } from './shadcn/button';
@@ -47,18 +45,18 @@ export const Header = () => {
       : 'Tipo desconhecido';
 
   return (
-    <div className="w-full flex justify-center xl:justify-around fixed">
+    <header className="w-full flex justify-center dxl:justify-around fixed bluer backdrop-blur-sm bg-white/30 p-3">
       <SheetSide />
 
       <Link
         href={'/'}
-        className="font-medium text-[24px] mlg center gap-2 hidden xl:flex"
+        className="font-medium text-[24px] mlg center gap-2 hidden dxl:flex"
       >
         <GrGoogleWallet />
         MyWallet
       </Link>
 
-      <NavigationMenu className="flex justify-around xl:hidden">
+      <NavigationMenu className="flex justify-around dxl:hidden">
         <NavigationMenuList className="w-[1200px] center flex-row justify-between gap-3">
           <div className="center flex-row gap-3">
             <NavigationMenuItem>
@@ -69,13 +67,12 @@ export const Header = () => {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/main/dashboard" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={`${navigationMenuTriggerStyle()} flex gap-2`}
-                >
-                  Dashboar
-                </NavigationMenuLink>
-              </Link>
+              <NavigationMenuLink
+                href="/main/dashboard"
+                className={`${navigationMenuTriggerStyle()} flex gap-2`}
+              >
+                Dashboar
+              </NavigationMenuLink>
             </NavigationMenuItem>
 
             <DropdownMenu>
@@ -134,15 +131,15 @@ export const Header = () => {
                 <DropdownMenuLabel>Usuário</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <Button variant="link" asChild>
-                  <a className="" href="/main/configuracao">
+                  <Link className="text-sm" href="/main/configuracao">
                     Configurações
-                  </a>
+                  </Link>
                 </Button>
 
                 <Button variant="link" asChild>
-                  <a className="" href="/main/users">
+                  <Link className="text-sm" href="/main/users">
                     Usuários
-                  </a>
+                  </Link>
                 </Button>
 
                 <Button
@@ -182,6 +179,6 @@ export const Header = () => {
           </div>
         </NavigationMenuList>
       </NavigationMenu>
-    </div>
+    </header>
   );
 };

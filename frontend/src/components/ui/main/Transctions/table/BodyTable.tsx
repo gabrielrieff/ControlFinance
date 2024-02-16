@@ -98,18 +98,17 @@ export const BodyTable = ({ invoices }: bodyTableProps) => {
       {invoices.map((item) => (
         <TableRow key={item.id} className="flex justify-between">
           {item.id !== editingIndex ? (
-            <TableCell className="center text-center w-[10%] justify-start">
+            <TableCell className="center text-center w-1/5 justify-start">
               <Image
                 alt={item.category.title}
                 src={`http://localhost:3333/files/image/category/${item.category.banner}`}
                 width={40}
                 height={40}
-                className="rounded-full lg:w-[30px] lg:h-[30px]"
+                className="rounded-full dlg:w-[30px] dlg:h-[30px]"
               />
-              <span>{item.category.title}</span>
             </TableCell>
           ) : (
-            <TableCell className="center text-center w-[10%] justify-start">
+            <TableCell className="center text-center w-1/5 justify-start">
               <SelectCategories
                 setValor={setValueCategory}
                 valor={valueCategory}
@@ -118,11 +117,11 @@ export const BodyTable = ({ invoices }: bodyTableProps) => {
           )}
 
           {item.type == 0 ? (
-            <TableCell className="text-green-400 font-semibold center w-[10%]">
+            <TableCell className="text-green-400 font-semibold center w-1/5">
               Receita
             </TableCell>
           ) : (
-            <TableCell className="text-red-500 font-semibold center w-[10%]">
+            <TableCell className="text-red-500 font-semibold center w-1/5">
               Despesa
             </TableCell>
           )}
@@ -143,14 +142,14 @@ export const BodyTable = ({ invoices }: bodyTableProps) => {
           )}
 
           {item.id !== editingIndex ? (
-            <TableCell className="center justify-end w-[10%]">
-              R${' '}
+            <TableCell className="center justify-end w-1/5">
+              R$
               {item.value.toLocaleString(undefined, {
                 minimumFractionDigits: 2
               })}
             </TableCell>
           ) : (
-            <TableCell className="center justify-end w-[10%]">
+            <TableCell className="center justify-end w-1/5">
               <InputMaskReal
                 valueRef={valueRef}
                 setValor={setIsValue}
@@ -160,32 +159,7 @@ export const BodyTable = ({ invoices }: bodyTableProps) => {
           )}
 
           {item.id !== editingIndex ? (
-            item.type == 0 ? (
-              <TableCell className="center md:hidden w-[10%]">-</TableCell>
-            ) : (
-              <TableCell className="center md:hidden w-[10%]">
-                {item.installments}x
-              </TableCell>
-            )
-          ) : item.type == 0 ? (
-            <TableCell className="center md:hidden w-[10%]">-</TableCell>
-          ) : (
-            <TableCell className="center w-[10%]">
-              <SelectInstallments
-                setValor={setValuePortion}
-                valor={valuePortion}
-              />
-            </TableCell>
-          )}
-          <TableCell className="center justify-end w-[10%]">
-            {FormatDate(item.created_at)}
-          </TableCell>
-          <TableCell className="center justify-end w-[10%]">
-            {FormatDate(item.dateEnd)}
-          </TableCell>
-
-          {item.id !== editingIndex ? (
-            <TableCell className="center gap-3 lg:gap-1 lg:flex-col w-[10%]">
+            <TableCell className="center gap-3 dlg:gap-1 dlg:flex-col w-1/5">
               <DropdownMenu>
                 <Dialog>
                   <DialogTrigger asChild className="!w-max p-1">
@@ -209,7 +183,7 @@ export const BodyTable = ({ invoices }: bodyTableProps) => {
               </Button>
             </TableCell>
           ) : (
-            <TableCell className="center gap-3 lg:gap-1 md:flex-col w-[10%]">
+            <TableCell className="center gap-3 dlg:gap-1 dmd:flex-col w-w-1/5">
               <Button
                 onClick={() => editInvoice(editingIndex)}
                 className="bg-green-400 hover:bg-green-400/60 w-max transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "

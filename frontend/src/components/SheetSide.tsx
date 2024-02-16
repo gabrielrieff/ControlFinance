@@ -30,7 +30,6 @@ import {
 import { MdOutlineWbSunny } from 'react-icons/md';
 import { BsMoonStarsFill } from 'react-icons/bs';
 import { useTheme } from 'next-themes';
-import { BiSolidDashboard } from 'react-icons/bi';
 import { GrGoogleWallet } from 'react-icons/gr';
 
 export function SheetSide() {
@@ -46,24 +45,19 @@ export function SheetSide() {
       ? 'Master'
       : 'Tipo desconhecido';
   return (
-    <div className="hidden xl:block">
+    <div className="hidden dxl:block">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline">
             <IoMenuOutline />
           </Button>
         </SheetTrigger>
-        <SheetContent side={'left'} className="w-1/3 md:w-2/3">
+        <SheetContent side={'left'} className="w-1/3 dmd:w-2/3">
           <SheetHeader>
-            <div className="flex flex-row gap-3">
-              <SheetClose>
-                <CgMenuMotion size={20} />
-              </SheetClose>
-              <SheetTitle>
-                <GrGoogleWallet />
-                MyWallet
-              </SheetTitle>
-            </div>
+            <SheetTitle className="flex items-center gap-2">
+              <GrGoogleWallet />
+              MyWallet
+            </SheetTitle>
           </SheetHeader>
           <div className="flex flex-col justify-around items-start mt-7 h-full">
             <div className="flex flex-col items-start justify-center gap-4 py-4 ml-8">

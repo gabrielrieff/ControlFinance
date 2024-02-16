@@ -4,21 +4,30 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '~/context/auth/authContext';
 
 import Image from 'next/image';
+import { FormatDate } from '~/Helpers/FormatDate';
+import { Card } from '~/components/shadcn/card';
+import { enumUser } from '~/@types/enum/EnumAdmin';
+
+import { Input } from '~/components/shadcn/input';
+import { Button } from '~/components/shadcn/button';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '~/components/shadcn/select';
+import { Label } from '~/components/shadcn/label';
+
 import { BiSolidUser } from 'react-icons/bi';
 import { FaGear } from 'react-icons/fa6';
 import { IoIosArrowDown } from 'react-icons/io';
-import { enumUser } from '~/@types/enum/EnumAdmin';
-import { FormatDate } from '~/Helpers/FormatDate';
-import { Button } from '~/components/shared/Button';
-import { Input } from '~/components/shared/Input';
 
 export default function Usuarios() {
   const { users, deleteUser } = useContext(AuthContext);
-
-  const [editingIndex, setEditingIndex] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-
   const [isForm, setIsForm] = useState(true);
+  const [typeUser, setTypeUser] = useState('0');
 
   function handleForm() {
     setIsForm(!isForm);
@@ -27,168 +36,161 @@ export default function Usuarios() {
   if (users === undefined) return;
 
   return (
-    <main
-      className="flex flex-col justify-between items-center bg-white-100
-    h-full w-full rounded-[20px] p-4"
+    <Card
+      className="max-w-[1300px] min-w-[1100px] dsm:min-w-[300px] dmd:min-w-[500px] dlg:min-w-[650px] xl:min-w-[850px] 
+    flex flex-col justify-center items-center gap-8 p-4 mt-20"
     >
       <section className="w-full">
-        <div
-          className={`border border-grey-600 w-full flex justify-between
-        items-center p-2`}
-        >
-          <span>Criar novo usuário</span>
-          <IoIosArrowDown
-            size={25}
-            className={`cursor-pointer hover:text-orenge-500 transition-[.3s] ${
-              isForm ? 'rotate-180' : 'rotate-0'
-            }`}
-            onClick={handleForm}
-          />
-        </div>
-        <div>
+        <Card>
+          <div className="w-full flex justify-between items-center p-2">
+            <span>Criar novo usuário</span>
+            <IoIosArrowDown
+              size={25}
+              className={`cursor-pointer hover:text-orenge-500 transition-[.3s] ${
+                isForm ? 'rotate-180' : 'rotate-0'
+              }`}
+              onClick={handleForm}
+            />
+          </div>
           <form
             autoComplete="off"
             className={`bg-grey-300 p-2 pt-5  ${
               isForm ? 'flex' : 'hidden'
             } flex-col transition-[.3s]`}
           >
-            <div className="flex gap-1 justify-between md:flex-col">
-              <label className="w-full" htmlFor="first-name">
+            <div className="flex gap-1 justify-between dmd:flex-col dmd:gap-3">
+              <Label
+                className="flex flex-col w-full gap-2"
+                htmlFor="first-name"
+              >
                 <span>Nome</span>
-                <Input
-                  id="first-name"
-                  type="text"
-                  className="border border-grey-500 rounded-none"
-                />
-              </label>
-              <label className="w-full" htmlFor="last-name">
+                <Input id="first-name" type="text" />
+              </Label>
+              <Label className="flex flex-col w-full gap-2" htmlFor="last-name">
                 <span>Sobrenome</span>
-                <Input
-                  id="last-name"
-                  type="text"
-                  className="border border-grey-500 rounded-none"
-                />
-              </label>
-              <label className="w-full" htmlFor="password">
+                <Input id="last-name" type="text" />
+              </Label>
+              <Label className="flex flex-col w-full gap-2" htmlFor="password">
                 <span>Senha</span>
-                <Input
-                  id="password"
-                  type="password"
-                  className="border border-grey-500 rounded-none w-full"
-                />
-              </label>
+                <Input autoComplete="off" id="password" type="password" />
+              </Label>
             </div>
 
-            <div className="flex items-end gap-1 justify-between md:flex-col mt-4">
-              <label htmlFor="Email" className="w-full">
+            <div className="flex items-end gap-1 justify-between dmd:flex-col dmd:gap-3 mt-4">
+              <Label htmlFor="Email" className="flex flex-col w-full gap-2">
                 <span>E-mail</span>
-                <Input
-                  id="Email"
-                  type="email"
-                  className="border border-grey-500 rounded-none"
-                />
-              </label>
-              <label htmlFor="typeUser" className="flex flex-col w-full">
+                <Input id="Email" type="email" />
+              </Label>
+
+              <Label htmlFor="typeUser" className="flex flex-col w-full gap-2">
                 <span>Tipo de usuário</span>
-                <select
-                  id="typeUser"
-                  className="w-full p-2 border border-grey-500"
-                >
-                  <option></option>
-                  <option value={2}>Master</option>
-                  <option value={1}>Admin</option>
-                  <option value={0}>Padrão</option>
-                </select>
-              </label>
+                <Select onValueChange={(e) => setTypeUser(e)}>
+                  <SelectTrigger className="col-span-3">
+                    <SelectValue placeholder="Selecione o tipo de usuário" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value={'2'}>Master</SelectItem>
+                      <SelectItem value={'1'}>Admin</SelectItem>
+                      <SelectItem value={'0'}>Padrão</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </Label>
               <label className="w-full">
                 <Button
-                  className="bg-green-400 hover:bg-green-500 transition-[.3s]
-                text-white-100 font-semibold rounded-none p-2 py-[9px]"
+                  variant={'default'}
+                  className="bg-green-600 hover:bg-green-500 transition-[.3s]
+                text-white dmd:w-full font-semibold rounded-none p-2 py-[9px]"
                 >
                   Salvar
                 </Button>
               </label>
             </div>
           </form>
+        </Card>
 
-          <table className="w-full lg:text-[12px] md:text-[10px] mt-5">
-            <thead>
-              <tr
-                className="flex w-full justify-center md:justify-around bg-grey-300/90 
+        <table className="w-full lg:text-[12px] dmd:text-[10px] mt-5">
+          <thead>
+            <tr
+              className="flex w-full justify-center dmd:justify-around bg-grey-300/90 
           rounded-[10px] mb-3 p-2"
+            >
+              <th className="w-1/5 center">Usuário</th>
+              <th className="w-1/5 center">Tipo de usuario</th>
+              <th className="w-2/5 center">ID</th>
+              <th className="w-1/5 center">Data de criação</th>
+              <th className="w-1/5 center">
+                <FaGear size={30} />
+              </th>
+            </tr>
+          </thead>
+          <tbody className="gap-2 flex flex-col">
+            {users.map((user) => (
+              <tr
+                className="bg-grey-300/30 rounded-[10px] p-2 flex w-full justify-between"
+                key={user.id}
               >
-                <th className="w-1/5 center">Usuário</th>
-                <th className="w-1/5 center">Tipo de usuario</th>
-                <th className="w-2/5 center">ID</th>
-                <th className="w-1/5 center">Data de criação</th>
-                <th className="w-1/5 center">
-                  <FaGear size={30} />
-                </th>
-              </tr>
-            </thead>
-            <tbody className="gap-2 flex flex-col">
-              {users.map((user) => (
-                <tr className="bg-grey-300/30 rounded-[10px] p-2 flex w-full justify-between">
-                  <td
-                    className="flex items-center justify-center gap-3 md:gap-1 md:flex-col 
+                <td
+                  className="flex items-center justify-center gap-3 dmd:gap-1 dmd:flex-col 
                                           w-1/5"
-                  >
-                    {!user?.photo ? (
-                      <div
-                        className="bg-grey-400 h-[40px] w-[40px] flex items-center
+                >
+                  {!user?.photo ? (
+                    <div
+                      className="bg-grey-400 h-[40px] w-[40px] flex items-center
            justify-center rounded-full"
-                      >
-                        <BiSolidUser size={30} />
-                      </div>
-                    ) : (
-                      <Image
-                        alt={`${user!.firstName} ${user!.lastName}`}
-                        src={`http://localhost:3333/files/image/user/${
-                          user!.photo
-                        }`}
-                        width={46}
-                        height={46}
-                        className="rounded-full h-[46px] object-cover"
-                      />
-                    )}
-                    <span>
-                      {user.firstName} {user.lastName}
-                    </span>
-                  </td>
-
-                  <td className="w-1/5 center">
-                    {user.userType! === enumUser.Admin
-                      ? 'Admin'
-                      : user?.userType! === enumUser.Padrao
-                      ? 'Padrão'
-                      : user?.userType! === enumUser.Master
-                      ? 'Master'
-                      : ''}
-                  </td>
-
-                  <td className="w-2/5 center">{user.id}</td>
-
-                  <td className="w-1/5 center">
-                    {FormatDate(user.created_at!)}
-                  </td>
-
-                  <td className="w-1/5 center gap-3 lg:gap-1 md:flex-col">
-                    <Button
-                      onClick={() => deleteUser(user.id)}
-                      className="bg-red-500 hover:bg-red-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 "
                     >
-                      Excluir
-                    </Button>
-                    <Button className="bg-orenge-500 hover:bg-orenge-500/60 transition-[.3s] text-white-100 font-semibold rounded-lg p-1 ">
-                      Editar
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                      <BiSolidUser size={30} />
+                    </div>
+                  ) : (
+                    <Image
+                      alt={`${user!.firstName} ${user!.lastName}`}
+                      src={`http://localhost:3333/files/image/user/${
+                        user!.photo
+                      }`}
+                      width={46}
+                      height={46}
+                      className="rounded-full h-[46px] object-cover"
+                    />
+                  )}
+                  <span>
+                    {user.firstName} {user.lastName}
+                  </span>
+                </td>
+
+                <td className="w-1/5 center">
+                  {user.userType! === enumUser.Admin
+                    ? 'Admin'
+                    : user?.userType! === enumUser.Padrao
+                    ? 'Padrão'
+                    : user?.userType! === enumUser.Master
+                    ? 'Master'
+                    : ''}
+                </td>
+
+                <td className="w-2/5 center">{user.id}</td>
+
+                <td className="w-1/5 center">{FormatDate(user.created_at!)}</td>
+
+                <td className="w-1/5 center gap-3 dlg:gap-1 dmd:flex-col">
+                  <Button
+                    variant={'destructive'}
+                    onClick={() => deleteUser(user.id)}
+                  >
+                    Excluir
+                  </Button>
+                  <Button
+                    variant={'default'}
+                    className="bg-orange-500 hover:bg-orange-500/60 transition-[.3s]"
+                  >
+                    Editar
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </section>
-    </main>
+    </Card>
   );
 }

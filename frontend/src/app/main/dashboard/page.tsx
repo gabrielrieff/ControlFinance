@@ -16,10 +16,10 @@ export default function Dashboard() {
   const { user } = useContext(AuthContext);
 
   return (
-    <Card className="grid grid-cols-2 max-w-[1300px] lg:max-w-[1000px] mlg:grid-cols-1 justify-center items-center gap-8 p-4 mt-12">
+    <Card className="grid grid-cols-2 max-w-[1300px] dlg:max-w-[1000px] dlg:grid-cols-1 justify-center items-center gap-8 p-4 m-3 mt-20">
       <section className="w-full grid grid-rows-4 grid-cols-1 justify-start gap-3">
-        <div className="grid grid-cols-3 row-span-1 items-start lg:items-center gap-2">
-          <Card className="lg:h-full">
+        <div className="grid grid-cols-3 row-span-1 items-start dlg:items-center gap-2">
+          <Card className="h-full">
             <CardHeader>
               <CardTitle>Total receita</CardTitle>
             </CardHeader>
@@ -33,7 +33,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="lg:h-full">
+          <Card className="h-full">
             <CardHeader>
               <CardTitle>Total despesas</CardTitle>
             </CardHeader>
@@ -47,7 +47,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="lg:h-full">
+          <Card className="h-full">
             <CardHeader>
               <CardTitle>Total lucro/prejuízo</CardTitle>
             </CardHeader>

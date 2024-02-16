@@ -17,8 +17,8 @@ export const ActiveLink = ({ href, children, ...rest }: activeLinkPros) => {
       {...rest}
       href={href}
       className={`${
-        isCurrentPath ? 'bg-black-100 text-white-100' : 'hover:bg-grey-400'
-      } flex items-center rounded-lg p-1 gap-3`}
+        isCurrentPath ? 'text-purple-700' : ''
+      } inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 text-primary underline-offset-4 hover:underline h-9 px-4 py-2 cursor-pointer`}
     >
       {children}
     </Link>

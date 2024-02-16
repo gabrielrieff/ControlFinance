@@ -14,13 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <div lang="pt-BR">
-      <div className="flex md:flex-col h-full w-full pt-3 pr-3 p-3">
-        <div className="flex flex-col items-center gap-2 w-full">
-          <Header />
-          {children}
-        </div>
-        <ToastContainer autoClose={3000} />
+      <div className="flex flex-col items-center gap-2 w-full">
+        <Header />
+        {children}
       </div>
+      <ToastContainer autoClose={3000} />
     </div>
   );
 }
