@@ -38,7 +38,7 @@ export const Charts = () => {
       chartType="Bar"
       data={chart}
       options={options}
-      className="w-full h-full"
+      className="w-full h-full 1xl:w-[480px] dsm:w-[400px]"
       loader={<div>Loading Chart</div>}
     />
   );

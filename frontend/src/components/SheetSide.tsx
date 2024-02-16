@@ -45,7 +45,7 @@ export function SheetSide() {
       ? 'Master'
       : 'Tipo desconhecido';
   return (
-    <div className="hidden dxl:block">
+    <div className="hidden dlg:block">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline">
@@ -62,23 +62,7 @@ export function SheetSide() {
           <div className="flex flex-col justify-around items-start mt-7 h-full">
             <div className="flex flex-col items-start justify-center gap-4 py-4 ml-8">
               <Button variant="link" asChild>
-                <Link className="" href="/main/configuracao">
-                  Configurações
-                </Link>
-              </Button>
-
-              <Button variant="link" asChild>
-                <Link className="" href="/main/users">
-                  Usuários
-                </Link>
-              </Button>
-
-              <Button variant="link" asChild>
                 <Link href="/main/dashboard">Dashboar</Link>
-              </Button>
-
-              <Button variant="link" asChild>
-                <Link href="/main/transactions">Lista de transações</Link>
               </Button>
 
               <Dialog>
@@ -101,6 +85,18 @@ export function SheetSide() {
                 </DialogTrigger>
                 <Categories />
               </Dialog>
+
+              <Button variant="link" asChild>
+                <Link className="" href="/main/configuracao">
+                  Configurações
+                </Link>
+              </Button>
+
+              <Button variant="link" asChild>
+                <Link className="" href="/main/users">
+                  Usuários
+                </Link>
+              </Button>
 
               <Button variant="link" onClick={signOut}>
                 sair

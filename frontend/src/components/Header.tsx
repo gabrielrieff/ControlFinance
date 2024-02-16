@@ -45,19 +45,19 @@ export const Header = () => {
       : 'Tipo desconhecido';
 
   return (
-    <header className="w-full flex justify-center dxl:justify-around fixed bluer backdrop-blur-sm bg-white/30 p-3">
+    <header className="w-full flex justify-center dlg:justify-around fixed bluer backdrop-blur-sm bg-white/30 p-3">
       <SheetSide />
 
       <Link
-        href={'/'}
-        className="font-medium text-[24px] mlg center gap-2 hidden dxl:flex"
+        href={'/main/dashboard'}
+        className="font-medium text-[24px] mlg center gap-2 hidden dlg:flex"
       >
         <GrGoogleWallet />
         MyWallet
       </Link>
 
-      <NavigationMenu className="flex justify-around dxl:hidden">
-        <NavigationMenuList className="w-[1200px] center flex-row justify-between gap-3">
+      <NavigationMenu className="flex justify-around dlg:hidden">
+        <NavigationMenuList className="w-[1200px] dxl:w-[1000px] center flex-row justify-between gap-3">
           <div className="center flex-row gap-3">
             <NavigationMenuItem>
               <Link href={'/'} className="font-medium text-[24px] center gap-2">

@@ -71,6 +71,7 @@ const config = {
       },
       screens: {
         '2xl': { max: '1536px' },
+        '1xl': { max: '1336px' },
         dxl: { max: '1280px' },
         dlg: { max: '1100px' },
         dmd: { max: '768px' },
