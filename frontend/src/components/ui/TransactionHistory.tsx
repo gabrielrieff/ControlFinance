@@ -31,7 +31,7 @@ export const TransactionHistory = () => {
   }, [invoices]);
 
   return (
-    <section className="flex flex-col p-2 h-full">
+    <section className="flex flex-col p-2 dsm:p-1 h-full">
       <div className="flex justify-between">
         <h1 className="font-semibold p-3">Histórico de transações mensal</h1>
         <DropdownMenu>

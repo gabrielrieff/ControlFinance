@@ -72,7 +72,7 @@ export default function Dashboard() {
           <Charts />
         </Card>
       </section>
-      <Card className="p-5 h-full">
+      <Card className="p-5 dsm:p-2 h-full">
         <TransactionHistory />
       </Card>
     </Card>

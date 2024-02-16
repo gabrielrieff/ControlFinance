@@ -45,7 +45,7 @@ export const Header = () => {
       : 'Tipo desconhecido';
 
   return (
-    <header className="w-full flex justify-center dlg:justify-around fixed bluer backdrop-blur-sm bg-white/30 p-3">
+    <header className="w-full flex justify-center dlg:justify-around fixed bluer backdrop-blur-sm bg-white/30 dark:bg-black/30 p-3">
       <SheetSide />
 
       <Link
@@ -75,36 +75,40 @@ export const Header = () => {
               </NavigationMenuLink>
             </NavigationMenuItem>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex gap-2 px-4 py-1.5 hover:bg-accent rounded-md">
-                Transações
-              </DropdownMenuTrigger>
+            <NavigationMenuItem>
+              <NavigationMenuLink>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex gap-2 px-4 py-2 hover:bg-accent rounded-md font-medium text-sm">
+                    Transações
+                  </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="flex flex-col items-start">
-                <DropdownMenuLabel>Transações/Categoria</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="link">Adicionar receita</Button>
-                  </DialogTrigger>
-                  <Revenue />
-                </Dialog>
+                  <DropdownMenuContent className="flex flex-col items-start">
+                    <DropdownMenuLabel>Transações/Categoria</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="link">Adicionar receita</Button>
+                      </DialogTrigger>
+                      <Revenue />
+                    </Dialog>
 
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="link">Adicionar despesa</Button>
-                  </DialogTrigger>
-                  <Expense />
-                </Dialog>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="link">Adicionar despesa</Button>
+                      </DialogTrigger>
+                      <Expense />
+                    </Dialog>
 
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="link">Categorias</Button>
-                  </DialogTrigger>
-                  <Categories />
-                </Dialog>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="link">Categorias</Button>
+                      </DialogTrigger>
+                      <Categories />
+                    </Dialog>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
           </div>
 
           <div className="center flex-row gap-2">
