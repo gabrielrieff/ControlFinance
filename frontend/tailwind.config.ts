@@ -71,11 +71,10 @@ const config = {
       },
       screens: {
         '2xl': { max: '1536px' },
-        xl: { max: '1280px' },
-        lg: { max: '1100px' },
-        mlg: { max: '950px' },
-        md: { max: '768px' },
-        sm: { max: '640px' }
+        dxl: { max: '1280px' },
+        dlg: { max: '1100px' },
+        dmd: { max: '768px' },
+        dsm: { max: '640px' }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
