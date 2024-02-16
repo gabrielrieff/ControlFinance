@@ -81,31 +81,6 @@
   }
 }
 
-@media (max-width: 1024px) {
-  [data-title]:hover:after {
-    opacity: 1;
-    transition: all 0.1s ease 0.5s;
-    visibility: visible;
-  }
-  [data-title]:after {
-    content: attr(data-title);
-    position: absolute;
-    bottom: -1.6em;
-    left: 100%;
-    padding: 4px 4px 4px 8px;
-    color: #000000;
-    background-color: rgb(216, 216, 216);
-    white-space: nowrap;
-    border-radius: 5px;
-    box-shadow: 2px 2px 3px #222;
-    z-index: 99999;
-    visibility: hidden;
-  }
-  [data-title] {
-    position: relative;
-  }
-}
-
 @layer base {
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
@@ -120,13 +95,6 @@
 
 body::-webkit-scrollbar-thumb {
   background-color: rgb(53, 53, 53);
-}
-
-input[type='month'] {
-  background-color: #fcfcfc;
-  border-radius: 4px;
-  padding: 3px 5px;
-  border: 0;
 }
 
 :root {
